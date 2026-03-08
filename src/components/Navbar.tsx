@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import { ShoppingCart } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
-import { Button, buttonVariants } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
 
 const NAV_LINKS = [
   { href: '/', label: 'Home' },
@@ -59,7 +58,10 @@ export default async function Navbar() {
               </Button>
             </form>
           ) : (
-            <Link href="/auth/login" className={cn(buttonVariants({ size: 'sm' }))}>
+            <Link
+              href="/auth/login"
+              className="inline-flex h-7 items-center justify-center rounded-[min(var(--radius-md),12px)] bg-primary px-2.5 text-[0.8rem] font-medium text-primary-foreground transition-all hover:bg-primary/80"
+            >
               Sign in
             </Link>
           )}
