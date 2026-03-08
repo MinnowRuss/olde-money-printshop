@@ -13,7 +13,9 @@ const NAV_LINKS = [
 
 export default async function Navbar() {
   const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const user = supabase
+    ? (await supabase.auth.getUser()).data.user
+    : null
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-zinc-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">

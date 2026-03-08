@@ -3,6 +3,11 @@ import { createClient } from '@/lib/supabase/server'
 
 export async function PATCH(request: NextRequest) {
   const supabase = await createClient()
+
+  if (!supabase) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
   const { data: { user }, error: authError } = await supabase.auth.getUser()
 
   if (authError || !user) {

@@ -6,9 +6,11 @@ export const metadata = { title: 'Your Profile — Olde Money Printshop' }
 
 export default async function UserProfilePage() {
   const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
 
   // Middleware should catch this, but belt-and-suspenders
+  if (!supabase) redirect('/auth/login')
+
+  const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/auth/login')
 
   const { data: profile } = await supabase
