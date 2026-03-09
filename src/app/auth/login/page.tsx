@@ -32,7 +32,9 @@ export default function LoginPage() {
 
     // Check for returnTo param so middleware can send user back after login
     const params = new URLSearchParams(window.location.search)
-    const returnTo = params.get('returnTo') || '/image'
+    const raw = params.get('returnTo') || '/image'
+    // Prevent open-redirect: only allow relative paths starting with /
+    const returnTo = raw.startsWith('/') && !raw.startsWith('//') ? raw : '/image'
     router.push(returnTo)
     router.refresh()
   }
