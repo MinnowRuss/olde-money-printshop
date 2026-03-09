@@ -1,65 +1,174 @@
-import Image from "next/image";
+import type { Metadata } from 'next'
+import Link from 'next/link'
+import { MEDIA_TYPES } from '@/lib/constants/products'
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: 'Olde Money Printshop — Transform Your Digital Images into Physical Memories',
+  description:
+    'Museum-quality photo prints on canvas, metal, acrylic, fine art paper, and more. Upload, customize, and order with volume discounts.',
+}
+
+const MEDIA_ICONS: Record<string, string> = {
+  'standard-print': 'Photo Paper',
+  'canvas-wrap': 'Canvas',
+  'metal-print': 'Metal',
+  'fine-art-paper': 'Fine Art',
+  'acrylic-print': 'Acrylic',
+}
+
+const FEATURES = [
+  {
+    title: 'Upload & Edit',
+    description: 'Drag-and-drop your photos, crop and adjust before printing.',
+  },
+  {
+    title: 'Choose Your Medium',
+    description: 'Standard prints, canvas wraps, metal, fine art paper, or acrylic.',
+  },
+  {
+    title: 'Volume Discounts',
+    description: 'Save up to 15% when you order 25 or more prints.',
+  },
+]
+
+export default function HomePage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <>
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-zinc-950">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-zinc-800 via-zinc-950 to-zinc-950" />
+        <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8 lg:py-40">
+          <div className="max-w-2xl">
+            <p className="text-sm font-medium uppercase tracking-widest text-zinc-400">
+              Museum-quality printing
+            </p>
+            <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+              Transform your digital images into physical memories.
+            </h1>
+            <p className="mt-6 text-lg leading-8 text-zinc-300">
+              From vivid metal prints to gallery-wrapped canvases, we bring your
+              photos to life with archival-quality materials that last
+              generations.
+            </p>
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+              <Link
+                href="/image"
+                className="inline-flex h-11 items-center justify-center rounded-lg bg-white px-6 text-sm font-semibold text-zinc-900 transition-colors hover:bg-zinc-100"
+              >
+                Start Your Order
+              </Link>
+              <Link
+                href="/prices"
+                className="inline-flex h-11 items-center justify-center rounded-lg border border-zinc-700 px-6 text-sm font-semibold text-zinc-200 transition-colors hover:border-zinc-500 hover:text-white"
+              >
+                View Pricing
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="border-b border-zinc-200 bg-white py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl">
+              How It Works
+            </h2>
+            <p className="mt-3 text-zinc-600">
+              Three simple steps from screen to print.
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-8 sm:grid-cols-3">
+            {FEATURES.map((feature, i) => (
+              <div key={feature.title} className="text-center">
+                <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-zinc-100 text-lg font-bold text-zinc-900">
+                  {i + 1}
+                </div>
+                <h3 className="mt-4 text-base font-semibold text-zinc-900">
+                  {feature.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Media Types */}
+      <section className="bg-zinc-50 py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl">
+              Print Media
+            </h2>
+            <p className="mt-3 text-zinc-600">
+              Choose the perfect medium for your artwork.
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {MEDIA_TYPES.map((media) => (
+              <div
+                key={media.slug}
+                className="group rounded-xl border border-zinc-200 bg-white p-6 transition-shadow hover:shadow-md"
+              >
+                <div className="mb-3 inline-flex rounded-lg bg-zinc-100 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-zinc-600">
+                  {MEDIA_ICONS[media.slug] ?? media.name}
+                </div>
+                <h3 className="text-lg font-semibold text-zinc-900">
+                  {media.name}
+                </h3>
+                <p className="mt-1 text-sm text-zinc-500">
+                  {media.description}
+                </p>
+                <p className="mt-4 text-sm text-zinc-900">
+                  Starting at{' '}
+                  <span className="font-semibold">
+                    ${media.priceTiers[0].basePrice.toFixed(2)}
+                  </span>
+                </p>
+                <Link
+                  href="/prices"
+                  className="mt-4 inline-flex text-sm font-medium text-zinc-600 transition-colors group-hover:text-zinc-900"
+                >
+                  See sizes &amp; pricing &rarr;
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Banner */}
+      <section className="border-t border-zinc-200 bg-white py-16 sm:py-20">
+        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold tracking-tight text-zinc-900 sm:text-3xl">
+            Ready to print?
+          </h2>
+          <p className="mt-3 text-zinc-600">
+            Upload your photos, pick your medium, and let us handle the rest.
+            Volume discounts available on orders of 5 or more prints.
           </p>
+          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Link
+              href="/image"
+              className="inline-flex h-11 items-center justify-center rounded-lg bg-zinc-900 px-6 text-sm font-semibold text-white transition-colors hover:bg-zinc-800"
+            >
+              Get Started
+            </Link>
+            <Link
+              href="/calculator"
+              className="inline-flex h-11 items-center justify-center rounded-lg border border-zinc-200 bg-white px-6 text-sm font-semibold text-zinc-900 transition-colors hover:bg-zinc-50"
+            >
+              Try the Price Calculator
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+      </section>
+    </>
+  )
 }
