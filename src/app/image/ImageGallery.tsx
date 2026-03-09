@@ -27,8 +27,16 @@ export default function ImageGallery({ images }: Props) {
   const router = useRouter()
   const [selectMode, setSelectMode] = useState(false)
   const [selected, setSelected] = useState<Set<string>>(new Set())
-  const [showDeleteDialog, setShowDeleteDialog] = useState(false)
-  const [deleting, setDeleting] = useState(false)
+  const [showBulkDeleteDialog, setShowBulkDeleteDialog] = useState(false)
+  const [deletingBulk, setDeletingBulk] = useState(false)
+
+  // Per-image delete state
+  const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null)
+  const [deletingSingle, setDeletingSingle] = useState(false)
+
+  const deleteTargetImage = deleteTargetId
+    ? images.find((img) => img.id === deleteTargetId)
+    : null
 
   const toggleSelect = (id: string) => {
     setSelected((prev) => {
@@ -43,7 +51,7 @@ export default function ImageGallery({ images }: Props) {
   }
 
   const handleBulkDelete = async () => {
-    setDeleting(true)
+    setDeletingBulk(true)
     try {
       const res = await fetch('/api/images/bulk', {
         method: 'DELETE',
@@ -53,11 +61,27 @@ export default function ImageGallery({ images }: Props) {
       if (res.ok) {
         setSelected(new Set())
         setSelectMode(false)
-        setShowDeleteDialog(false)
+        setShowBulkDeleteDialog(false)
         router.refresh()
       }
     } finally {
-      setDeleting(false)
+      setDeletingBulk(false)
+    }
+  }
+
+  const handleSingleDelete = async () => {
+    if (!deleteTargetId) return
+    setDeletingSingle(true)
+    try {
+      const res = await fetch(`/api/images/${deleteTargetId}`, {
+        method: 'DELETE',
+      })
+      if (res.ok) {
+        setDeleteTargetId(null)
+        router.refresh()
+      }
+    } finally {
+      setDeletingSingle(false)
     }
   }
 
@@ -86,7 +110,7 @@ export default function ImageGallery({ images }: Props) {
             <Button
               variant="destructive"
               size="sm"
-              onClick={() => setShowDeleteDialog(true)}
+              onClick={() => setShowBulkDeleteDialog(true)}
             >
               <Trash2 className="mr-1 h-3.5 w-3.5" />
               Delete
@@ -116,7 +140,7 @@ export default function ImageGallery({ images }: Props) {
                 : 'border-zinc-200'
             }`}
           >
-            {/* Checkbox overlay */}
+            {/* Checkbox overlay (select mode) */}
             {selectMode && (
               <button
                 onClick={() => toggleSelect(img.id)}
@@ -127,6 +151,17 @@ export default function ImageGallery({ images }: Props) {
                 ) : (
                   <Square className="h-5 w-5 text-zinc-400" />
                 )}
+              </button>
+            )}
+
+            {/* Per-image delete button (normal mode) */}
+            {!selectMode && (
+              <button
+                onClick={() => setDeleteTargetId(img.id)}
+                className="absolute right-2 top-2 z-10 rounded-md bg-white/80 p-1 opacity-0 backdrop-blur transition-opacity group-hover:opacity-100"
+                title="Delete image"
+              >
+                <Trash2 className="h-4 w-4 text-red-500" />
               </button>
             )}
 
@@ -175,8 +210,45 @@ export default function ImageGallery({ images }: Props) {
         ))}
       </div>
 
-      {/* Delete confirmation dialog */}
-      <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+      {/* Per-image delete confirmation dialog */}
+      <Dialog
+        open={deleteTargetId !== null}
+        onOpenChange={(open) => {
+          if (!open) setDeleteTargetId(null)
+        }}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete image</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete
+              {deleteTargetImage
+                ? ` "${deleteTargetImage.filename}"`
+                : ' this image'}
+              ? This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setDeleteTargetId(null)}
+              disabled={deletingSingle}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleSingleDelete}
+              disabled={deletingSingle}
+            >
+              {deletingSingle ? 'Deleting...' : 'Delete'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Bulk delete confirmation dialog */}
+      <Dialog open={showBulkDeleteDialog} onOpenChange={setShowBulkDeleteDialog}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Delete images</DialogTitle>
@@ -188,17 +260,17 @@ export default function ImageGallery({ images }: Props) {
           <DialogFooter>
             <Button
               variant="outline"
-              onClick={() => setShowDeleteDialog(false)}
-              disabled={deleting}
+              onClick={() => setShowBulkDeleteDialog(false)}
+              disabled={deletingBulk}
             >
               Cancel
             </Button>
             <Button
               variant="destructive"
               onClick={handleBulkDelete}
-              disabled={deleting}
+              disabled={deletingBulk}
             >
-              {deleting ? 'Deleting...' : 'Delete'}
+              {deletingBulk ? 'Deleting...' : 'Delete'}
             </Button>
           </DialogFooter>
         </DialogContent>
