@@ -1,7 +1,7 @@
 import Link from 'next/link'
-import { ShoppingCart } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { Button } from '@/components/ui/button'
+import CartBadge from '@/components/CartBadge'
 
 const NAV_LINKS = [
   { href: '/', label: 'Home' },
@@ -43,13 +43,8 @@ export default async function Navbar() {
 
         {/* Right-side actions */}
         <div className="flex items-center gap-3">
-          {/* Cart icon with badge (hardcoded 0 — Phase 5 will wire real count) */}
-          <Link href="/order" className="relative inline-flex items-center p-1 text-zinc-600 hover:text-zinc-900">
-            <ShoppingCart className="h-5 w-5" />
-            <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-zinc-900 text-[10px] font-medium text-white">
-              0
-            </span>
-          </Link>
+          {/* Cart icon with live badge */}
+          <CartBadge />
 
           {user ? (
             <form action="/auth/logout" method="POST">

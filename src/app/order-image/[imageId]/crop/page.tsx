@@ -7,6 +7,7 @@ import { createClient } from '@/lib/supabase/client'
 import ReactCrop, { Crop, PixelCrop } from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
 import { Button } from '@/components/ui/button'
+import OrderWizardProgress from '@/components/OrderWizardProgress'
 import type { ImageRecord } from '@/lib/types/image'
 import { ChevronLeft, Loader2 } from 'lucide-react'
 
@@ -122,6 +123,8 @@ export default function CropPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <OrderWizardProgress currentStep={2} />
+
       {/* Header */}
       <div className="mb-8">
         <Link
@@ -132,7 +135,7 @@ export default function CropPage() {
           Back to Gallery
         </Link>
         <h1 className="mt-4 text-3xl font-semibold tracking-tight text-zinc-900">
-          Step 1: Crop Your Image
+          Step 2: Crop Your Image
         </h1>
         <p className="mt-2 text-zinc-600">
           Choose the area of your image to print

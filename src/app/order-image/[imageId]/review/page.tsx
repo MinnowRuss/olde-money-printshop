@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
+import OrderWizardProgress from '@/components/OrderWizardProgress'
 import type { ImageRecord } from '@/lib/types/image'
 import { ChevronLeft, Loader2, AlertCircle } from 'lucide-react'
 
@@ -127,6 +128,9 @@ export default function ReviewPage() {
         throw new Error(errorData.message || 'Failed to add to cart')
       }
 
+      // Notify the navbar cart badge to refresh
+      window.dispatchEvent(new Event('cart-updated'))
+
       // Success - navigate to cart
       router.push('/order')
     } catch (err) {
@@ -149,6 +153,8 @@ export default function ReviewPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <OrderWizardProgress currentStep={4} />
+
       {/* Header */}
       <div className="mb-8">
         <Link

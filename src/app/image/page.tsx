@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { ImageUp } from 'lucide-react'
 import type { ImageRecord } from '@/lib/types/image'
+import OrderWizardProgress from '@/components/OrderWizardProgress'
 import ImageGallery from './ImageGallery'
 
 export const metadata = { title: 'My Images — Olde Money Printshop' }
@@ -56,10 +57,12 @@ export default async function ImageLibraryPage({ searchParams }: Props) {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <OrderWizardProgress currentStep={1} />
+
       {/* Header */}
       <div className="mb-8 flex items-center justify-between">
         <h1 className="text-2xl font-semibold tracking-tight text-zinc-900">
-          My Images
+          Step 1: Choose an Image
         </h1>
         <Link
           href="/image/upload"
