@@ -48,18 +48,23 @@ export function AddressForm({ profile }: { profile: Profile }) {
     setToast(null)
     setLoading(true)
 
-    const res = await fetch('/api/user/profile', {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form),
-    })
+    try {
+      const res = await fetch('/api/user/profile', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
 
-    setLoading(false)
-    if (res.ok) {
-      setToast({ message: 'Address saved.', type: 'success' })
-    } else {
-      const data = await res.json()
-      setToast({ message: data.error ?? 'Something went wrong.', type: 'error' })
+      if (res.ok) {
+        setToast({ message: 'Address saved.', type: 'success' })
+      } else {
+        const data = await res.json().catch(() => ({}))
+        setToast({ message: data.error ?? 'Something went wrong.', type: 'error' })
+      }
+    } catch {
+      setToast({ message: 'Network error — please check your connection and try again.', type: 'error' })
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -136,36 +141,40 @@ export function PasswordForm() {
     }
 
     setLoading(true)
-    const supabase = createClient()
 
-    // Re-authenticate with current password to verify it before changing
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user?.email) {
-      setToast({ message: 'Could not verify your identity.', type: 'error' })
+    try {
+      const supabase = createClient()
+
+      // Re-authenticate with current password to verify it before changing
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user?.email) {
+        setToast({ message: 'Could not verify your identity.', type: 'error' })
+        return
+      }
+
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email: user.email,
+        password: currentPassword,
+      })
+      if (signInError) {
+        setToast({ message: 'Current password is incorrect.', type: 'error' })
+        return
+      }
+
+      const { error } = await supabase.auth.updateUser({ password: newPassword })
+
+      if (error) {
+        setToast({ message: error.message, type: 'error' })
+      } else {
+        setToast({ message: 'Password updated.', type: 'success' })
+        setCurrentPassword('')
+        setNewPassword('')
+        setConfirmPassword('')
+      }
+    } catch {
+      setToast({ message: 'Network error — please check your connection and try again.', type: 'error' })
+    } finally {
       setLoading(false)
-      return
-    }
-
-    const { error: signInError } = await supabase.auth.signInWithPassword({
-      email: user.email,
-      password: currentPassword,
-    })
-    if (signInError) {
-      setToast({ message: 'Current password is incorrect.', type: 'error' })
-      setLoading(false)
-      return
-    }
-
-    const { error } = await supabase.auth.updateUser({ password: newPassword })
-    setLoading(false)
-
-    if (error) {
-      setToast({ message: error.message, type: 'error' })
-    } else {
-      setToast({ message: 'Password updated.', type: 'success' })
-      setCurrentPassword('')
-      setNewPassword('')
-      setConfirmPassword('')
     }
   }
 
