@@ -33,7 +33,7 @@ export default function RegisterPage() {
     setLoading(true)
     const supabase = createClient()
 
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -49,8 +49,14 @@ export default function RegisterPage() {
       return
     }
 
-    // If email confirmation is off, the user is signed in immediately.
-    // Redirect to /image; middleware will gate if not confirmed.
+    if (!data.session) {
+      // Email confirmation is enabled — account created but not yet active.
+      setLoading(false)
+      setError('Account created! Please check your email and click the confirmation link before signing in.')
+      return
+    }
+
+    // Email confirmation disabled — user has an active session, navigate immediately.
     router.push('/image')
     router.refresh()
   }
