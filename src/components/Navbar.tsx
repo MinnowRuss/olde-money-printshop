@@ -47,11 +47,19 @@ export default async function Navbar() {
           <CartBadge />
 
           {user ? (
-            <form action="/auth/logout" method="POST">
-              <Button variant="outline" size="sm" type="submit">
-                Sign out
-              </Button>
-            </form>
+            <div className="flex items-center gap-2">
+              <Link
+                href="/user"
+                className="text-sm font-medium text-zinc-600 transition-colors hover:text-zinc-900"
+              >
+                Account
+              </Link>
+              <form action="/auth/logout" method="POST">
+                <Button variant="outline" size="sm" type="submit">
+                  Sign out
+                </Button>
+              </form>
+            </div>
           ) : (
             <Link
               href="/auth/login"

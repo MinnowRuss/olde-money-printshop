@@ -1,8 +1,9 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 
-export async function POST() {
+export async function POST(request: NextRequest) {
   const supabase = await createClient()
   if (supabase) await supabase.auth.signOut()
-  return NextResponse.redirect(new URL('/', process.env.NEXT_PUBLIC_URL ?? 'http://localhost:3000'))
+  // Use 303 to convert POST → GET so the browser doesn't POST to /
+  return NextResponse.redirect(new URL('/', request.url), 303)
 }

@@ -39,7 +39,7 @@ export default function RegisterPage() {
       options: {
         // The handle_new_user trigger in the DB will create the profiles row.
         // emailRedirectTo is used if email confirmation is enabled in Supabase.
-        emailRedirectTo: `${window.location.origin}/auth/login`,
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
       },
     })
 

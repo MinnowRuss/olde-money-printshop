@@ -30,11 +30,16 @@ export default function LoginPage() {
       return
     }
 
-    // Check for returnTo param so middleware can send user back after login
+    // Check for returnTo param so middleware can send user back after login.
+    // Prevent open-redirect: only allow safe relative paths.
     const params = new URLSearchParams(window.location.search)
     const raw = params.get('returnTo') || '/image'
-    // Prevent open-redirect: only allow relative paths starting with /
-    const returnTo = raw.startsWith('/') && !raw.startsWith('//') ? raw : '/image'
+    const isSafePath =
+      raw.startsWith('/') &&        // must be a relative path
+      !raw.startsWith('//') &&      // block protocol-relative URLs
+      !/^\/\\/.test(raw) &&         // block /\ which some browsers treat as //
+      !raw.includes(':')            // block javascript: or other schemes embedded in path
+    const returnTo = isSafePath ? raw : '/image'
     router.push(returnTo)
     router.refresh()
   }

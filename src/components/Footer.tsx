@@ -8,8 +8,7 @@ const FOOTER_LINKS = [
 ]
 
 const SOCIAL_LINKS = [
-  { href: 'https://instagram.com', label: 'Instagram' },
-  { href: 'https://facebook.com', label: 'Facebook' },
+  { href: 'https://www.instagram.com/olde.money', label: 'Instagram' },
 ]
 
 export default function Footer() {

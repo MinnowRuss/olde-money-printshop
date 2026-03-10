@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import Link from 'next/link'
 import { Upload, CheckCircle2, XCircle, FileImage, Loader2 } from 'lucide-react'
@@ -25,6 +25,17 @@ function isTiff(file: File) {
 export default function UploadPage() {
   const [files, setFiles] = useState<UploadFile[]>([])
   const [hasUploaded, setHasUploaded] = useState(false)
+
+  // Track all created object URLs so we can revoke them on unmount
+  const objectUrlsRef = useRef<Set<string>>(new Set())
+
+  useEffect(() => {
+    return () => {
+      // Revoke all remaining object URLs when the component unmounts
+      objectUrlsRef.current.forEach((url) => URL.revokeObjectURL(url))
+      objectUrlsRef.current.clear()
+    }
+  }, [])
 
   const uploadFile = useCallback((uploadFile: UploadFile) => {
     const xhr = new XMLHttpRequest()
@@ -92,14 +103,18 @@ export default function UploadPage() {
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
-      const newFiles: UploadFile[] = acceptedFiles.map((file) => ({
-        id: crypto.randomUUID(),
-        file,
-        preview: isTiff(file) ? null : URL.createObjectURL(file),
-        status: 'pending' as FileStatus,
-        progress: 0,
-        error: null,
-      }))
+      const newFiles: UploadFile[] = acceptedFiles.map((file) => {
+        const preview = isTiff(file) ? null : URL.createObjectURL(file)
+        if (preview) objectUrlsRef.current.add(preview)
+        return {
+          id: crypto.randomUUID(),
+          file,
+          preview,
+          status: 'pending' as FileStatus,
+          progress: 0,
+          error: null,
+        }
+      })
 
       setFiles((prev) => [...prev, ...newFiles])
 
