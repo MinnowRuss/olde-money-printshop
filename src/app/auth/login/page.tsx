@@ -44,6 +44,20 @@ export default function LoginPage() {
     router.refresh()
   }
 
+  async function handleGoogleLogin() {
+    setError(null)
+    const supabase = createClient()
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
+    })
+    if (error) {
+      setError(error.message)
+    }
+  }
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 px-4">
       <Card className="w-full max-w-sm">
@@ -91,6 +105,20 @@ export default function LoginPage() {
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? 'Signing in…' : 'Sign in'}
             </Button>
+
+            <div className="relative w-full">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-white px-2 text-zinc-500">or</span>
+              </div>
+            </div>
+
+            <Button type="button" variant="outline" className="w-full" onClick={handleGoogleLogin}>
+              Sign in with Google
+            </Button>
+
             <p className="text-center text-sm text-zinc-500">
               Don&apos;t have an account?{' '}
               <Link href="/auth/register" className="font-medium text-zinc-900 underline underline-offset-4">
