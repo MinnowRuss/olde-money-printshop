@@ -7,6 +7,11 @@ const FOOTER_LINKS = [
   { href: '/contact', label: 'Contact' },
 ]
 
+const LEGAL_LINKS = [
+  { href: '/privacy', label: 'Privacy Policy' },
+  { href: '/terms', label: 'Terms of Service' },
+]
+
 const SOCIAL_LINKS = [
   { href: 'https://www.instagram.com/olde.money', label: 'Instagram' },
 ]
@@ -30,6 +35,19 @@ export default function Footer() {
           {/* Nav links */}
           <nav className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm text-zinc-500">
             {FOOTER_LINKS.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className="transition-colors hover:text-zinc-900"
+              >
+                {label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Legal links */}
+          <nav className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm text-zinc-500">
+            {LEGAL_LINKS.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
