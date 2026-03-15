@@ -1,13 +1,9 @@
 'use client'
 
 import { useState, type FormEvent } from 'react'
+import { contactSchema, CONTACT_SUBJECTS } from '@/lib/validations'
 
-const SUBJECT_OPTIONS = [
-  'General Question',
-  'Order Issue',
-  'Custom Quote',
-  'Drop Shipping',
-] as const
+const SUBJECT_OPTIONS = CONTACT_SUBJECTS
 
 type FormData = {
   firstName: string
@@ -32,31 +28,38 @@ export default function ContactForm() {
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({})
 
   function update(field: keyof FormData, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }))
+    setFieldErrors((prev) => {
+      const next = { ...prev }
+      delete next[field]
+      return next
+    })
   }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setError(null)
     setSuccess(false)
+    setFieldErrors({})
 
-    // Client-side validation
-    if (
-      !form.firstName.trim() ||
-      !form.lastName.trim() ||
-      !form.email.trim() ||
-      !form.subject ||
-      !form.message.trim()
-    ) {
-      setError('Please fill in all required fields.')
-      return
-    }
+    const result = contactSchema.safeParse({
+      firstName: form.firstName.trim(),
+      lastName: form.lastName.trim(),
+      email: form.email.trim(),
+      subject: form.subject || undefined,
+      message: form.message.trim(),
+    })
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(form.email.trim())) {
-      setError('Please enter a valid email address.')
+    if (!result.success) {
+      const errors: Record<string, string> = {}
+      for (const issue of result.error.issues) {
+        const key = issue.path[0] as string
+        if (!errors[key]) errors[key] = issue.message
+      }
+      setFieldErrors(errors)
       return
     }
 
@@ -145,6 +148,7 @@ export default function ContactForm() {
               className="flex h-9 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 outline-none transition-colors placeholder:text-zinc-400 focus:border-zinc-400 focus:ring-2 focus:ring-zinc-200"
               placeholder="Jane"
             />
+            {fieldErrors.firstName && <p className="text-xs text-red-600 mt-1">{fieldErrors.firstName}</p>}
           </div>
           <div className="space-y-2">
             <label
@@ -163,6 +167,7 @@ export default function ContactForm() {
               className="flex h-9 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 outline-none transition-colors placeholder:text-zinc-400 focus:border-zinc-400 focus:ring-2 focus:ring-zinc-200"
               placeholder="Doe"
             />
+            {fieldErrors.lastName && <p className="text-xs text-red-600 mt-1">{fieldErrors.lastName}</p>}
           </div>
         </div>
 
@@ -183,6 +188,7 @@ export default function ContactForm() {
             className="flex h-9 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 outline-none transition-colors placeholder:text-zinc-400 focus:border-zinc-400 focus:ring-2 focus:ring-zinc-200"
             placeholder="you@example.com"
           />
+          {fieldErrors.email && <p className="text-xs text-red-600 mt-1">{fieldErrors.email}</p>}
         </div>
 
         <div className="space-y-2">
@@ -209,6 +215,7 @@ export default function ContactForm() {
               </option>
             ))}
           </select>
+          {fieldErrors.subject && <p className="text-xs text-red-600 mt-1">{fieldErrors.subject}</p>}
         </div>
 
         <div className="space-y-2">
@@ -228,6 +235,7 @@ export default function ContactForm() {
             className="flex w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 outline-none transition-colors placeholder:text-zinc-400 focus:border-zinc-400 focus:ring-2 focus:ring-zinc-200"
             placeholder="Tell us how we can help..."
           />
+          {fieldErrors.message && <p className="text-xs text-red-600 mt-1">{fieldErrors.message}</p>}
         </div>
 
         <button

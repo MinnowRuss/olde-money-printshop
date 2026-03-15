@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import FooterSignup from '@/components/FooterSignup'
 
 const SHOP_LINKS = [
   { href: '/prices', label: 'Prices' },
@@ -43,6 +44,13 @@ export default function Footer() {
               Museum-quality photo prints on canvas, metal, acrylic, fine art
               paper, and more.
             </p>
+            <div className="mt-4">
+              <p className="text-xs font-semibold text-zinc-900">Stay Updated</p>
+              <p className="mt-1 text-xs text-zinc-500">Get promotions and print tips</p>
+              <div className="relative mt-2">
+                <FooterSignup />
+              </div>
+            </div>
             <div className="mt-4 flex gap-4 text-sm text-zinc-500">
               {SOCIAL_LINKS.map(({ href, label }) => (
                 <a

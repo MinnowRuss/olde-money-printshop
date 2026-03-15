@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { Button } from '@/components/ui/button'
 import CartBadge from '@/components/CartBadge'
+import MobileNav from '@/components/MobileNav'
 
 const NAV_LINKS = [
   { href: '/', label: 'Home' },
@@ -28,7 +29,10 @@ export default async function Navbar() {
           <span className="text-lg">Olde Money Printshop</span>
         </Link>
 
-        {/* Nav links — hidden on mobile for now */}
+        {/* Mobile hamburger menu */}
+        <MobileNav isLoggedIn={!!user} />
+
+        {/* Nav links — hidden on mobile */}
         <nav className="hidden items-center gap-6 text-sm font-medium text-zinc-600 md:flex">
           {NAV_LINKS.map(({ href, label }) => (
             <Link
@@ -47,7 +51,7 @@ export default async function Navbar() {
           <CartBadge />
 
           {user ? (
-            <div className="flex items-center gap-2">
+            <div className="hidden items-center gap-2 md:flex">
               <Link
                 href="/user"
                 className="text-sm font-medium text-zinc-600 transition-colors hover:text-zinc-900"
@@ -63,7 +67,7 @@ export default async function Navbar() {
           ) : (
             <Link
               href="/auth/login"
-              className="inline-flex h-7 items-center justify-center rounded-[min(var(--radius-md),12px)] bg-primary px-2.5 text-[0.8rem] font-medium text-primary-foreground transition-all hover:bg-primary/80"
+              className="hidden h-7 items-center justify-center rounded-[min(var(--radius-md),12px)] bg-primary px-2.5 text-[0.8rem] font-medium text-primary-foreground transition-all hover:bg-primary/80 md:inline-flex"
             >
               Sign in
             </Link>

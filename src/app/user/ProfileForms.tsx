@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import { profileSchema, passwordChangeSchema } from '@/lib/validations'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -37,15 +38,35 @@ export function AddressForm({ profile }: { profile: Profile }) {
   })
   const [loading, setLoading] = useState(false)
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({})
 
   function set(field: keyof Profile) {
-    return (e: React.ChangeEvent<HTMLInputElement>) =>
+    return (e: React.ChangeEvent<HTMLInputElement>) => {
       setForm((prev) => ({ ...prev, [field]: e.target.value }))
+      setFieldErrors((prev) => {
+        const next = { ...prev }
+        delete next[field]
+        return next
+      })
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setToast(null)
+    setFieldErrors({})
+
+    const result = profileSchema.safeParse(form)
+    if (!result.success) {
+      const errors: Record<string, string> = {}
+      for (const issue of result.error.issues) {
+        const key = issue.path[0] as string
+        if (!errors[key]) errors[key] = issue.message
+      }
+      setFieldErrors(errors)
+      return
+    }
+
     setLoading(true)
 
     try {
@@ -80,10 +101,12 @@ export function AddressForm({ profile }: { profile: Profile }) {
           <div className="space-y-2">
             <Label htmlFor="full_name">Full name</Label>
             <Input id="full_name" value={form.full_name ?? ''} onChange={set('full_name')} placeholder="Jane Smith" />
+            {fieldErrors.full_name && <p className="text-xs text-red-600 mt-1">{fieldErrors.full_name}</p>}
           </div>
           <div className="space-y-2">
             <Label htmlFor="address_line1">Address line 1</Label>
             <Input id="address_line1" value={form.address_line1 ?? ''} onChange={set('address_line1')} placeholder="123 Main St" />
+            {fieldErrors.address_line1 && <p className="text-xs text-red-600 mt-1">{fieldErrors.address_line1}</p>}
           </div>
           <div className="space-y-2">
             <Label htmlFor="address_line2">Address line 2</Label>
@@ -93,20 +116,24 @@ export function AddressForm({ profile }: { profile: Profile }) {
             <div className="space-y-2">
               <Label htmlFor="city">City</Label>
               <Input id="city" value={form.city ?? ''} onChange={set('city')} placeholder="Brooklyn" />
+              {fieldErrors.city && <p className="text-xs text-red-600 mt-1">{fieldErrors.city}</p>}
             </div>
             <div className="space-y-2">
               <Label htmlFor="state">State</Label>
               <Input id="state" value={form.state ?? ''} onChange={set('state')} placeholder="NY" maxLength={2} />
+              {fieldErrors.state && <p className="text-xs text-red-600 mt-1">{fieldErrors.state}</p>}
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="zip">ZIP code</Label>
               <Input id="zip" value={form.zip ?? ''} onChange={set('zip')} placeholder="11201" />
+              {fieldErrors.zip && <p className="text-xs text-red-600 mt-1">{fieldErrors.zip}</p>}
             </div>
             <div className="space-y-2">
               <Label htmlFor="country">Country</Label>
               <Input id="country" value={form.country ?? ''} onChange={set('country')} placeholder="US" maxLength={2} />
+              {fieldErrors.country && <p className="text-xs text-red-600 mt-1">{fieldErrors.country}</p>}
             </div>
           </div>
         </CardContent>
@@ -126,17 +153,29 @@ export function PasswordForm() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({})
+
+  function clearFieldError(field: string) {
+    setFieldErrors((prev) => {
+      const next = { ...prev }
+      delete next[field]
+      return next
+    })
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setToast(null)
+    setFieldErrors({})
 
-    if (newPassword !== confirmPassword) {
-      setToast({ message: 'New passwords do not match.', type: 'error' })
-      return
-    }
-    if (newPassword.length < 8) {
-      setToast({ message: 'New password must be at least 8 characters.', type: 'error' })
+    const result = passwordChangeSchema.safeParse({ currentPassword, newPassword, confirmPassword })
+    if (!result.success) {
+      const errors: Record<string, string> = {}
+      for (const issue of result.error.issues) {
+        const key = issue.path[0] as string
+        if (!errors[key]) errors[key] = issue.message
+      }
+      setFieldErrors(errors)
       return
     }
 
@@ -194,9 +233,10 @@ export function PasswordForm() {
               type="password"
               autoComplete="current-password"
               value={currentPassword}
-              onChange={(e) => setCurrentPassword(e.target.value)}
+              onChange={(e) => { setCurrentPassword(e.target.value); clearFieldError('currentPassword') }}
               required
             />
+            {fieldErrors.currentPassword && <p className="text-xs text-red-600 mt-1">{fieldErrors.currentPassword}</p>}
           </div>
           <div className="space-y-2">
             <Label htmlFor="newPassword">New password</Label>
@@ -205,9 +245,10 @@ export function PasswordForm() {
               type="password"
               autoComplete="new-password"
               value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
+              onChange={(e) => { setNewPassword(e.target.value); clearFieldError('newPassword') }}
               required
             />
+            {fieldErrors.newPassword && <p className="text-xs text-red-600 mt-1">{fieldErrors.newPassword}</p>}
           </div>
           <div className="space-y-2">
             <Label htmlFor="confirmPassword">Confirm new password</Label>
@@ -216,9 +257,10 @@ export function PasswordForm() {
               type="password"
               autoComplete="new-password"
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              onChange={(e) => { setConfirmPassword(e.target.value); clearFieldError('confirmPassword') }}
               required
             />
+            {fieldErrors.confirmPassword && <p className="text-xs text-red-600 mt-1">{fieldErrors.confirmPassword}</p>}
           </div>
         </CardContent>
         <CardFooter>

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { contactSchema } from '@/lib/validations'
 
 const resend = process.env.RESEND_API_KEY
   ? new Resend(process.env.RESEND_API_KEY)
@@ -7,13 +8,6 @@ const resend = process.env.RESEND_API_KEY
 
 const STORE_EMAIL = 'orders@oldemoneyprintshop.com'
 const FROM_EMAIL = 'Olde Money Printshop <noreply@oldemoneyprintshop.com>'
-
-const VALID_SUBJECTS = [
-  'General Question',
-  'Order Issue',
-  'Custom Quote',
-  'Drop Shipping',
-]
 
 export async function POST(request: NextRequest) {
   let body: unknown
@@ -30,76 +24,23 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  const { firstName, lastName, email, subject, message, honeypot } =
-    body as Record<string, unknown>
+  const { honeypot } = body as Record<string, unknown>
 
   // Honeypot check - silently succeed to avoid tipping off bots
   if (typeof honeypot === 'string' && honeypot.length > 0) {
     return NextResponse.json({ success: true })
   }
 
-  // Validate required fields
-  if (
-    typeof firstName !== 'string' ||
-    !firstName.trim() ||
-    typeof lastName !== 'string' ||
-    !lastName.trim() ||
-    typeof email !== 'string' ||
-    !email.trim() ||
-    typeof subject !== 'string' ||
-    !subject.trim() ||
-    typeof message !== 'string' ||
-    !message.trim()
-  ) {
+  // Validate with Zod
+  const result = contactSchema.safeParse(body)
+  if (!result.success) {
     return NextResponse.json(
-      { error: 'All fields are required.' },
+      { error: 'Validation failed', details: result.error.flatten().fieldErrors },
       { status: 400 },
     )
   }
 
-  // Validate email format
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  if (!emailRegex.test(email.trim())) {
-    return NextResponse.json(
-      { error: 'Please provide a valid email address.' },
-      { status: 400 },
-    )
-  }
-
-  // Validate subject is one of the allowed options
-  if (!VALID_SUBJECTS.includes(subject)) {
-    return NextResponse.json(
-      { error: 'Invalid subject selection.' },
-      { status: 400 },
-    )
-  }
-
-  // Enforce reasonable field lengths
-  if (firstName.trim().length > 100) {
-    return NextResponse.json(
-      { error: 'First name is too long.' },
-      { status: 400 },
-    )
-  }
-  if (lastName.trim().length > 100) {
-    return NextResponse.json(
-      { error: 'Last name is too long.' },
-      { status: 400 },
-    )
-  }
-  if (email.trim().length > 320) {
-    return NextResponse.json(
-      { error: 'Email address is too long.' },
-      { status: 400 },
-    )
-  }
-  if (message.trim().length > 5000) {
-    return NextResponse.json(
-      { error: 'Message is too long (max 5,000 characters).' },
-      { status: 400 },
-    )
-  }
-
+  const { firstName, lastName, email, subject, message } = result.data
   const sanitizedFirstName = firstName.trim()
   const sanitizedLastName = lastName.trim()
   const sanitizedEmail = email.trim()
