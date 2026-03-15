@@ -57,7 +57,7 @@ export default function RegisterPage() {
     })
 
     if (error) {
-      setError(error.message)
+      setError(error.message || 'Something went wrong. Please try again.')
       setLoading(false)
       return
     }
@@ -84,7 +84,7 @@ export default function RegisterPage() {
       },
     })
     if (error) {
-      setError(error.message)
+      setError(error.message || 'Something went wrong. Please try again.')
     }
   }
 
