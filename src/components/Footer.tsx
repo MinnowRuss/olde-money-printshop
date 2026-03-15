@@ -1,13 +1,23 @@
 import Link from 'next/link'
 
-const FOOTER_LINKS = [
-  { href: '/', label: 'Home' },
+const SHOP_LINKS = [
   { href: '/prices', label: 'Prices' },
   { href: '/calculator', label: 'Calculator' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/services', label: 'Services' },
+  { href: '/drop-shipping', label: 'Drop Shipping' },
 ]
 
-const LEGAL_LINKS = [
+const LEARN_LINKS = [
+  { href: '/about', label: 'About Us' },
+  { href: '/what-is-giclee', label: 'What is Giclée?' },
+  { href: '/testimonials', label: 'Testimonials' },
+  { href: '/ordering-details', label: 'How to Order' },
+  { href: '/file-setup', label: 'File Setup Guide' },
+  { href: '/holiday-deadlines', label: 'Holiday Deadlines' },
+]
+
+const SUPPORT_LINKS = [
+  { href: '/contact', label: 'Contact Us' },
   { href: '/privacy', label: 'Privacy Policy' },
   { href: '/terms', label: 'Terms of Service' },
 ]
@@ -22,57 +32,92 @@ export default function Footer() {
   return (
     <footer className="border-t border-zinc-200 bg-white">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
-
-          {/* Brand + copyright */}
-          <div className="text-center sm:text-left">
-            <p className="text-sm font-semibold text-zinc-900">Olde Money Printshop</p>
-            <p className="mt-1 text-xs text-zinc-500">
-              © {year} Olde Money Printshop. All rights reserved.
+        {/* Multi-column link grid */}
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Brand column */}
+          <div>
+            <p className="text-sm font-semibold text-zinc-900">
+              Olde Money Printshop
             </p>
+            <p className="mt-2 text-xs leading-relaxed text-zinc-500">
+              Museum-quality photo prints on canvas, metal, acrylic, fine art
+              paper, and more.
+            </p>
+            <div className="mt-4 flex gap-4 text-sm text-zinc-500">
+              {SOCIAL_LINKS.map(({ href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-zinc-900"
+                >
+                  {label}
+                </a>
+              ))}
+            </div>
           </div>
 
-          {/* Nav links */}
-          <nav className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm text-zinc-500">
-            {FOOTER_LINKS.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className="transition-colors hover:text-zinc-900"
-              >
-                {label}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Legal links */}
-          <nav className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm text-zinc-500">
-            {LEGAL_LINKS.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className="transition-colors hover:text-zinc-900"
-              >
-                {label}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Social links */}
-          <div className="flex gap-4 text-sm text-zinc-500">
-            {SOCIAL_LINKS.map(({ href, label }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="transition-colors hover:text-zinc-900"
-              >
-                {label}
-              </a>
-            ))}
+          {/* Shop column */}
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wider text-zinc-900">
+              Shop
+            </p>
+            <nav className="mt-3 flex flex-col gap-2 text-sm text-zinc-500">
+              {SHOP_LINKS.map(({ href, label }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="transition-colors hover:text-zinc-900"
+                >
+                  {label}
+                </Link>
+              ))}
+            </nav>
           </div>
 
+          {/* Learn column */}
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wider text-zinc-900">
+              Learn
+            </p>
+            <nav className="mt-3 flex flex-col gap-2 text-sm text-zinc-500">
+              {LEARN_LINKS.map(({ href, label }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="transition-colors hover:text-zinc-900"
+                >
+                  {label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          {/* Support column */}
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wider text-zinc-900">
+              Support
+            </p>
+            <nav className="mt-3 flex flex-col gap-2 text-sm text-zinc-500">
+              {SUPPORT_LINKS.map(({ href, label }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="transition-colors hover:text-zinc-900"
+                >
+                  {label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="mt-10 border-t border-zinc-100 pt-6 text-center">
+          <p className="text-xs text-zinc-500">
+            &copy; {year} Olde Money Printshop. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

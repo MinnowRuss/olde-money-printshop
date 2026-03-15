@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Mail, Phone, MapPin } from 'lucide-react'
+import ContactForm from './ContactForm'
 
 export const metadata: Metadata = {
   title: 'Contact | Olde Money Printshop',
@@ -107,110 +108,7 @@ export default function ContactPage() {
         </div>
 
         {/* Contact form */}
-        <div className="rounded-xl border border-zinc-200 bg-white p-6 ring-1 ring-foreground/10">
-          <h2 className="text-lg font-semibold text-zinc-900">
-            Send a Message
-          </h2>
-          <p className="mt-1 text-sm text-zinc-500">
-            Fill out the form below and we&apos;ll get back to you within one
-            business day.
-          </p>
-
-          <form className="mt-6 space-y-5">
-            <div className="grid gap-5 sm:grid-cols-2">
-              <div className="space-y-2">
-                <label
-                  htmlFor="first-name"
-                  className="text-sm font-medium text-zinc-900"
-                >
-                  First name
-                </label>
-                <input
-                  id="first-name"
-                  name="firstName"
-                  type="text"
-                  required
-                  className="flex h-9 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 outline-none transition-colors placeholder:text-zinc-400 focus:border-zinc-400 focus:ring-2 focus:ring-zinc-200"
-                  placeholder="Jane"
-                />
-              </div>
-              <div className="space-y-2">
-                <label
-                  htmlFor="last-name"
-                  className="text-sm font-medium text-zinc-900"
-                >
-                  Last name
-                </label>
-                <input
-                  id="last-name"
-                  name="lastName"
-                  type="text"
-                  required
-                  className="flex h-9 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 outline-none transition-colors placeholder:text-zinc-400 focus:border-zinc-400 focus:ring-2 focus:ring-zinc-200"
-                  placeholder="Doe"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <label
-                htmlFor="contact-email"
-                className="text-sm font-medium text-zinc-900"
-              >
-                Email
-              </label>
-              <input
-                id="contact-email"
-                name="email"
-                type="email"
-                required
-                className="flex h-9 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 outline-none transition-colors placeholder:text-zinc-400 focus:border-zinc-400 focus:ring-2 focus:ring-zinc-200"
-                placeholder="you@example.com"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label
-                htmlFor="subject"
-                className="text-sm font-medium text-zinc-900"
-              >
-                Subject
-              </label>
-              <input
-                id="subject"
-                name="subject"
-                type="text"
-                required
-                className="flex h-9 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm text-zinc-900 outline-none transition-colors placeholder:text-zinc-400 focus:border-zinc-400 focus:ring-2 focus:ring-zinc-200"
-                placeholder="Question about my order"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label
-                htmlFor="message"
-                className="text-sm font-medium text-zinc-900"
-              >
-                Message
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows={5}
-                required
-                className="flex w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 outline-none transition-colors placeholder:text-zinc-400 focus:border-zinc-400 focus:ring-2 focus:ring-zinc-200"
-                placeholder="Tell us how we can help…"
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="inline-flex h-9 w-full items-center justify-center rounded-lg bg-zinc-900 px-4 text-sm font-medium text-white transition-colors hover:bg-zinc-800 sm:w-auto"
-            >
-              Send Message
-            </button>
-          </form>
-        </div>
+        <ContactForm />
       </div>
     </main>
   )
