@@ -54,7 +54,21 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  // 2. Service client for storage writes
+  // 2. Check per-user image count limit
+  const MAX_IMAGES_PER_USER = 200
+  const { count: imageCount } = await supabase
+    .from('images')
+    .select('id', { count: 'exact', head: true })
+    .eq('user_id', user.id)
+
+  if ((imageCount ?? 0) >= MAX_IMAGES_PER_USER) {
+    return NextResponse.json(
+      { error: `Upload limit reached. You may have up to ${MAX_IMAGES_PER_USER} images. Delete some before uploading more.` },
+      { status: 429 }
+    )
+  }
+
+  // 3. Service client for storage writes
   const serviceClient = createServiceClient()
   if (!serviceClient) {
     return NextResponse.json(

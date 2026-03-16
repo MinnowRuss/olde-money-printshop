@@ -15,7 +15,17 @@ export async function middleware(request: NextRequest) {
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
   if (!supabaseUrl || !supabaseAnonKey) {
-    // Supabase not configured — skip auth checks
+    if (process.env.NODE_ENV === 'production') {
+      // Fail closed in production: redirect to login rather than granting access
+      const { pathname } = request.nextUrl
+      const isProtected = PROTECTED_ROUTES.some((route) => pathname.startsWith(route))
+      const isAdmin = ADMIN_ROUTES.some((route) => pathname.startsWith(route))
+      if (isProtected || isAdmin) {
+        console.error('CRITICAL: Supabase env vars missing in production — blocking access')
+        return NextResponse.redirect(new URL('/auth/login', request.url))
+      }
+    }
+    // In dev, fail-open is acceptable for iteration speed
     return response
   }
 

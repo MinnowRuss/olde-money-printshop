@@ -17,12 +17,25 @@ export async function DELETE(request: NextRequest) {
   }
 
   // Parse body
+  const MAX_BATCH_SIZE = 50
+  const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
   let ids: string[]
   try {
     const body = await request.json()
     ids = body.ids
     if (!Array.isArray(ids) || ids.length === 0) {
       return NextResponse.json({ error: 'No image IDs provided' }, { status: 400 })
+    }
+    if (ids.length > MAX_BATCH_SIZE) {
+      return NextResponse.json(
+        { error: `Cannot delete more than ${MAX_BATCH_SIZE} images at once.` },
+        { status: 400 }
+      )
+    }
+    // Filter to valid UUIDs only
+    ids = ids.filter((id): id is string => typeof id === 'string' && UUID_REGEX.test(id))
+    if (ids.length === 0) {
+      return NextResponse.json({ error: 'No valid image IDs provided' }, { status: 400 })
     }
   } catch {
     return NextResponse.json({ error: 'Invalid request body' }, { status: 400 })

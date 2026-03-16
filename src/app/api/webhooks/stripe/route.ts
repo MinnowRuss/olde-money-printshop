@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
 
     // Calculate order total from cart items
     const orderTotal = cartItems.reduce(
-      (sum: number, item: any) => sum + Number(item.total),
+      (sum: number, item: { total: number }) => sum + Number(item.total),
       0
     )
 
@@ -114,7 +114,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Create order_items from cart_items
-    const orderItems = cartItems.map((item: any) => ({
+    const orderItems = cartItems.map((item) => ({
       order_id: order.id,
       image_id: item.image_id,
       media_type_slug: item.media_type_slug,
@@ -138,6 +138,9 @@ export async function POST(request: NextRequest) {
 
     if (itemsError) {
       console.error('Failed to create order items:', itemsError)
+      // Roll back: delete the orphaned order record so Stripe retry can re-process
+      await supabase.from('orders').delete().eq('id', order.id)
+      return NextResponse.json({ message: 'Failed to create order items' }, { status: 500 })
     }
 
     // Clear user's cart

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { MEDIA_TYPES } from '@/lib/constants/products'
+import { MEDIA_TYPES, VOLUME_DISCOUNTS } from '@/lib/constants/products'
 
 export const metadata: Metadata = {
   title: 'Olde Money Printshop — Transform Your Digital Images into Physical Memories',
@@ -27,7 +27,7 @@ const FEATURES = [
   },
   {
     title: 'Volume Discounts',
-    description: 'Save up to 15% when you order 25 or more prints.',
+    description: `Save up to ${Math.max(...VOLUME_DISCOUNTS.map((d) => d.discountPct))}% with volume discounts starting at ${VOLUME_DISCOUNTS.find((d) => d.discountPct > 0)?.minQty ?? 5} prints.`,
   },
 ]
 
@@ -151,7 +151,7 @@ export default function HomePage() {
           </h2>
           <p className="mt-3 text-zinc-600">
             Upload your photos, pick your medium, and let us handle the rest.
-            Volume discounts available on orders of 5 or more prints.
+            Volume discounts from {VOLUME_DISCOUNTS.find((d) => d.discountPct > 0)?.discountPct}% to {Math.max(...VOLUME_DISCOUNTS.map((d) => d.discountPct))}% on orders of {VOLUME_DISCOUNTS.find((d) => d.discountPct > 0)?.minQty}+ prints.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link

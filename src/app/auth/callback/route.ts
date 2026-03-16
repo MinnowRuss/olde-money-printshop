@@ -8,7 +8,7 @@ import { createClient } from '@/lib/supabase/server'
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const code = searchParams.get('code')
-  const next = searchParams.get('next') ?? '/image'
+  const next = searchParams.get('next') ?? '/image?welcome=1'
 
   // Prevent open-redirect: only allow safe relative paths
   const isSafePath =
@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
     !next.startsWith('//') &&      // block protocol-relative URLs
     !/^\/\\/.test(next) &&         // block /\ which some browsers treat as //
     !next.includes(':')            // block javascript: or other schemes embedded in path
-  const safeNext = isSafePath ? next : '/image'
+  const safeNext = isSafePath ? next : '/image?welcome=1'
 
   if (!code) {
     return NextResponse.redirect(

@@ -1,0 +1,19 @@
+{
+  "framework": "nextjs",
+  "functions": {
+    "src/app/api/upload/route.ts": {
+      "maxDuration": 60
+    },
+    "src/app/api/images/[id]/rotate/route.ts": {
+      "maxDuration": 60,
+      "memory": 1024
+    },
+    "src/app/api/images/[id]/flip/route.ts": {
+      "maxDuration": 60,
+      "memory": 1024
+    },
+    "src/app/api/webhooks/stripe/route.ts": {
+      "maxDuration": 30
+    }
+  }
+}

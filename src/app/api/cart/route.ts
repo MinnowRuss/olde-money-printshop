@@ -29,14 +29,15 @@ export async function POST(request: NextRequest) {
   }
 
   // Parse body
-  let body: any
+  let body: unknown
   try {
     body = await request.json()
   } catch {
     return NextResponse.json({ message: 'Invalid JSON body' }, { status: 400 })
   }
 
-  const { imageId, cropData, finishData } = body
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { imageId, cropData, finishData } = body as Record<string, any>
 
   // Validate required fields
   if (!imageId || typeof imageId !== 'string') {

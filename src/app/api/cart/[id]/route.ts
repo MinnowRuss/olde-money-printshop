@@ -26,14 +26,15 @@ export async function PATCH(
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
   }
 
-  let body: any
+  let body: unknown
   try {
     body = await request.json()
   } catch {
     return NextResponse.json({ message: 'Invalid JSON body' }, { status: 400 })
   }
 
-  const { quantity } = body
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { quantity } = body as Record<string, any>
 
   if (typeof quantity !== 'number' || quantity < 1 || !Number.isInteger(quantity)) {
     return NextResponse.json({ message: 'Quantity must be a positive integer' }, { status: 400 })

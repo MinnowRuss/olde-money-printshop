@@ -18,8 +18,27 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Olde Money Printshop',
-  description: 'Transform your digital images into physical memories.',
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_URL || 'https://printing.oldemoney.com'
+  ),
+  title: {
+    default: 'Olde Money Printshop',
+    template: '%s | Olde Money Printshop',
+  },
+  description:
+    'Museum-quality photo prints on canvas, metal, acrylic, and fine art paper. Upload, customize, and order with volume discounts.',
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: '/',
+    siteName: 'Olde Money Printshop',
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['/og-image.jpg'],
+  },
+  robots: { index: true, follow: true },
 }
 
 export default function RootLayout({

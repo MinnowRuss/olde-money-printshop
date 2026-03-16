@@ -67,7 +67,12 @@ export async function POST(request: Request) {
     })
   )
 
-  const baseUrl = process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'
+  const baseUrl =
+    process.env.NEXT_PUBLIC_URL ||
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null) ||
+    (process.env.NODE_ENV === 'production'
+      ? (() => { throw new Error('NEXT_PUBLIC_URL must be set in production') })()
+      : 'http://localhost:3000')
 
   try {
     const session = await stripe.checkout.sessions.create({

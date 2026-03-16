@@ -1,14 +1,18 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { Loader2, AlertCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 export default function CheckoutPage() {
   const [error, setError] = useState<string | null>(null)
+  const hasFired = useRef(false)
 
   useEffect(() => {
+    if (hasFired.current) return
+    hasFired.current = true
+
     const createSession = async () => {
       try {
         const res = await fetch('/api/orders', {

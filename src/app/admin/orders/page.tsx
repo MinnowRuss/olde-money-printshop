@@ -2,8 +2,19 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import AdminOrdersTable from './AdminOrdersTable'
+import { Button } from '@/components/ui/button'
 
-export default async function AdminOrdersPage() {
+const PAGE_SIZE = 50
+
+interface AdminOrdersPageProps {
+  searchParams: Promise<{ page?: string }>
+}
+
+export default async function AdminOrdersPage({ searchParams }: AdminOrdersPageProps) {
+  const { page: pageParam } = await searchParams
+  const page = Math.max(0, Number(pageParam ?? 0))
+  const from = page * PAGE_SIZE
+  const to = from + PAGE_SIZE - 1
   const supabase = await createClient()
   if (!supabase) {
     return (
@@ -32,8 +43,8 @@ export default async function AdminOrdersPage() {
     redirect('/')
   }
 
-  // Fetch all orders with customer info
-  const { data: orders, error } = await supabase
+  // Fetch paginated orders with customer info
+  const { data: orders, error, count } = await supabase
     .from('orders')
     .select(`
       id,
@@ -45,27 +56,43 @@ export default async function AdminOrdersPage() {
       updated_at,
       order_items (id),
       profiles!inner (full_name)
-    `)
+    `, { count: 'exact' })
     .order('created_at', { ascending: false })
+    .range(from, to)
 
   if (error) {
     console.error('Failed to fetch orders:', error)
   }
 
-  // Get customer emails via auth admin (fallback: user_id)
-  // Since we can't access auth.users from client, we'll pass user_ids
-  // and let the client-side component handle display
-  const formattedOrders = (orders ?? []).map((order: any) => ({
+  const totalOrders = count ?? 0
+  const totalPages = Math.ceil(totalOrders / PAGE_SIZE)
+
+  interface OrderRow {
+    id: string
+    user_id: string
+    total: number
+    status: string
+    tracking_number: string | null
+    created_at: string
+    updated_at: string
+    order_items: { id: string }[] | null
+    profiles: { full_name: string }[] | { full_name: string } | null
+  }
+
+  const formattedOrders = ((orders ?? []) as unknown as OrderRow[]).map((order) => {
+    const profile = Array.isArray(order.profiles) ? order.profiles[0] : order.profiles
+    return {
     id: order.id,
     userId: order.user_id,
-    customerName: order.profiles?.full_name || 'Unknown',
+    customerName: profile?.full_name || 'Unknown',
     total: Number(order.total),
     status: order.status,
     trackingNumber: order.tracking_number,
     itemCount: order.order_items?.length ?? 0,
     createdAt: order.created_at,
     updatedAt: order.updated_at,
-  }))
+  }
+  })
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
@@ -78,12 +105,36 @@ export default async function AdminOrdersPage() {
           Orders
         </h1>
         <p className="mt-2 text-zinc-600">
-          {formattedOrders.length} total{' '}
-          {formattedOrders.length === 1 ? 'order' : 'orders'}
+          {totalOrders} total{' '}
+          {totalOrders === 1 ? 'order' : 'orders'}
+          {totalPages > 1 && ` · Page ${page + 1} of ${totalPages}`}
         </p>
       </div>
 
       <AdminOrdersTable orders={formattedOrders} />
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="mt-6 flex items-center justify-between">
+          {page > 0 ? (
+            <Link href={`/admin/orders?page=${page - 1}`}>
+              <Button variant="outline" size="sm">Previous</Button>
+            </Link>
+          ) : (
+            <Button variant="outline" size="sm" disabled>Previous</Button>
+          )}
+          <span className="text-sm text-zinc-500">
+            Page {page + 1} of {totalPages}
+          </span>
+          {page < totalPages - 1 ? (
+            <Link href={`/admin/orders?page=${page + 1}`}>
+              <Button variant="outline" size="sm">Next</Button>
+            </Link>
+          ) : (
+            <Button variant="outline" size="sm" disabled>Next</Button>
+          )}
+        </div>
+      )}
     </div>
   )
 }

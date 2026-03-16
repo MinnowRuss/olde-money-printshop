@@ -40,6 +40,15 @@ export async function PATCH(
     return NextResponse.json({ error: 'Storage not configured' }, { status: 500 })
   }
 
+  // Reject excessively large files to avoid memory issues
+  const MAX_PROCESS_SIZE = 30 * 1024 * 1024 // 30 MB
+  if (image.file_size && image.file_size > MAX_PROCESS_SIZE) {
+    return NextResponse.json(
+      { error: 'Image is too large to flip. Maximum file size for processing is 30 MB.' },
+      { status: 413 }
+    )
+  }
+
   // Download original
   const { data: fileData, error: downloadError } = await serviceClient.storage
     .from('images')
