@@ -3,7 +3,7 @@ export interface ImageRecord {
   user_id: string
   filename: string
   storage_path: string
-  thumb_path: string
+  thumbnail_path: string
   width: number
   height: number
   file_size: number

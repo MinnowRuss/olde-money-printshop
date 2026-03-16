@@ -36,7 +36,7 @@ interface CartItem {
   images?: {
     id: string
     filename: string
-    thumb_path: string
+    thumbnail_path: string
   }
 }
 
@@ -63,7 +63,7 @@ export default function CartPage() {
 
     const { data, error } = await supabase
       .from('cart_items')
-      .select('*, images(id, filename, thumb_path)')
+      .select('*, images(id, filename, thumbnail_path)')
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
 
@@ -79,10 +79,10 @@ export default function CartPage() {
     const urls: Record<string, string> = {}
     for (const item of data ?? []) {
       const img = (item as CartItem).images
-      if (img?.thumb_path) {
+      if (img?.thumbnail_path) {
         const { data: signedUrlData } = await supabase.storage
           .from('images')
-          .createSignedUrl(img.thumb_path, 3600)
+          .createSignedUrl(img.thumbnail_path, 3600)
         if (signedUrlData?.signedUrl) {
           urls[item.id] = signedUrlData.signedUrl
         }

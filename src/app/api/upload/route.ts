@@ -189,7 +189,7 @@ export async function POST(request: NextRequest) {
       user_id: user.id,
       filename: file.name,
       storage_path: storagePath,
-      thumb_path: thumbPath,
+      thumbnail_path: thumbPath,
       width,
       height,
       file_size: file.size,

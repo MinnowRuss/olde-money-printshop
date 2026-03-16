@@ -75,7 +75,7 @@ export default function ReviewPage() {
       // Get signed URL for thumbnail
       const { data: signedUrlData } = await supabase.storage
         .from('images')
-        .createSignedUrl(data.thumb_path, 3600)
+        .createSignedUrl(data.thumbnail_path, 3600)
 
       if (signedUrlData?.signedUrl) {
         setThumbUrl(signedUrlData.signedUrl)

@@ -24,7 +24,7 @@ export async function DELETE(
   // Verify ownership
   const { data: image } = await supabase
     .from('images')
-    .select('id, storage_path, thumb_path, user_id')
+    .select('id, storage_path, thumbnail_path, user_id')
     .eq('id', id)
     .single()
 
@@ -45,7 +45,7 @@ export async function DELETE(
   // Delete files from storage
   await serviceClient.storage
     .from('images')
-    .remove([image.storage_path, image.thumb_path])
+    .remove([image.storage_path, image.thumbnail_path])
 
   // Delete DB record (RLS enforced)
   await supabase.from('images').delete().eq('id', id)

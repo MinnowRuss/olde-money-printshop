@@ -42,7 +42,7 @@ export default async function ImageLibraryPage({ searchParams }: Props) {
   const imagesWithUrls: (ImageRecord & { thumbUrl: string })[] = []
 
   if (images && images.length > 0) {
-    const paths = images.map((img: ImageRecord) => img.thumb_path)
+    const paths = images.map((img: ImageRecord) => img.thumbnail_path)
     const { data: signedUrls } = await supabase.storage
       .from('images')
       .createSignedUrls(paths, 3600)

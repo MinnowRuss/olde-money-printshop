@@ -31,7 +31,7 @@ export async function DELETE(request: NextRequest) {
   // Verify all images belong to current user
   const { data: images } = await supabase
     .from('images')
-    .select('id, storage_path, thumb_path')
+    .select('id, storage_path, thumbnail_path')
     .eq('user_id', user.id)
     .in('id', ids)
 
@@ -46,7 +46,7 @@ export async function DELETE(request: NextRequest) {
   }
 
   // Delete files from storage
-  const filePaths = images.flatMap((img) => [img.storage_path, img.thumb_path])
+  const filePaths = images.flatMap((img) => [img.storage_path, img.thumbnail_path])
   await serviceClient.storage.from('images').remove(filePaths)
 
   // Delete records from DB (RLS enforced)

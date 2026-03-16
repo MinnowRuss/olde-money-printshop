@@ -79,7 +79,7 @@ export async function PATCH(
 
   await serviceClient.storage
     .from('images')
-    .upload(image.thumb_path, thumbBuffer, {
+    .upload(image.thumbnail_path, thumbBuffer, {
       contentType: 'image/jpeg',
       upsert: true,
     })
