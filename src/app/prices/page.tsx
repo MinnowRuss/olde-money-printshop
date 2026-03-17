@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge'
 export const metadata: Metadata = {
   title: 'Pricing | Olde Money Printshop',
   description:
-    'View pricing for all print types including standard prints, canvas wraps, metal prints, fine art paper, and acrylic prints.',
+    'View pricing for all print types including standard prints and fine art paper prints.',
 }
 
 export default function PricesPage() {

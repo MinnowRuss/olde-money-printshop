@@ -6,7 +6,7 @@ import { calculatePrice } from '@/lib/pricing'
  * GET /api/calculator
  *
  * Query params:
- *   media_id  — media type slug (e.g. "canvas-wrap")
+ *   media_id  — media type slug (e.g. "standard-print")
  *   width     — print width in inches
  *   height    — print height in inches
  *   options[] — array of option slugs (optional, repeatable)

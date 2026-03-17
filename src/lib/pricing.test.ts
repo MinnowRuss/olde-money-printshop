@@ -3,8 +3,7 @@ import { calculatePrice, getVolumeDiscount, findPriceTier } from './pricing'
 import { MEDIA_TYPES, VOLUME_DISCOUNTS } from '@/lib/constants/products'
 
 const standardPrint = MEDIA_TYPES.find((m) => m.slug === 'standard-print')!
-const canvasWrap = MEDIA_TYPES.find((m) => m.slug === 'canvas-wrap')!
-const metalPrint = MEDIA_TYPES.find((m) => m.slug === 'metal-print')!
+const fineArtPaper = MEDIA_TYPES.find((m) => m.slug === 'fine-art-paper')!
 
 // ----- getVolumeDiscount -----
 
@@ -43,10 +42,10 @@ describe('findPriceTier', () => {
     expect(tier!.basePrice).toBe(14.99)
   })
 
-  it('finds correct tier for 16×20 canvas', () => {
-    const tier = findPriceTier(16, 20, canvasWrap.priceTiers)
+  it('finds correct tier for 16×20 fine art paper', () => {
+    const tier = findPriceTier(16, 20, fineArtPaper.priceTiers)
     expect(tier).not.toBeNull()
-    expect(tier!.basePrice).toBe(99.99)
+    expect(tier!.basePrice).toBe(89.99)
   })
 
   it('handles portrait orientation (10×8 = same as 8×10)', () => {
@@ -124,32 +123,32 @@ describe('calculatePrice', () => {
     const result = calculatePrice({
       width: 16,
       height: 20,
-      priceTiers: canvasWrap.priceTiers,
+      priceTiers: fineArtPaper.priceTiers,
       selectedOptions: [],
       quantity: 10,
     })
 
-    expect(result.unitPrice).toBe(99.99)
-    expect(result.subtotal).toBe(999.9)
+    expect(result.unitPrice).toBe(89.99)
+    expect(result.subtotal).toBe(899.9)
     expect(result.discountPct).toBe(10)
-    expect(result.discountAmount).toBe(99.99)
-    expect(result.total).toBe(899.91)
+    expect(result.discountAmount).toBe(89.99)
+    expect(result.total).toBe(809.91)
   })
 
   it('handles multiple options', () => {
-    const thickWrap = canvasWrap.options.find((o) => o.slug === 'thick-wrap')!
-    const mirrorEdge = canvasWrap.options.find((o) => o.slug === 'mirror-edge')!
+    const coldPress = fineArtPaper.options.find((o) => o.slug === 'cold-press')!
+    const framed = fineArtPaper.options.find((o) => o.slug === 'framed')!
     const result = calculatePrice({
       width: 16,
       height: 20,
-      priceTiers: canvasWrap.priceTiers,
-      selectedOptions: [thickWrap, mirrorEdge],
+      priceTiers: fineArtPaper.priceTiers,
+      selectedOptions: [coldPress, framed],
       quantity: 1,
     })
 
-    expect(result.optionsCost).toBe(20.0)
-    expect(result.unitPrice).toBe(119.99)
-    expect(result.total).toBe(119.99)
+    expect(result.optionsCost).toBe(48.0)
+    expect(result.unitPrice).toBe(137.99)
+    expect(result.total).toBe(137.99)
   })
 
   it('returns zero result when no tier matches', () => {
@@ -169,7 +168,7 @@ describe('calculatePrice', () => {
     const input = {
       width: 11,
       height: 14,
-      priceTiers: metalPrint.priceTiers,
+      priceTiers: fineArtPaper.priceTiers,
       selectedOptions: [],
       quantity: 3,
     }
@@ -183,15 +182,15 @@ describe('calculatePrice', () => {
     const result = calculatePrice({
       width: 8,
       height: 10,
-      priceTiers: metalPrint.priceTiers,
+      priceTiers: fineArtPaper.priceTiers,
       selectedOptions: [],
       quantity: 25,
     })
 
-    expect(result.unitPrice).toBe(59.99)
-    expect(result.subtotal).toBe(1499.75)
+    expect(result.unitPrice).toBe(39.99)
+    expect(result.subtotal).toBe(999.75)
     expect(result.discountPct).toBe(15)
-    expect(result.discountAmount).toBe(224.96)
-    expect(result.total).toBe(1274.79)
+    expect(result.discountAmount).toBe(149.96)
+    expect(result.total).toBe(849.79)
   })
 })
