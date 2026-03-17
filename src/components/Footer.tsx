@@ -38,11 +38,10 @@ export default function Footer() {
           {/* Brand column */}
           <div>
             <p className="text-sm font-semibold text-zinc-900">
-              Olde Money Printshop
+              Olde Money Printing
             </p>
             <p className="mt-2 text-xs leading-relaxed text-zinc-500">
-              Museum-quality photo prints on canvas, metal, acrylic, fine art
-              paper, and more.
+              Museum-quality photo prints on fine art paper, and more.
             </p>
             <div className="mt-4">
               <p className="text-xs font-semibold text-zinc-900">Stay Updated</p>
@@ -124,7 +123,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-10 border-t border-zinc-100 pt-6 text-center">
           <p className="text-xs text-zinc-500">
-            &copy; {year} Olde Money Printshop. All rights reserved.
+            &copy; {year} Olde Money Printing. All rights reserved.
           </p>
         </div>
       </div>

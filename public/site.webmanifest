@@ -1,6 +1,6 @@
 {
-  "name": "Olde Money Printshop",
-  "short_name": "Printshop",
+  "name": "Olde Money Printing",
+  "short_name": "OMP",
   "description": "Museum-quality photo prints on canvas, metal, acrylic, and fine art paper.",
   "start_url": "/",
   "display": "standalone",

@@ -13,9 +13,9 @@ import {
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'About | Olde Money Printshop',
+  title: 'About | Olde Money Printing',
   description:
-    'Learn about Olde Money Printshop — founded by artists and photographers with a passion for archival-quality printing and exceptional craftsmanship.',
+    'Learn about Olde Money Printing — founded by artists and photographers with a passion for archival-quality printing and exceptional craftsmanship.',
 }
 
 const VALUES = [
@@ -94,8 +94,8 @@ export default function AboutPage() {
         <section>
           <h2 className="text-xl font-semibold text-zinc-900">Our Story</h2>
           <p className="mt-3">
-            Olde Money Printshop was founded by a small collective of artists and
-            photographers who shared a common frustration: finding a print lab that
+            Olde Money Printing was founded by an artist and
+            photographer who shared a common frustration: finding a print lab that
             treated their work with the same care they put into creating it. Too many
             services delivered washed-out colors, flimsy substrates, and generic
             results. We knew there had to be a better way.

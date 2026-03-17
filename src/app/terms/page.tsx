@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Terms of Service | Olde Money Printshop',
+  title: 'Terms of Service | Olde Money Printing',
   description:
-    'Review the terms and conditions governing your use of Olde Money Printshop services.',
+    'Review the terms and conditions governing your use of Olde Money Printing services.',
 }
 
 export default function TermsOfServicePage() {
@@ -23,7 +23,7 @@ export default function TermsOfServicePage() {
         <section>
           <h2 className="text-lg font-semibold text-zinc-900">1. Acceptance of Terms</h2>
           <p className="mt-2">
-            By accessing or using the Olde Money Printshop website and services
+            By accessing or using the Olde Money Printing website and services
             (&quot;Services&quot;), you agree to be bound by these Terms of Service
             (&quot;Terms&quot;). If you do not agree to these Terms, please do not use our
             Services.

@@ -26,7 +26,7 @@ export default async function Navbar() {
           href="/"
           className="flex items-center gap-2 font-semibold tracking-tight text-zinc-900"
         >
-          <span className="text-lg">Olde Money Printshop</span>
+          <span className="text-lg">Olde Money Printing</span>
         </Link>
 
         {/* Mobile hamburger menu */}

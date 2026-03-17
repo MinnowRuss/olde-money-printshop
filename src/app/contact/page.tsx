@@ -3,7 +3,7 @@ import { Mail, Phone, MapPin } from 'lucide-react'
 import ContactForm from './ContactForm'
 
 export const metadata: Metadata = {
-  title: 'Contact | Olde Money Printshop',
+  title: 'Contact | Olde Money Printing',
   description:
     'Get in touch with Olde Money Printshop. We are happy to answer questions about custom prints, orders, and turnaround times.',
 }
@@ -12,19 +12,19 @@ const CONTACT_DETAILS = [
   {
     icon: Mail,
     label: 'Email',
-    value: 'hello@oldemoneyprintshop.com',
-    href: 'mailto:hello@oldemoneyprintshop.com',
+    value: 'gallery@oldemoney.com',
+    href: 'mailto:gallery@oldemoney.com',
   },
   {
     icon: Phone,
     label: 'Phone',
-    value: '(555) 123-4567',
+    value: '(603) 320-8432',
     href: 'tel:+15551234567',
   },
   {
     icon: MapPin,
     label: 'Address',
-    value: '123 Print Lane, Studio City, CA 91604',
+    value: 'South Berwick, Maine, USA',
     href: null,
   },
 ]
