@@ -1,9 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import {
-  Frame,
-  Layers,
-  Gem,
   FileImage,
   Image,
   Ruler,
@@ -17,28 +14,10 @@ import {
 export const metadata: Metadata = {
   title: 'Services | Olde Money Printshop',
   description:
-    'Explore our full range of printing services including canvas, metal, acrylic, fine art paper, custom sizing, volume printing, drop shipping, and more.',
+    'Explore our full range of printing services including fine art paper, standard photo prints, custom sizing, volume printing, drop shipping, and more.',
 }
 
 const SERVICES = [
-  {
-    icon: Frame,
-    title: 'Canvas Prints',
-    description:
-      'Gallery-wrap and rolled canvas prints on premium poly-cotton blend. Available in matte, satin, and gloss finishes with archival pigment inks for vivid, lasting color.',
-  },
-  {
-    icon: Layers,
-    title: 'Metal Prints',
-    description:
-      'HD dye-sublimation on brushed or white aluminum. Metal prints deliver ultra-vibrant colors, exceptional durability, and a sleek modern look ideal for contemporary spaces.',
-  },
-  {
-    icon: Gem,
-    title: 'Acrylic Prints',
-    description:
-      'Your image is printed on photographic paper and face-mounted to optically clear acrylic, creating stunning depth, luminosity, and a frameless floating effect.',
-  },
   {
     icon: FileImage,
     title: 'Fine Art Paper Prints',

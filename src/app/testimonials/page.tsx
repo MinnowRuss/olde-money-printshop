@@ -32,14 +32,14 @@ const TESTIMONIALS = [
   },
   {
     quote:
-      'My husband and I ordered a 40\u00d760 canvas of our favorite wedding photo and we are still in awe every time we walk past it. The detail and color are stunning. Worth every penny.',
+      'My husband and I ordered a 40\u00d760 print of our favorite wedding photo and we are still in awe every time we walk past it. The detail and color are stunning. Worth every penny.',
     name: 'Jessica & Daniel Park',
     role: 'Wedding Clients',
     rating: 5,
   },
   {
     quote:
-      'We needed 200 metal prints for our new office lobby and conference rooms on a tight deadline. The team delivered on time, on budget, and the quality blew our facilities manager away. Highly recommend for corporate projects.',
+      'We needed 200 prints for our new office lobby and conference rooms on a tight deadline. The team delivered on time, on budget, and the quality blew our facilities manager away. Highly recommend for corporate projects.',
     name: 'Tom Richards',
     role: 'Creative Director, Apex Media Group',
     rating: 5,
@@ -67,7 +67,7 @@ const TESTIMONIALS = [
   },
   {
     quote:
-      'The acrylic print we ordered for our living room has this incredible depth and luminosity. Friends always comment on it. The whole ordering process was smooth from upload to delivery.',
+      'The fine art print we ordered for our living room has this incredible depth and luminosity. Friends always comment on it. The whole ordering process was smooth from upload to delivery.',
     name: 'James & Emily Whitfield',
     role: 'Homeowners',
     rating: 5,

@@ -1,19 +1,17 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { MEDIA_TYPES, VOLUME_DISCOUNTS } from '@/lib/constants/products'
 
 export const metadata: Metadata = {
   title: 'Olde Money Printshop — Transform Your Digital Images into Physical Memories',
   description:
-    'Museum-quality photo prints on canvas, metal, acrylic, fine art paper, and more. Upload, customize, and order with volume discounts.',
+    'Museum-quality photo prints on fine art paper, standard photo paper, and more. Upload, customize, and order with volume discounts.',
 }
 
 const MEDIA_ICONS: Record<string, string> = {
   'standard-print': 'Photo Paper',
-  'canvas-wrap': 'Canvas',
-  'metal-print': 'Metal',
   'fine-art-paper': 'Fine Art',
-  'acrylic-print': 'Acrylic',
 }
 
 const FEATURES = [
@@ -23,7 +21,7 @@ const FEATURES = [
   },
   {
     title: 'Choose Your Medium',
-    description: 'Standard prints, canvas wraps, metal, fine art paper, or acrylic.',
+    description: 'Standard prints or fine art paper — pick the perfect medium.',
   },
   {
     title: 'Volume Discounts',
@@ -36,7 +34,19 @@ export default function HomePage() {
     <>
       {/* Hero */}
       <section className="relative overflow-hidden bg-zinc-950">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-zinc-800 via-zinc-950 to-zinc-950" />
+        {/* Hero background image at 90% opacity */}
+        <div className="absolute inset-0">
+          <Image
+            src="/hp-hero-cardinal.jpg"
+            alt=""
+            fill
+            priority
+            className="object-cover opacity-90"
+            sizes="100vw"
+          />
+          {/* Dark overlay to ensure text legibility */}
+          <div className="absolute inset-0 bg-zinc-950/50" />
+        </div>
         <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8 lg:py-40">
           <div className="max-w-2xl">
             <p className="text-sm font-medium uppercase tracking-widest text-zinc-400">
@@ -46,7 +56,7 @@ export default function HomePage() {
               Transform your digital images into physical memories.
             </h1>
             <p className="mt-6 text-lg leading-8 text-zinc-300">
-              From vivid metal prints to gallery-wrapped canvases, we bring your
+              From fine art paper to premium photo prints, we bring your
               photos to life with archival-quality materials that last
               generations.
             </p>
