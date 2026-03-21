@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import sharp from 'sharp'
 import { createClient } from '@/lib/supabase/server'
 import { createServiceClient } from '@/lib/supabase/service'
+import { MAX_IMAGE_PROCESS_SIZE } from '@/lib/constants/site'
 
 export async function PATCH(
   _request: NextRequest,
@@ -41,8 +42,7 @@ export async function PATCH(
   }
 
   // Reject excessively large files to avoid memory issues
-  const MAX_PROCESS_SIZE = 30 * 1024 * 1024 // 30 MB
-  if (image.file_size && image.file_size > MAX_PROCESS_SIZE) {
+  if (image.file_size && image.file_size > MAX_IMAGE_PROCESS_SIZE) {
     return NextResponse.json(
       { error: 'Image is too large to flip. Maximum file size for processing is 30 MB.' },
       { status: 413 }

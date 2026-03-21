@@ -5,7 +5,7 @@ import ContactForm from './ContactForm'
 export const metadata: Metadata = {
   title: 'Contact | Olde Money Printing',
   description:
-    'Get in touch with Olde Money Printshop. We are happy to answer questions about custom prints, orders, and turnaround times.',
+    'Get in touch with Olde Money Printing. We are happy to answer questions about custom prints, orders, and turnaround times.',
 }
 
 const CONTACT_DETAILS = [
@@ -19,7 +19,7 @@ const CONTACT_DETAILS = [
     icon: Phone,
     label: 'Phone',
     value: '(603) 320-8432',
-    href: 'tel:+15551234567',
+    href: 'tel:+16033208432',
   },
   {
     icon: MapPin,

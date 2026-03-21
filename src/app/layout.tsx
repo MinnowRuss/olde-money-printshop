@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { SITE_BASE_URL } from '@/lib/constants/site'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -18,12 +19,10 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_URL || 'https://printing.oldemoney.com'
-  ),
+  metadataBase: new URL(SITE_BASE_URL),
   title: {
-    default: 'Olde Money Printshop',
-    template: '%s | Olde Money Printshop',
+    default: 'Olde Money Printing',
+    template: '%s | Olde Money Printing',
   },
   description:
     'Museum-quality photo prints on canvas, metal, acrylic, and fine art paper. Upload, customize, and order with volume discounts.',
@@ -31,7 +30,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: '/',
-    siteName: 'Olde Money Printshop',
+    siteName: 'Olde Money Printing',
     images: [{ url: '/og-image.jpg', width: 1200, height: 630 }],
   },
   twitter: {

@@ -6,6 +6,18 @@ import { Button } from '@/components/ui/button'
 
 const PAGE_SIZE = 50
 
+interface OrderRow {
+  id: string
+  user_id: string
+  total: number
+  status: string
+  tracking_number: string | null
+  created_at: string
+  updated_at: string
+  order_items: { id: string }[] | null
+  profiles: { full_name: string }[] | { full_name: string } | null
+}
+
 interface AdminOrdersPageProps {
   searchParams: Promise<{ page?: string }>
 }
@@ -66,18 +78,6 @@ export default async function AdminOrdersPage({ searchParams }: AdminOrdersPageP
 
   const totalOrders = count ?? 0
   const totalPages = Math.ceil(totalOrders / PAGE_SIZE)
-
-  interface OrderRow {
-    id: string
-    user_id: string
-    total: number
-    status: string
-    tracking_number: string | null
-    created_at: string
-    updated_at: string
-    order_items: { id: string }[] | null
-    profiles: { full_name: string }[] | { full_name: string } | null
-  }
 
   const formattedOrders = ((orders ?? []) as unknown as OrderRow[]).map((order) => {
     const profile = Array.isArray(order.profiles) ? order.profiles[0] : order.profiles
