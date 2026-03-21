@@ -33,6 +33,7 @@ export default function ImageGallery({ images }: Props) {
   // Per-image delete state
   const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null)
   const [deletingSingle, setDeletingSingle] = useState(false)
+  const [deleteError, setDeleteError] = useState<string | null>(null)
 
   const deleteTargetImage = deleteTargetId
     ? images.find((img) => img.id === deleteTargetId)
@@ -52,6 +53,7 @@ export default function ImageGallery({ images }: Props) {
 
   const handleBulkDelete = async () => {
     setDeletingBulk(true)
+    setDeleteError(null)
     try {
       const res = await fetch('/api/images/bulk', {
         method: 'DELETE',
@@ -63,7 +65,12 @@ export default function ImageGallery({ images }: Props) {
         setSelectMode(false)
         setShowBulkDeleteDialog(false)
         router.refresh()
+      } else {
+        const body = await res.json().catch(() => null)
+        setDeleteError(body?.error ?? 'Failed to delete selected images. Please try again.')
       }
+    } catch {
+      setDeleteError('Network error. Please check your connection and try again.')
     } finally {
       setDeletingBulk(false)
     }
@@ -72,6 +79,7 @@ export default function ImageGallery({ images }: Props) {
   const handleSingleDelete = async () => {
     if (!deleteTargetId) return
     setDeletingSingle(true)
+    setDeleteError(null)
     try {
       const res = await fetch(`/api/images/${deleteTargetId}`, {
         method: 'DELETE',
@@ -79,7 +87,12 @@ export default function ImageGallery({ images }: Props) {
       if (res.ok) {
         setDeleteTargetId(null)
         router.refresh()
+      } else {
+        const body = await res.json().catch(() => null)
+        setDeleteError(body?.error ?? 'Failed to delete image. Please try again.')
       }
+    } catch {
+      setDeleteError('Network error. Please check your connection and try again.')
     } finally {
       setDeletingSingle(false)
     }
@@ -214,7 +227,10 @@ export default function ImageGallery({ images }: Props) {
       <Dialog
         open={deleteTargetId !== null}
         onOpenChange={(open) => {
-          if (!open) setDeleteTargetId(null)
+          if (!open) {
+            setDeleteTargetId(null)
+            setDeleteError(null)
+          }
         }}
       >
         <DialogContent>
@@ -228,6 +244,9 @@ export default function ImageGallery({ images }: Props) {
               ? This action cannot be undone.
             </DialogDescription>
           </DialogHeader>
+          {deleteError && (
+            <p className="text-sm text-red-600">{deleteError}</p>
+          )}
           <DialogFooter>
             <Button
               variant="outline"
@@ -248,7 +267,13 @@ export default function ImageGallery({ images }: Props) {
       </Dialog>
 
       {/* Bulk delete confirmation dialog */}
-      <Dialog open={showBulkDeleteDialog} onOpenChange={setShowBulkDeleteDialog}>
+      <Dialog
+        open={showBulkDeleteDialog}
+        onOpenChange={(open) => {
+          setShowBulkDeleteDialog(open)
+          if (!open) setDeleteError(null)
+        }}
+      >
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Delete images</DialogTitle>
@@ -257,6 +282,9 @@ export default function ImageGallery({ images }: Props) {
               {selected.size !== 1 ? 's' : ''}? This action cannot be undone.
             </DialogDescription>
           </DialogHeader>
+          {deleteError && (
+            <p className="text-sm text-red-600">{deleteError}</p>
+          )}
           <DialogFooter>
             <Button
               variant="outline"

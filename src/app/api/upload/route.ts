@@ -128,7 +128,7 @@ export async function POST(request: NextRequest) {
       {
         error: `Unsupported colorspace: ${space}. Please convert to sRGB before uploading.`,
       },
-      { status: 400 }
+      { status: 422 }
     )
   }
 
