@@ -53,9 +53,9 @@ export const MEDIA_TYPES: MediaType[] = [
     priceTiers: [
       { minWidth: 4, maxWidth: 6, minHeight: 4, maxHeight: 8, basePrice: 8.99, label: '4×6 – 6×8' },
       { minWidth: 7, maxWidth: 8, minHeight: 5, maxHeight: 10, basePrice: 14.99, label: '8×10' },
-      { minWidth: 9, maxWidth: 11, minHeight: 7, maxHeight: 14, basePrice: 24.99, label: '11×14' },
+      { minWidth: 9, maxWidth: 11, minHeight: 9, maxHeight: 14, basePrice: 24.99, label: '11×14' },
       { minWidth: 12, maxWidth: 16, minHeight: 12, maxHeight: 20, basePrice: 39.99, label: '16×20' },
-      { minWidth: 17, maxWidth: 20, minHeight: 16, maxHeight: 24, basePrice: 54.99, label: '20×24' },
+      { minWidth: 17, maxWidth: 20, minHeight: 15, maxHeight: 24, basePrice: 54.99, label: '20×24' },
       { minWidth: 21, maxWidth: 24, minHeight: 18, maxHeight: 36, basePrice: 74.99, label: '24×36' },
     ],
   },
@@ -71,9 +71,9 @@ export const MEDIA_TYPES: MediaType[] = [
     ],
     priceTiers: [
       { minWidth: 8, maxWidth: 8, minHeight: 8, maxHeight: 10, basePrice: 39.99, label: '8×10' },
-      { minWidth: 9, maxWidth: 11, minHeight: 11, maxHeight: 14, basePrice: 59.99, label: '11×14' },
+      { minWidth: 9, maxWidth: 11, minHeight: 9, maxHeight: 14, basePrice: 59.99, label: '11×14' },
       { minWidth: 12, maxWidth: 16, minHeight: 12, maxHeight: 20, basePrice: 89.99, label: '16×20' },
-      { minWidth: 17, maxWidth: 20, minHeight: 16, maxHeight: 24, basePrice: 119.99, label: '20×24' },
+      { minWidth: 17, maxWidth: 20, minHeight: 15, maxHeight: 24, basePrice: 119.99, label: '20×24' },
       { minWidth: 21, maxWidth: 24, minHeight: 18, maxHeight: 36, basePrice: 159.99, label: '24×36' },
       { minWidth: 25, maxWidth: 36, minHeight: 24, maxHeight: 48, basePrice: 219.99, label: '36×48' },
     ],

@@ -34,7 +34,7 @@ export default function CartBadge() {
 
   return (
     <Link
-      href="/order"
+      href="/order/history"
       className="relative inline-flex items-center p-1 text-zinc-600 hover:text-zinc-900"
     >
       <ShoppingCart className="h-5 w-5" />

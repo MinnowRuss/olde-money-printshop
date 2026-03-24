@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { profileSchema, passwordChangeSchema } from '@/lib/validations'
 import { Button } from '@/components/ui/button'
@@ -18,7 +18,14 @@ type Profile = {
   country: string | null
 }
 
-function Toast({ message, type }: { message: string; type: 'success' | 'error' }) {
+function Toast({ message, type, onDismiss }: { message: string; type: 'success' | 'error'; onDismiss?: () => void }) {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onDismiss?.()
+    }, 4000)
+    return () => clearTimeout(timer)
+  }, [onDismiss])
+
   return (
     <p className={`rounded-md px-3 py-2 text-sm ${type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-600'}`}>
       {message}
@@ -97,7 +104,7 @@ export function AddressForm({ profile }: { profile: Profile }) {
       </CardHeader>
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4">
-          {toast && <Toast {...toast} />}
+          {toast && <Toast {...toast} onDismiss={() => setToast(null)} />}
           <div className="space-y-2">
             <Label htmlFor="full_name">Full name</Label>
             <Input id="full_name" value={form.full_name ?? ''} onChange={set('full_name')} placeholder="Jane Smith" />
@@ -225,7 +232,7 @@ export function PasswordForm() {
       </CardHeader>
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4">
-          {toast && <Toast {...toast} />}
+          {toast && <Toast {...toast} onDismiss={() => setToast(null)} />}
           <div className="space-y-2">
             <Label htmlFor="currentPassword">Current password</Label>
             <Input

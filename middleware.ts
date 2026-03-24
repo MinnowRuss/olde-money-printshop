@@ -60,7 +60,7 @@ export async function middleware(request: NextRequest) {
   if (isProtected || isAdmin) {
     if (!user) {
       const loginUrl = new URL('/auth/login', request.url)
-      loginUrl.searchParams.set('returnTo', pathname)
+      loginUrl.searchParams.set('returnTo', pathname + request.nextUrl.search)
       return NextResponse.redirect(loginUrl)
     }
 

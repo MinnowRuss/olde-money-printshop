@@ -43,12 +43,22 @@ export async function DELETE(
   }
 
   // Delete files from storage
-  await serviceClient.storage
+  const { error: storageError } = await serviceClient.storage
     .from('images')
     .remove([image.storage_path, image.thumbnail_path])
 
+  if (storageError) {
+    console.error('Failed to delete files from storage:', storageError)
+    return NextResponse.json({ error: 'Failed to delete image files' }, { status: 500 })
+  }
+
   // Delete DB record (RLS enforced)
-  await supabase.from('images').delete().eq('id', id)
+  const { error: dbError } = await supabase.from('images').delete().eq('id', id)
+
+  if (dbError) {
+    console.error('Failed to delete image record:', dbError)
+    return NextResponse.json({ error: 'Failed to delete image record' }, { status: 500 })
+  }
 
   return NextResponse.json({ deleted: id })
 }

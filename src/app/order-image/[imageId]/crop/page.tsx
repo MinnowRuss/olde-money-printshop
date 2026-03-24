@@ -17,6 +17,8 @@ const ASPECT_RATIOS = [
   { label: '8x10', value: 8 / 10 },
   { label: '11x14', value: 11 / 14 },
   { label: '16x20', value: 16 / 20 },
+  { label: '2x3', value: 2 / 3 },
+  { label: '1x1', value: 1 },
 ]
 
 export default function CropPage() {
@@ -37,7 +39,7 @@ export default function CropPage() {
   })
   const [lockedRatio, setLockedRatio] = useState(false)
   const [selectedRatio, setSelectedRatio] = useState<number | undefined>(undefined)
-  const [hasCropSelection, setHasCropSelection] = useState(false)
+  const [hasCropSelection, setHasCropSelection] = useState(true)
 
   const supabase = createClient()
 

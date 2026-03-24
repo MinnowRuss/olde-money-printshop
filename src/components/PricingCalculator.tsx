@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect, useCallback } from 'react'
 import { MEDIA_TYPES, VOLUME_DISCOUNTS } from '@/lib/constants/products'
 import type { MediaType, MediaOption } from '@/lib/constants/products'
 import { calculatePrice } from '@/lib/pricing'
@@ -69,19 +69,22 @@ export default function PricingCalculator({
 
   const priceResult = useMemo(() => {
     if (!mediaType) return null
-    const result = calculatePrice({
+    return calculatePrice({
       width,
       height,
       priceTiers: mediaType.priceTiers,
       selectedOptions,
       quantity,
     })
-    onPriceChange?.(result)
-    return result
   }, [mediaType, width, height, selectedOptions, quantity])
 
+  // Notify parent of price changes
+  useEffect(() => {
+    if (priceResult) onPriceChange?.(priceResult)
+  }, [priceResult, onPriceChange])
+
   // Notify parent of selection changes
-  useMemo(() => {
+  useEffect(() => {
     onSelectionChange?.({
       mediaSlug,
       width,
@@ -89,7 +92,7 @@ export default function PricingCalculator({
       quantity,
       selectedOptionSlugs,
     })
-  }, [mediaSlug, width, height, quantity, selectedOptionSlugs])
+  }, [mediaSlug, width, height, quantity, selectedOptionSlugs, onSelectionChange])
 
   function handleMediaChange(slug: string | null) {
     if (!slug) return

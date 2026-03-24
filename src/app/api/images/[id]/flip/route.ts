@@ -28,11 +28,14 @@ export async function PATCH(
     .from('images')
     .select('*')
     .eq('id', id)
-    .eq('user_id', user.id)
     .single()
 
   if (!image) {
     return NextResponse.json({ error: 'Image not found' }, { status: 404 })
+  }
+
+  if (image.user_id !== user.id) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 
   // Service client for storage
@@ -60,8 +63,8 @@ export async function PATCH(
 
   const buffer = Buffer.from(await fileData.arrayBuffer())
 
-  // Flip horizontally
-  const flippedBuffer = await sharp(buffer).flop().toBuffer()
+  // Flip vertically
+  const flippedBuffer = await sharp(buffer).flip().toBuffer()
 
   // Re-upload original (upsert)
   const { error: uploadError } = await serviceClient.storage

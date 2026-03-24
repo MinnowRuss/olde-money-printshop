@@ -70,11 +70,13 @@ export default function FinishPage() {
 
       setImageRecord(data as ImageRecord)
 
-      // Load crop data from sessionStorage
+      // Load crop data from sessionStorage — guard against skipping crop step
       const storedCropData = sessionStorage.getItem(`crop_${imageId}`)
-      if (storedCropData) {
-        setCropData(JSON.parse(storedCropData))
+      if (!storedCropData) {
+        router.push(`/order-image/${imageId}/crop`)
+        return
       }
+      setCropData(JSON.parse(storedCropData))
 
       setLoading(false)
     }
