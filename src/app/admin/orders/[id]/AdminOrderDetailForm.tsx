@@ -6,11 +6,15 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card } from '@/components/ui/card'
-import { Loader2, Save, CheckCircle2, AlertCircle } from 'lucide-react'
+import { Loader2, Save, CheckCircle2, AlertCircle, ShieldCheck } from 'lucide-react'
 
 const STATUSES = [
   { value: 'pending', label: 'Pending' },
   { value: 'processing', label: 'Processing' },
+  { value: 'verified', label: 'Verified' },
+  { value: 'queued', label: 'Queued' },
+  { value: 'printing', label: 'Printing' },
+  { value: 'printed', label: 'Printed' },
   { value: 'shipped', label: 'Shipped' },
   { value: 'delivered', label: 'Delivered' },
   { value: 'cancelled', label: 'Cancelled' },
@@ -20,22 +24,27 @@ interface AdminOrderDetailFormProps {
   orderId: string
   currentStatus: string
   currentTrackingNumber: string
+  currentPrintNotes?: string | null
 }
 
 export default function AdminOrderDetailForm({
   orderId,
   currentStatus,
   currentTrackingNumber,
+  currentPrintNotes,
 }: AdminOrderDetailFormProps) {
   const router = useRouter()
   const [status, setStatus] = useState(currentStatus)
   const [trackingNumber, setTrackingNumber] = useState(currentTrackingNumber)
+  const [printNotes, setPrintNotes] = useState(currentPrintNotes ?? '')
   const [saving, setSaving] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
 
   const hasChanges =
-    status !== currentStatus || trackingNumber !== currentTrackingNumber
+    status !== currentStatus ||
+    trackingNumber !== currentTrackingNumber ||
+    printNotes !== (currentPrintNotes ?? '')
 
   const handleSave = async () => {
     if (!hasChanges) return
@@ -51,6 +60,7 @@ export default function AdminOrderDetailForm({
         body: JSON.stringify({
           status,
           tracking_number: trackingNumber || null,
+          print_notes: printNotes || null,
         }),
       })
 
@@ -115,6 +125,38 @@ export default function AdminOrderDetailForm({
             USPS or UPS tracking number
           </p>
         </div>
+
+        {/* Print notes */}
+        <div>
+          <Label htmlFor="print-notes" className="text-xs font-medium uppercase tracking-wider text-zinc-500">
+            Print Notes
+          </Label>
+          <textarea
+            id="print-notes"
+            value={printNotes}
+            onChange={(e) => setPrintNotes(e.target.value)}
+            placeholder="Flag issues with this order (e.g. low-res image, wrong crop)..."
+            rows={3}
+            className="mt-1.5 flex w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 transition-colors placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-200"
+          />
+          <p className="mt-1 text-xs text-zinc-400">
+            Notes visible to admins only
+          </p>
+        </div>
+
+        {/* Quick verify button */}
+        {(currentStatus === 'processing' || currentStatus === 'pending') && status !== 'verified' && (
+          <Button
+            onClick={() => {
+              setStatus('verified')
+            }}
+            variant="outline"
+            className="w-full border-emerald-300 text-emerald-700 hover:bg-emerald-50"
+          >
+            <ShieldCheck className="mr-2 h-4 w-4" />
+            Mark as Verified
+          </Button>
+        )}
 
         {/* Feedback messages */}
         {error && (

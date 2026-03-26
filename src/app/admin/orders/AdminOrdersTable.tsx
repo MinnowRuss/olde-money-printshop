@@ -19,11 +19,18 @@ interface OrderRow {
   updatedAt: string
 }
 
-const STATUS_TABS = ['All', 'processing', 'shipped', 'delivered', 'cancelled'] as const
+const STATUS_TABS = [
+  'All', 'pending', 'processing', 'verified', 'queued',
+  'printing', 'printed', 'shipped', 'delivered', 'cancelled',
+] as const
 
 const STATUS_CONFIG: Record<string, { label: string; className: string }> = {
   pending:     { label: 'Pending',     className: 'bg-zinc-100 text-zinc-700' },
   processing:  { label: 'Processing',  className: 'bg-yellow-100 text-yellow-800' },
+  verified:    { label: 'Verified',    className: 'bg-emerald-100 text-emerald-800' },
+  queued:      { label: 'Queued',      className: 'bg-indigo-100 text-indigo-800' },
+  printing:    { label: 'Printing',    className: 'bg-purple-100 text-purple-800' },
+  printed:     { label: 'Printed',     className: 'bg-teal-100 text-teal-800' },
   shipped:     { label: 'Shipped',     className: 'bg-blue-100 text-blue-800' },
   delivered:   { label: 'Delivered',   className: 'bg-green-100 text-green-800' },
   cancelled:   { label: 'Cancelled',   className: 'bg-red-100 text-red-700' },

@@ -1,0 +1,22 @@
+{
+  "name": "@olde-money/print-agent",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local macOS print agent — listens for submitted batches via Supabase Realtime, generates PDFs, and prints via CUPS/IPP.",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0",
+    "dotenv": "^16.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}

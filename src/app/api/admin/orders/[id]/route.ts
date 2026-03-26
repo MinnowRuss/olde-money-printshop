@@ -46,18 +46,25 @@ export async function PATCH(
   }
 
   // Parse request body
-  let body: { status?: string; tracking_number?: string }
+  let body: {
+    status?: string
+    tracking_number?: string
+    print_notes?: string | null
+  }
   try {
     body = await request.json()
   } catch {
     return NextResponse.json({ message: 'Invalid JSON' }, { status: 400 })
   }
 
-  const { status, tracking_number } = body
+  const { status, tracking_number, print_notes } = body
 
   // Validate status if provided
-  const VALID_STATUSES = ['pending', 'processing', 'shipped', 'delivered', 'cancelled']
-  if (status && !VALID_STATUSES.includes(status)) {
+  const VALID_STATUSES = [
+    'pending', 'processing', 'verified', 'queued',
+    'printing', 'printed', 'shipped', 'delivered', 'cancelled',
+  ] as const
+  if (status && !VALID_STATUSES.includes(status as typeof VALID_STATUSES[number])) {
     return NextResponse.json(
       { message: `Invalid status. Must be one of: ${VALID_STATUSES.join(', ')}` },
       { status: 400 }
@@ -87,6 +94,13 @@ export async function PATCH(
   }
   if (status) updatePayload.status = status
   if (tracking_number !== undefined) updatePayload.tracking_number = tracking_number
+  if (print_notes !== undefined) updatePayload.print_notes = print_notes
+
+  // Auto-set verification fields when marking as verified
+  if (status === 'verified') {
+    updatePayload.verified_at = new Date().toISOString()
+    updatePayload.verified_by = user.id
+  }
 
   // Update the order
   const { data: updatedOrder, error: updateError } = await serviceClient
@@ -124,6 +138,22 @@ export async function PATCH(
               <h1>Your order is being processed!</h1>
               <p>We've started working on your order <strong>#${orderNum}</strong>.</p>
               <p>We'll notify you when it ships.</p>
+            `
+            break
+          case 'verified':
+            subject = `Order #${orderNum} — verified and queuing for print`
+            bodyHtml = `
+              <h1>Your order has been verified!</h1>
+              <p>Your order <strong>#${orderNum}</strong> has been reviewed and approved for printing.</p>
+              <p>We'll notify you once printing is complete.</p>
+            `
+            break
+          case 'printed':
+            subject = `Order #${orderNum} — printing complete!`
+            bodyHtml = `
+              <h1>Your prints are ready!</h1>
+              <p>Great news! Your order <strong>#${orderNum}</strong> has been printed and is being prepared for shipment.</p>
+              <p>We'll send you tracking information once it ships.</p>
             `
             break
           case 'shipped':
