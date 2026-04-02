@@ -20,7 +20,6 @@ export default function OrderWizardProgress({ currentStep }: OrderWizardProgress
         {STEPS.map((step, index) => {
           const isCompleted = step.number < currentStep
           const isCurrent = step.number === currentStep
-          const isFuture = step.number > currentStep
 
           return (
             <div key={step.number} className="flex flex-1 items-center">

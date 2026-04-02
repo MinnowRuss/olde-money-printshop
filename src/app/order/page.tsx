@@ -24,7 +24,7 @@ interface CartItem {
   width: number
   height: number
   print_size: string
-  crop_data: any
+  crop_data: unknown
   option_slugs: string[]
   option_names: string[]
   quantity: number

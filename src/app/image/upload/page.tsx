@@ -30,10 +30,12 @@ export default function UploadPage() {
   const objectUrlsRef = useRef<Set<string>>(new Set())
 
   useEffect(() => {
+    const objectUrls = objectUrlsRef.current
+
     return () => {
       // Revoke all remaining object URLs when the component unmounts
-      objectUrlsRef.current.forEach((url) => URL.revokeObjectURL(url))
-      objectUrlsRef.current.clear()
+      objectUrls.forEach((url) => URL.revokeObjectURL(url))
+      objectUrls.clear()
     }
   }, [])
 

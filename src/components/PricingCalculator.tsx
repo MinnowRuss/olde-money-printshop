@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useEffect, useCallback } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { MEDIA_TYPES, VOLUME_DISCOUNTS } from '@/lib/constants/products'
 import type { MediaType, MediaOption } from '@/lib/constants/products'
 import { calculatePrice } from '@/lib/pricing'

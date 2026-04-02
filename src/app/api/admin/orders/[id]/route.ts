@@ -7,6 +7,15 @@ const resend = process.env.RESEND_API_KEY
   ? new Resend(process.env.RESEND_API_KEY)
   : null
 
+interface OrderUpdatePayload {
+  updated_at: string
+  status?: string
+  tracking_number?: string
+  print_notes?: string | null
+  verified_at?: string
+  verified_by?: string
+}
+
 /**
  * PATCH /api/admin/orders/[id]
  *
@@ -89,7 +98,7 @@ export async function PATCH(
   }
 
   // Build update payload
-  const updatePayload: Record<string, any> = {
+  const updatePayload: OrderUpdatePayload = {
     updated_at: new Date().toISOString(),
   }
   if (status) updatePayload.status = status

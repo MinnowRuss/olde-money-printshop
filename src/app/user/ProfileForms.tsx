@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { profileSchema, passwordChangeSchema } from '@/lib/validations'
 import { Button } from '@/components/ui/button'

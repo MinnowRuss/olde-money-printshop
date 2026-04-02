@@ -8,6 +8,18 @@ const resend = process.env.RESEND_API_KEY
 
 const ADMIN_EMAIL = 'admin@oldemoneyprint.shop'
 
+interface OrderProfileRecord {
+  full_name: string | null
+}
+
+interface StaleOrderRecord {
+  id: string
+  status: string
+  print_notes: string | null
+  updated_at: string
+  profiles: OrderProfileRecord | OrderProfileRecord[] | null
+}
+
 /**
  * GET /api/cron/stale-orders
  *
@@ -54,7 +66,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ message: 'Email not configured', count: staleOrders.length })
   }
 
-  const rows = staleOrders.map((order: any) => {
+  const rows = (staleOrders as StaleOrderRecord[]).map((order) => {
     const profile = Array.isArray(order.profiles) ? order.profiles[0] : order.profiles
     const orderNum = order.id.slice(0, 8).toUpperCase()
     const daysStale = Math.floor(

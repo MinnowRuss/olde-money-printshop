@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
@@ -51,55 +51,68 @@ export default function PastOrdersPage() {
   const [items, setItems] = useState<PastOrderItem[]>([])
   const [thumbUrls, setThumbUrls] = useState<Record<string, string>>({})
 
-  const fetchPastOrders = useCallback(async () => {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser()
+  useEffect(() => {
+    let isActive = true
 
-    if (!user) {
-      router.push('/auth/login?returnTo=/order/past-orders')
-      return
-    }
+    async function loadPastOrders() {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser()
 
-    // Fetch all order_items for current user's orders, most recent first
-    const { data, error } = await supabase
-      .from('order_items')
-      .select(`
-        *,
-        images (id, filename, thumbnail_path),
-        orders!inner (id, created_at, status)
-      `)
-      .eq('orders.user_id', user.id)
-      .order('created_at', { ascending: false })
+      if (!user) {
+        router.push('/auth/login?returnTo=/order/past-orders')
+        return
+      }
 
-    if (error) {
-      console.error('Failed to fetch past order items:', error)
-      setLoading(false)
-      return
-    }
+      const { data, error } = await supabase
+        .from('order_items')
+        .select(`
+          *,
+          images (id, filename, thumbnail_path),
+          orders!inner (id, created_at, status)
+        `)
+        .eq('orders.user_id', user.id)
+        .order('created_at', { ascending: false })
 
-    setItems((data as PastOrderItem[]) ?? [])
+      if (!isActive) return
 
-    // Fetch signed URLs for thumbnails
-    const urls: Record<string, string> = {}
-    for (const item of data ?? []) {
-      const img = (item as PastOrderItem).images
-      if (img?.thumbnail_path) {
-        const { data: signedUrlData } = await supabase.storage
-          .from('images')
-          .createSignedUrl(img.thumbnail_path, 3600)
-        if (signedUrlData?.signedUrl) {
-          urls[item.id] = signedUrlData.signedUrl
+      if (error) {
+        console.error('Failed to fetch past order items:', error)
+        setLoading(false)
+        return
+      }
+
+      const nextItems = (data as PastOrderItem[]) ?? []
+      setItems(nextItems)
+
+      const urls: Record<string, string> = {}
+      for (const item of nextItems) {
+        const img = item.images
+        if (img?.thumbnail_path) {
+          const { data: signedUrlData } = await supabase.storage
+            .from('images')
+            .createSignedUrl(img.thumbnail_path, 3600)
+
+          if (!isActive) return
+
+          if (signedUrlData?.signedUrl) {
+            urls[item.id] = signedUrlData.signedUrl
+          }
         }
       }
-    }
-    setThumbUrls(urls)
-    setLoading(false)
-  }, [supabase, router])
 
-  useEffect(() => {
-    fetchPastOrders()
-  }, [fetchPastOrders])
+      if (!isActive) return
+
+      setThumbUrls(urls)
+      setLoading(false)
+    }
+
+    void loadPastOrders()
+
+    return () => {
+      isActive = false
+    }
+  }, [router, supabase])
 
   if (loading) {
     return (

@@ -1,5 +1,8 @@
 'use client'
 
+import { useEffect } from 'react'
+import Link from 'next/link'
+
 export default function RootError({
   error,
   reset,
@@ -7,6 +10,10 @@ export default function RootError({
   error: Error & { digest?: string }
   reset: () => void
 }) {
+  useEffect(() => {
+    console.error(error)
+  }, [error])
+
   return (
     <html lang="en">
       <body style={{ fontFamily: 'system-ui, sans-serif', margin: 0 }}>
@@ -44,7 +51,7 @@ export default function RootError({
             >
               Try Again
             </button>
-            <a
+            <Link
               href="/"
               style={{
                 padding: '0.5rem 1rem',
@@ -58,7 +65,7 @@ export default function RootError({
               }}
             >
               Go Home
-            </a>
+            </Link>
           </div>
         </div>
       </body>

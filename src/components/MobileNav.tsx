@@ -14,15 +14,11 @@ const NAV_LINKS = [
 ]
 
 export default function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
-  const [open, setOpen] = useState(false)
+  const [openPathname, setOpenPathname] = useState<string | null>(null)
   const menuRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const pathname = usePathname()
-
-  // Close on route change
-  useEffect(() => {
-    setOpen(false)
-  }, [pathname])
+  const open = openPathname === pathname
 
   // Close on outside click
   useEffect(() => {
@@ -47,7 +43,7 @@ export default function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
     <div className="md:hidden">
       <button
         ref={buttonRef}
-        onClick={() => setOpen((prev) => !prev)}
+        onClick={() => setOpenPathname((prev) => (prev === pathname ? null : pathname))}
         className="flex h-9 w-9 items-center justify-center rounded-md text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-zinc-900"
         aria-label={open ? 'Close menu' : 'Open menu'}
       >
@@ -69,7 +65,7 @@ export default function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
               <Link
                 key={href}
                 href={href}
-                onClick={() => setOpen(false)}
+                onClick={() => setOpenPathname(null)}
                 className="rounded-md px-3 py-2 text-sm font-medium text-zinc-600 transition-colors hover:bg-zinc-50 hover:text-zinc-900"
               >
                 {label}
@@ -82,7 +78,7 @@ export default function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
               <>
                 <Link
                   href="/user"
-                  onClick={() => setOpen(false)}
+                  onClick={() => setOpenPathname(null)}
                   className="rounded-md px-3 py-2 text-sm font-medium text-zinc-600 transition-colors hover:bg-zinc-50 hover:text-zinc-900"
                 >
                   Account
@@ -96,7 +92,7 @@ export default function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
             ) : (
               <Link
                 href="/auth/login"
-                onClick={() => setOpen(false)}
+                onClick={() => setOpenPathname(null)}
                 className="mx-3 mt-1 inline-flex h-8 items-center justify-center rounded-[min(var(--radius-md),12px)] bg-primary px-3 text-sm font-medium text-primary-foreground transition-all hover:bg-primary/80"
               >
                 Sign in

@@ -3,6 +3,20 @@ import { createClient } from '@/lib/supabase/server'
 import { createServiceClient } from '@/lib/supabase/service'
 import { nestItems, type NestingItem } from '@/lib/nesting/nesting-engine'
 
+interface OrderItemImageRecord {
+  storage_path: string
+}
+
+interface OrderItemRecord {
+  id: string
+  order_id: string
+  width: number
+  height: number
+  quantity: number
+  media_type_slug: string
+  images: OrderItemImageRecord | OrderItemImageRecord[] | null
+}
+
 /**
  * POST /api/admin/print-batches
  *
@@ -92,14 +106,18 @@ export async function POST(request: NextRequest) {
   }
 
   // Build nesting input
-  const nestingInput: NestingItem[] = orderItems.map((item: any) => ({
+  const nestingInput: NestingItem[] = (orderItems as OrderItemRecord[]).map((item) => {
+    const image = Array.isArray(item.images) ? item.images[0] : item.images
+
+    return {
     orderItemId: item.id,
     orderId: item.order_id,
     widthIn: item.width,
     heightIn: item.height,
     quantity: item.quantity,
-    imageStoragePath: (item.images as any)?.storage_path ?? '',
-  }))
+    imageStoragePath: image?.storage_path ?? '',
+    }
+  })
 
   // Run nesting engine
   const nestingResult = nestItems(nestingInput, rollWidthIn)

@@ -3,8 +3,7 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { ClipboardList, ImageIcon, ExternalLink, ChevronDown, Package } from 'lucide-react'
+import { ClipboardList, ImageIcon, ExternalLink, Package } from 'lucide-react'
 import OrderItemsExpander from './OrderItemsExpander'
 
 // Status badge styling
@@ -191,10 +190,7 @@ export default async function OrderHistoryPage() {
               </div>
 
               {/* Expandable order items */}
-              <OrderItemsExpander
-                items={order.order_items ?? []}
-                orderId={order.id}
-              />
+              <OrderItemsExpander items={order.order_items ?? []} />
             </Card>
           )
         })}

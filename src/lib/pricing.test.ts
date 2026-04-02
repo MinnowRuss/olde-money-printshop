@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { calculatePrice, getVolumeDiscount, findPriceTier } from './pricing'
-import { MEDIA_TYPES, VOLUME_DISCOUNTS } from '@/lib/constants/products'
+import { MEDIA_TYPES } from '@/lib/constants/products'
 
 const standardPrint = MEDIA_TYPES.find((m) => m.slug === 'standard-print')!
 const fineArtPaper = MEDIA_TYPES.find((m) => m.slug === 'fine-art-paper')!

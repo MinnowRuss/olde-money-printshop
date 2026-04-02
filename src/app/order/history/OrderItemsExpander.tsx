@@ -19,13 +19,9 @@ interface OrderItem {
 
 interface OrderItemsExpanderProps {
   items: OrderItem[]
-  orderId: string
 }
 
-export default function OrderItemsExpander({
-  items,
-  orderId,
-}: OrderItemsExpanderProps) {
+export default function OrderItemsExpander({ items }: OrderItemsExpanderProps) {
   const [expanded, setExpanded] = useState(false)
 
   if (items.length === 0) return null

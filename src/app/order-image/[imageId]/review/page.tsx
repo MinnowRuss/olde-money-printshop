@@ -38,7 +38,6 @@ export default function ReviewPage() {
   const params = useParams()
   const imageId = params.imageId as string
 
-  const [user, setUser] = useState<any | null>(null)
   const [loading, setLoading] = useState(true)
   const [imageRecord, setImageRecord] = useState<ImageRecord | null>(null)
   const [thumbUrl, setThumbUrl] = useState<string | null>(null)
@@ -59,8 +58,6 @@ export default function ReviewPage() {
         router.push('/auth/login')
         return
       }
-
-      setUser(user)
 
       // Fetch image record
       const { data, error: imageError } = await supabase

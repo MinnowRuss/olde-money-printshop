@@ -1,7 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
 import { ArrowLeft } from 'lucide-react'
 import PrintQueueClient from './PrintQueueClient'
 
@@ -23,6 +22,17 @@ interface OrderForQueue {
     print_size: string | null
     images: { storage_path: string; filename: string } | null
   }[]
+}
+
+interface ActiveBatchRecord {
+  id: string
+  status: string
+  media_type_slug: string
+  roll_width_in: number
+  estimated_length_in: number | null
+  error_message: string | null
+  order_ids: string[]
+  created_at: string
 }
 
 export default async function PrintQueuePage() {
@@ -97,7 +107,7 @@ export default async function PrintQueuePage() {
         total: Number(order.total),
         createdAt: order.created_at,
         printNotes: order.print_notes,
-        items: (order.order_items ?? []).map((item: any) => ({
+        items: (order.order_items ?? []).map((item) => ({
           id: item.id,
           mediaTypeSlug: item.media_type_slug,
           mediaTypeName: item.media_type_name,
@@ -136,7 +146,7 @@ export default async function PrintQueuePage() {
 
       <PrintQueueClient
         orders={formattedOrders}
-        activeBatches={(activeBatches ?? []) as any[]}
+        activeBatches={(activeBatches ?? []) as ActiveBatchRecord[]}
       />
     </div>
   )

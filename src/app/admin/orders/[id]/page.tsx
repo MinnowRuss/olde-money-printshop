@@ -6,6 +6,41 @@ import { Card } from '@/components/ui/card'
 import { ArrowLeft } from 'lucide-react'
 import AdminOrderDetailForm from './AdminOrderDetailForm'
 
+interface OrderItemRecord {
+  id: string
+  media_type_name: string | null
+  print_size: string | null
+  width: number
+  height: number
+  option_names: string[] | null
+  unit_price: number
+  quantity: number
+  discount_pct: number | null
+  total: number | null
+  images:
+    | {
+        id: string
+        filename: string
+        thumbnail_path: string | null
+      }
+    | {
+        id: string
+        filename: string
+        thumbnail_path: string | null
+      }[]
+    | null
+}
+
+interface CustomerProfileRecord {
+  full_name: string | null
+  address_line1: string | null
+  address_line2: string | null
+  city: string | null
+  state: string | null
+  zip: string | null
+  country: string | null
+}
+
 export default async function AdminOrderDetailPage({
   params,
 }: {
@@ -84,8 +119,10 @@ export default async function AdminOrderDetailPage({
     )
   }
 
-  const customerProfile = order.profiles as any
-  const orderItems = order.order_items as any[]
+  const customerProfile = Array.isArray(order.profiles)
+    ? (order.profiles[0] as CustomerProfileRecord | undefined)
+    : (order.profiles as CustomerProfileRecord | null)
+  const orderItems = (order.order_items ?? []) as OrderItemRecord[]
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
@@ -130,23 +167,26 @@ export default async function AdminOrderDetailPage({
               </h2>
             </div>
             <div className="divide-y divide-zinc-100">
-              {orderItems.map((item: any) => (
-                <div
-                  key={item.id}
-                  className="flex items-start gap-4 px-4 py-4 sm:px-6"
-                >
+              {orderItems.map((item) => {
+                const image = Array.isArray(item.images) ? item.images[0] : item.images
+
+                return (
+                  <div
+                    key={item.id}
+                    className="flex items-start gap-4 px-4 py-4 sm:px-6"
+                  >
                   {/* Thumbnail placeholder */}
                   <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-lg bg-zinc-100">
                     <span className="text-xs text-zinc-400">
-                      {item.images?.filename
-                        ? item.images.filename.slice(0, 6)
+                      {image?.filename
+                        ? image.filename.slice(0, 6)
                         : 'N/A'}
                     </span>
                   </div>
 
                   <div className="flex-1">
                     <p className="text-sm font-medium text-zinc-900">
-                      {item.images?.filename ?? 'Deleted image'}
+                      {image?.filename ?? 'Deleted image'}
                     </p>
                     <p className="mt-0.5 text-xs text-zinc-500">
                       {item.media_type_name ?? 'Print'} &middot;{' '}
@@ -176,7 +216,8 @@ export default async function AdminOrderDetailPage({
                     )}
                   </div>
                 </div>
-              ))}
+                )
+              })}
             </div>
 
             {/* Totals */}

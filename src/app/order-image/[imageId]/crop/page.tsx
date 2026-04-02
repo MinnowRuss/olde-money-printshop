@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
-import ReactCrop, { Crop, PixelCrop } from 'react-image-crop'
+import ReactCrop, { Crop } from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
 import { Button } from '@/components/ui/button'
 import OrderWizardProgress from '@/components/OrderWizardProgress'
@@ -26,7 +26,6 @@ export default function CropPage() {
   const params = useParams()
   const imageId = params.imageId as string
 
-  const [user, setUser] = useState<any | null>(null)
   const [loading, setLoading] = useState(true)
   const [imageRecord, setImageRecord] = useState<ImageRecord | null>(null)
   const [imageUrl, setImageUrl] = useState<string | null>(null)
@@ -54,8 +53,6 @@ export default function CropPage() {
         router.push('/auth/login')
         return
       }
-
-      setUser(user)
 
       // Fetch image record
       const { data, error } = await supabase
