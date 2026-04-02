@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { CalendarClock, AlertTriangle } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Holiday Ordering Deadlines | Olde Money Printing',
+  title: 'Holiday Ordering Deadlines',
   description:
     'Order by these dates to ensure your prints arrive in time for the holidays. Shipping cutoffs for Valentine\'s Day, Mother\'s Day, Christmas, and more.',
 }

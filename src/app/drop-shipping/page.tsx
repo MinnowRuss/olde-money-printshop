@@ -10,7 +10,7 @@ import {
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Drop Shipping | Olde Money Printshop',
+  title: 'Drop Shipping',
   description:
     'Print and ship directly to your customers with Olde Money Printshop drop shipping. No inventory, white-label packaging, and volume discounts.',
 }

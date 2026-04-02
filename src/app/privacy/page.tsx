@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Olde Money Printshop',
+  title: 'Privacy Policy',
   description:
-    'Learn how Olde Money Printshop collects, uses, and protects your personal information.',
+    'Learn how Olde Money Printing collects, uses, and protects your personal information.',
 }
 
 export default function PrivacyPolicyPage() {
@@ -23,7 +23,7 @@ export default function PrivacyPolicyPage() {
         <section>
           <h2 className="text-lg font-semibold text-zinc-900">1. Introduction</h2>
           <p className="mt-2">
-            Olde Money Printshop (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) is committed to protecting
+            Olde Money Printing (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) is committed to protecting
             your privacy. This Privacy Policy explains how we collect, use, disclose, and
             safeguard your information when you visit our website and use our services. Please
             read this policy carefully. By using our services, you consent to the practices
@@ -124,7 +124,7 @@ export default function PrivacyPolicyPage() {
               href="mailto:hello@oldemoneyprintshop.com"
               className="text-zinc-900 underline transition-colors hover:text-zinc-600"
             >
-              hello@oldemoneyprintshop.com
+              gallery@oldemoney.com
             </a>
             .
           </p>

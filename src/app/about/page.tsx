@@ -13,7 +13,7 @@ import {
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'About | Olde Money Printing',
+  title: 'About',
   description:
     'Learn about Olde Money Printing — founded by artists and photographers with a passion for archival-quality printing and exceptional craftsmanship.',
 }

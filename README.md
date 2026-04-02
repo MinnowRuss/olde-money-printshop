@@ -24,61 +24,6 @@ Olde Money Printshop is a premium print-commerce platform. Customers upload thei
 | Deployment | Vercel |
 | Analytics | Vercel Analytics + Google Analytics |
 
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+
-- npm
-- A Supabase project, Stripe account, and Resend account
-
-### 1. Clone and install
-
-```bash
-git clone https://github.com/<your-org>/olde-money-printshop.git
-cd olde-money-printshop
-npm install
-```
-
-### 2. Set up environment variables
-
-Copy the example below into a new `.env.local` file in the project root. Fill in each value from the respective service dashboard. **Never commit `.env.local`.**
-
-```bash
-# Supabase
-NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_ANON_KEY=
-SUPABASE_SERVICE_ROLE_KEY=
-
-# Stripe
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
-STRIPE_SECRET_KEY=
-STRIPE_WEBHOOK_SECRET=
-
-# Resend (email)
-RESEND_API_KEY=
-
-# App
-NEXT_PUBLIC_URL=https://printing.oldemoney.com
-NEXT_PUBLIC_GA_MEASUREMENT_ID=
-```
-
-### 3. Sync the database schema
-
-```bash
-npx supabase db pull
-```
-
-This updates the local TypeScript types to match the live Supabase schema.
-
-### 4. Run the dev server
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000).
-
 ## Project Structure
 
 ```
@@ -108,32 +53,7 @@ src/
 │   └── ...
 ```
 
-## Available Scripts
-
-| Command | Description |
-|---|---|
-| `npm run dev` | Start local development server |
-| `npm run build` | Production build |
-| `npm run lint` | Run ESLint |
-| `npm run type-check` | Run TypeScript type checker |
-| `npm test` | Run tests (Vitest) |
-| `npm run test:watch` | Run tests in watch mode |
-| `npx supabase db pull` | Sync local types with cloud schema |
-
 ## Contributing Guidelines
-
-### Security
-
-- All database queries must respect Supabase Row Level Security (RLS). Never bypass it.
-- Secrets live in `.env.local` only. Never commit them.
-
-### Payments
-
-- Order fulfillment is only triggered after a verified `checkout.session.completed` webhook from Stripe. Do not fulfill based on client-side signals.
-
-### Image Processing
-
-- All Sharp transformations must run in Server Actions or API Routes — never in client components.
 
 ### Code Style
 

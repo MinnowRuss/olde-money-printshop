@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Terms of Service | Olde Money Printing',
+  title: 'Terms of Service',
   description:
     'Review the terms and conditions governing your use of Olde Money Printing services.',
 }

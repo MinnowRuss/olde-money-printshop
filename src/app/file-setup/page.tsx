@@ -10,7 +10,7 @@ import {
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'File Setup Guide | Olde Money Printshop',
+  title: 'File Setup Guide',
   description:
     'Prepare your files for the best print quality. Resolution, color space, file format, and cropping guidelines from Olde Money Printshop.',
 }

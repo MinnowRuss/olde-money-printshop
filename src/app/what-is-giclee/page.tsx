@@ -11,7 +11,7 @@ import {
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'What Is Gicl\u00e9e Printing? | Olde Money Printing',
+  title: 'What Is Gicl\u00e9e Printing?',
   description:
     'Learn about gicl\u00e9e printing — the museum-quality inkjet process used by galleries and artists for fine art reproduction, photography, and limited editions.',
 }

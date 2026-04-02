@@ -12,7 +12,7 @@ import {
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Services | Olde Money Printshop',
+  title: 'Services',
   description:
     'Explore our full range of printing services including fine art paper, standard photo prints, custom sizing, volume printing, drop shipping, and more.',
 }

@@ -3,7 +3,7 @@ import { Mail, Phone, MapPin } from 'lucide-react'
 import ContactForm from './ContactForm'
 
 export const metadata: Metadata = {
-  title: 'Contact | Olde Money Printing',
+  title: 'Contact Olde Money',
   description:
     'Get in touch with Olde Money Printing. We are happy to answer questions about custom prints, orders, and turnaround times.',
 }

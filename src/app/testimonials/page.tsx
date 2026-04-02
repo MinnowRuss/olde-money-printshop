@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Star, ArrowRight } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Testimonials | Olde Money Printing',
+  title: 'Testimonials',
   description:
     'See what photographers, artists, designers, and businesses are saying about Olde Money Printing.',
 }
