@@ -31,7 +31,7 @@ export default function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
         buttonRef.current &&
         !buttonRef.current.contains(e.target as Node)
       ) {
-        setOpen(false)
+        setOpenPathname(null)
       }
     }
 
