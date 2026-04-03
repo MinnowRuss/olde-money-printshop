@@ -46,7 +46,7 @@ export default function HomePage() {
             alt=""
             fill
             priority
-            className="object-cover opacity-90"
+            className="object-cover opacity-90 [transform:scaleY(-1)]"
             sizes="100vw"
           />
           {/* Dark overlay to ensure text legibility */}
