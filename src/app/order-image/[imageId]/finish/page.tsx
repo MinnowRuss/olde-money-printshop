@@ -19,6 +19,7 @@ interface CropData {
   height: number
   unit: string
   aspect?: number
+  noCrop?: boolean
 }
 
 // Standard print DPI for converting pixels to inches
@@ -84,21 +85,15 @@ export default function FinishPage() {
   }, [imageId, supabase, router])
 
   // Derive print dimensions from crop data and image dimensions
+  // Crop data is always stored as percentages of the original image
   const getDerivedDimensions = useCallback((): { width: number; height: number } => {
     if (!cropData || !imageRecord) return { width: 8, height: 10 }
 
-    let cropWidthPx: number
-    let cropHeightPx: number
+    // Convert crop percentage to actual image pixels
+    const cropWidthPx = (cropData.width / 100) * imageRecord.width
+    const cropHeightPx = (cropData.height / 100) * imageRecord.height
 
-    if (cropData.unit === '%') {
-      cropWidthPx = (cropData.width / 100) * imageRecord.width
-      cropHeightPx = (cropData.height / 100) * imageRecord.height
-    } else {
-      cropWidthPx = cropData.width
-      cropHeightPx = cropData.height
-    }
-
-    // Convert pixels to inches at standard DPI
+    // Convert pixels to inches at 300 PPI
     const widthInches = Math.round(cropWidthPx / PRINT_DPI)
     const heightInches = Math.round(cropHeightPx / PRINT_DPI)
 

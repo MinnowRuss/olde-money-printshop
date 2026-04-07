@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
-import ReactCrop, { Crop } from 'react-image-crop'
+import ReactCrop, { type Crop, type PercentCrop } from 'react-image-crop'
 import 'react-image-crop/dist/ReactCrop.css'
 import { Button } from '@/components/ui/button'
 import OrderWizardProgress from '@/components/OrderWizardProgress'
@@ -39,6 +39,7 @@ export default function CropPage() {
   const [lockedRatio, setLockedRatio] = useState(false)
   const [selectedRatio, setSelectedRatio] = useState<number | undefined>(undefined)
   const [hasCropSelection, setHasCropSelection] = useState(true)
+  const [noCropNeeded, setNoCropNeeded] = useState(false)
 
   const supabase = createClient()
 
@@ -84,25 +85,35 @@ export default function CropPage() {
     checkAuth()
   }, [imageId, supabase, router])
 
-  const handleCropChange = (newCrop: Crop) => {
-    setCrop(newCrop)
-    setHasCropSelection(newCrop.width !== undefined && newCrop.width > 0)
+  const handleCropChange = (_pixelCrop: Crop, percentCrop: PercentCrop) => {
+    setCrop(percentCrop)
+    setHasCropSelection(percentCrop.width !== undefined && percentCrop.width > 0)
+    if (noCropNeeded) setNoCropNeeded(false)
   }
 
   const handleRatioChange = (ratio: number) => {
     setSelectedRatio(ratio)
   }
 
+  const handleNoCropNeeded = () => {
+    setNoCropNeeded(true)
+    setCrop({ unit: '%', width: 100, height: 100, x: 0, y: 0 })
+    setLockedRatio(false)
+    setSelectedRatio(undefined)
+    setHasCropSelection(true)
+  }
+
   const handleNext = () => {
     if (!imageId) return
 
     const cropData = {
-      x: crop.x || 0,
-      y: crop.y || 0,
-      width: crop.width || 0,
-      height: crop.height || 0,
-      unit: crop.unit || '%',
+      x: noCropNeeded ? 0 : (crop.x || 0),
+      y: noCropNeeded ? 0 : (crop.y || 0),
+      width: noCropNeeded ? 100 : (crop.width || 0),
+      height: noCropNeeded ? 100 : (crop.height || 0),
+      unit: '%',
       aspect: selectedRatio,
+      noCrop: noCropNeeded,
     }
 
     sessionStorage.setItem(`crop_${imageId}`, JSON.stringify(cropData))
@@ -148,19 +159,31 @@ export default function CropPage() {
           <div className="rounded-xl border border-border bg-card p-6">
             {imageUrl && (
               <div className="flex justify-center bg-muted/40 p-4 rounded-lg">
-                <ReactCrop
-                  crop={crop}
-                  onChange={handleCropChange}
-                  aspect={lockedRatio && selectedRatio ? selectedRatio : undefined}
-                  className="max-w-full"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={imageUrl}
-                    alt="Image to crop"
-                    className="max-w-full h-auto"
-                  />
-                </ReactCrop>
+                {noCropNeeded ? (
+                  <div className="relative">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={imageUrl}
+                      alt="Image — full size, no crop"
+                      className="max-w-full h-auto rounded"
+                    />
+                    <div className="absolute inset-0 rounded ring-2 ring-primary/40 pointer-events-none" />
+                  </div>
+                ) : (
+                  <ReactCrop
+                    crop={crop}
+                    onChange={handleCropChange}
+                    aspect={lockedRatio && selectedRatio ? selectedRatio : undefined}
+                    className="max-w-full"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={imageUrl}
+                      alt="Image to crop"
+                      className="max-w-full h-auto"
+                    />
+                  </ReactCrop>
+                )}
               </div>
             )}
           </div>
@@ -173,12 +196,23 @@ export default function CropPage() {
             <h3 className="mb-3 text-sm font-semibold text-foreground">Crop Mode</h3>
             <div className="space-y-2">
               <button
+                onClick={handleNoCropNeeded}
+                className={`w-full rounded-lg border px-3 py-2 text-sm font-medium transition-all ${
+                  noCropNeeded
+                    ? 'border-primary bg-primary/10 text-primary'
+                    : 'border-border text-foreground hover:border-zinc-300'
+                }`}
+              >
+                No Crop Needed
+              </button>
+              <button
                 onClick={() => {
                   setLockedRatio(false)
                   setSelectedRatio(undefined)
+                  if (noCropNeeded) setNoCropNeeded(false)
                 }}
                 className={`w-full rounded-lg border px-3 py-2 text-sm font-medium transition-all ${
-                  !lockedRatio
+                  !lockedRatio && !noCropNeeded
                     ? 'border-primary bg-primary/10 text-primary'
                     : 'border-border text-foreground hover:border-zinc-300'
                 }`}
@@ -188,13 +222,14 @@ export default function CropPage() {
               <button
                 onClick={() => {
                   setLockedRatio(true)
+                  if (noCropNeeded) setNoCropNeeded(false)
                   if (!selectedRatio) {
                     const defaultRatio = ASPECT_RATIOS[0].value
                     setSelectedRatio(defaultRatio)
                   }
                 }}
                 className={`w-full rounded-lg border px-3 py-2 text-sm font-medium transition-all ${
-                  lockedRatio
+                  lockedRatio && !noCropNeeded
                     ? 'border-primary bg-primary/10 text-primary'
                     : 'border-border text-foreground hover:border-zinc-300'
                 }`}
