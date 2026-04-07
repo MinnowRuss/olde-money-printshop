@@ -81,18 +81,18 @@ export default function WhatIsGicleePage() {
     <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="mb-10 text-center">
-        <h1 className="text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           What Is Gicl&eacute;e Printing?
         </h1>
-        <p className="mt-3 text-lg text-zinc-600">
+        <p className="mt-3 text-lg text-muted-foreground">
           The gold standard for museum-quality fine art and photographic prints.
         </p>
       </div>
 
-      <div className="space-y-8 text-sm leading-relaxed text-zinc-600">
+      <div className="space-y-8 text-sm leading-relaxed text-muted-foreground">
         {/* Definition */}
         <section>
-          <h2 className="text-xl font-semibold text-zinc-900">
+          <h2 className="text-xl font-semibold text-foreground">
             The Basics
           </h2>
           <p className="mt-3">
@@ -113,7 +113,7 @@ export default function WhatIsGicleePage() {
 
         {/* How it differs */}
         <section>
-          <h2 className="text-xl font-semibold text-zinc-900">
+          <h2 className="text-xl font-semibold text-foreground">
             Gicl&eacute;e vs. Standard Printing
           </h2>
           <p className="mt-3">
@@ -123,20 +123,20 @@ export default function WhatIsGicleePage() {
           <div className="mt-6 overflow-x-auto">
             <table className="w-full text-left text-sm">
               <thead>
-                <tr className="border-b border-zinc-200">
-                  <th className="pb-3 pr-4 font-semibold text-zinc-900">Feature</th>
-                  <th className="pb-3 pr-4 font-semibold text-zinc-900">Standard Print</th>
-                  <th className="pb-3 font-semibold text-zinc-900">Gicl&eacute;e Print</th>
+                <tr className="border-b border-border">
+                  <th className="pb-3 pr-4 font-semibold text-foreground">Feature</th>
+                  <th className="pb-3 pr-4 font-semibold text-foreground">Standard Print</th>
+                  <th className="pb-3 font-semibold text-foreground">Gicl&eacute;e Print</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-zinc-100">
                 {DIFFERENCES.map((row) => (
                   <tr key={row.feature}>
-                    <td className="py-3 pr-4 font-medium text-zinc-900">
+                    <td className="py-3 pr-4 font-medium text-foreground">
                       {row.feature}
                     </td>
-                    <td className="py-3 pr-4 text-zinc-500">{row.standard}</td>
-                    <td className="py-3 text-zinc-600">{row.giclee}</td>
+                    <td className="py-3 pr-4 text-muted-foreground">{row.standard}</td>
+                    <td className="py-3 text-muted-foreground">{row.giclee}</td>
                   </tr>
                 ))}
               </tbody>
@@ -146,13 +146,13 @@ export default function WhatIsGicleePage() {
 
         {/* Longevity */}
         <section>
-          <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-5">
+          <div className="rounded-xl border border-border bg-muted/40 p-5">
             <div className="flex items-start gap-4">
               <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-zinc-100">
-                <Clock className="size-5 text-zinc-600" />
+                <Clock className="size-5 text-muted-foreground" />
               </div>
               <div>
-                <h2 className="text-xl font-semibold text-zinc-900">
+                <h2 className="text-xl font-semibold text-foreground">
                   Built to Last: 75&ndash;200+ Years
                 </h2>
                 <p className="mt-2">
@@ -175,15 +175,15 @@ export default function WhatIsGicleePage() {
 
         {/* Inks & substrates */}
         <section>
-          <h2 className="text-xl font-semibold text-zinc-900">
+          <h2 className="text-xl font-semibold text-foreground">
             Archival Inks &amp; Premium Substrates
           </h2>
           <div className="mt-4 grid gap-5 sm:grid-cols-2">
-            <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-5">
+            <div className="rounded-xl border border-border bg-muted/40 p-5">
               <div className="flex size-10 items-center justify-center rounded-lg bg-zinc-100">
-                <Droplets className="size-5 text-zinc-600" />
+                <Droplets className="size-5 text-muted-foreground" />
               </div>
-              <h3 className="mt-3 text-sm font-semibold text-zinc-900">
+              <h3 className="mt-3 text-sm font-semibold text-foreground">
                 Pigment-Based Inks
               </h3>
               <p className="mt-1.5">
@@ -193,11 +193,11 @@ export default function WhatIsGicleePage() {
                 subtle tonal transitions.
               </p>
             </div>
-            <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-5">
+            <div className="rounded-xl border border-border bg-muted/40 p-5">
               <div className="flex size-10 items-center justify-center rounded-lg bg-zinc-100">
-                <Palette className="size-5 text-zinc-600" />
+                <Palette className="size-5 text-muted-foreground" />
               </div>
-              <h3 className="mt-3 text-sm font-semibold text-zinc-900">
+              <h3 className="mt-3 text-sm font-semibold text-foreground">
                 Specialty Substrates
               </h3>
               <p className="mt-1.5">
@@ -212,22 +212,22 @@ export default function WhatIsGicleePage() {
 
         {/* Use cases */}
         <section>
-          <h2 className="text-xl font-semibold text-zinc-900">
+          <h2 className="text-xl font-semibold text-foreground">
             Best Use Cases
           </h2>
           <div className="mt-6 grid gap-5 sm:grid-cols-2">
             {USE_CASES.map((item) => (
               <div
                 key={item.title}
-                className="rounded-xl border border-zinc-200 bg-zinc-50 p-5"
+                className="rounded-xl border border-border bg-muted/40 p-5"
               >
                 <div className="flex size-10 items-center justify-center rounded-lg bg-zinc-100">
-                  <item.icon className="size-5 text-zinc-600" />
+                  <item.icon className="size-5 text-muted-foreground" />
                 </div>
-                <h3 className="mt-3 text-sm font-semibold text-zinc-900">
+                <h3 className="mt-3 text-sm font-semibold text-foreground">
                   {item.title}
                 </h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-zinc-600">
+                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
                   {item.description}
                 </p>
               </div>
@@ -236,17 +236,17 @@ export default function WhatIsGicleePage() {
         </section>
 
         {/* CTA */}
-        <section className="rounded-xl border border-zinc-200 bg-zinc-50 p-8 text-center">
-          <h2 className="text-xl font-semibold text-zinc-900">
+        <section className="rounded-xl border border-border bg-muted/40 p-8 text-center">
+          <h2 className="text-xl font-semibold text-foreground">
             Experience Gicl&eacute;e Quality for Yourself
           </h2>
-          <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
             Browse our full range of print media and get an instant quote for your
             next project.
           </p>
           <Link
             href="/prices"
-            className="mt-5 inline-flex items-center gap-2 rounded-lg bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-zinc-800"
+            className="mt-5 inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-[var(--accent-primary-hover)]"
           >
             Explore Media &amp; Pricing
             <ArrowRight className="size-4" />

@@ -10,7 +10,7 @@ export default function CalculatorLoading() {
       </div>
 
       {/* Calculator form */}
-      <div className="rounded-xl border border-zinc-200 p-6">
+      <div className="rounded-xl border border-border p-6">
         <div className="grid gap-6 md:grid-cols-2">
           {/* Left: inputs */}
           <div className="space-y-5">
@@ -42,7 +42,7 @@ export default function CalculatorLoading() {
           </div>
 
           {/* Right: price summary */}
-          <div className="rounded-xl border border-zinc-200 p-5">
+          <div className="rounded-xl border border-border p-5">
             <Skeleton className="h-6 w-32" />
             <div className="mt-4 space-y-3">
               <div className="flex justify-between">
@@ -57,7 +57,7 @@ export default function CalculatorLoading() {
                 <Skeleton className="h-4 w-24" />
                 <Skeleton className="h-4 w-16" />
               </div>
-              <div className="border-t border-zinc-200 pt-3">
+              <div className="border-t border-border pt-3">
                 <div className="flex justify-between">
                   <Skeleton className="h-5 w-12" />
                   <Skeleton className="h-6 w-20" />

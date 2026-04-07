@@ -48,10 +48,10 @@ export default function CheckoutPage() {
             <AlertCircle className="h-8 w-8 text-red-600" />
           </div>
           <div>
-            <h1 className="text-xl font-semibold text-zinc-900">
+            <h1 className="text-xl font-semibold text-foreground">
               Checkout Error
             </h1>
-            <p className="mt-2 text-sm text-zinc-600">{error}</p>
+            <p className="mt-2 text-sm text-muted-foreground">{error}</p>
           </div>
           <Link href="/order">
             <Button variant="outline">Back to Cart</Button>
@@ -64,12 +64,12 @@ export default function CheckoutPage() {
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="flex flex-col items-center gap-4 text-center">
-        <Loader2 className="h-10 w-10 animate-spin text-zinc-400" />
+        <Loader2 className="h-10 w-10 animate-spin text-[color:var(--text-tertiary)]" />
         <div>
-          <p className="text-lg font-medium text-zinc-900">
+          <p className="text-lg font-medium text-foreground">
             Redirecting to checkout...
           </p>
-          <p className="mt-1 text-sm text-zinc-500">
+          <p className="mt-1 text-sm text-muted-foreground">
             You&apos;ll be taken to our secure payment page.
           </p>
         </div>

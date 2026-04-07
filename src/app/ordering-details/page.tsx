@@ -90,10 +90,10 @@ export default function OrderingDetailsPage() {
     <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="mb-10 text-center">
-        <h1 className="text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           How to Order
         </h1>
-        <p className="mt-3 text-sm leading-relaxed text-zinc-600 sm:text-base">
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
           Ordering custom prints is simple. Follow the steps below to go from
           image file to finished print on your wall.
         </p>
@@ -102,26 +102,26 @@ export default function OrderingDetailsPage() {
       <div className="space-y-12">
         {/* Step-by-step */}
         <section>
-          <h2 className="text-xl font-semibold text-zinc-900">
+          <h2 className="text-xl font-semibold text-foreground">
             Step-by-Step Process
           </h2>
           <div className="mt-4 space-y-4">
             {STEPS.map((step, index) => (
               <div
                 key={step.title}
-                className="flex gap-4 rounded-xl border border-zinc-200 bg-zinc-50 p-5"
+                className="flex gap-4 rounded-xl border border-border bg-muted/40 p-5"
               >
-                <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-sm font-bold text-white">
+                <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
                   {index + 1}
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <step.icon className="size-4 text-zinc-500" />
-                    <h3 className="text-sm font-semibold text-zinc-900">
+                    <step.icon className="size-4 text-muted-foreground" />
+                    <h3 className="text-sm font-semibold text-foreground">
                       {step.title}
                     </h3>
                   </div>
-                  <p className="mt-1 text-sm leading-relaxed text-zinc-600">
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                     {step.description}
                   </p>
                 </div>
@@ -133,32 +133,32 @@ export default function OrderingDetailsPage() {
         {/* File requirements */}
         <section>
           <div className="flex items-center gap-2">
-            <FileImage className="size-5 text-zinc-500" />
-            <h2 className="text-xl font-semibold text-zinc-900">
+            <FileImage className="size-5 text-muted-foreground" />
+            <h2 className="text-xl font-semibold text-foreground">
               File Requirements
             </h2>
           </div>
-          <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
             Submitting a properly prepared file ensures the best print quality.
             Please review the requirements below before uploading.
           </p>
-          <div className="mt-4 rounded-xl border border-zinc-200 bg-zinc-50 p-5">
+          <div className="mt-4 rounded-xl border border-border bg-muted/40 p-5">
             <dl className="space-y-3">
               {FILE_REQUIREMENTS.map((req) => (
                 <div key={req.label} className="flex flex-col sm:flex-row sm:gap-2">
-                  <dt className="text-sm font-medium text-zinc-900 sm:w-48 sm:shrink-0">
+                  <dt className="text-sm font-medium text-foreground sm:w-48 sm:shrink-0">
                     {req.label}
                   </dt>
-                  <dd className="text-sm text-zinc-600">{req.value}</dd>
+                  <dd className="text-sm text-muted-foreground">{req.value}</dd>
                 </div>
               ))}
             </dl>
           </div>
-          <p className="mt-3 text-sm text-zinc-500">
+          <p className="mt-3 text-sm text-muted-foreground">
             Need help preparing your files?{' '}
             <Link
               href="/file-setup"
-              className="text-zinc-900 underline transition-colors hover:text-zinc-600"
+              className="text-foreground underline transition-colors hover:text-muted-foreground"
             >
               View our file setup guide
             </Link>
@@ -169,12 +169,12 @@ export default function OrderingDetailsPage() {
         {/* Turnaround times */}
         <section>
           <div className="flex items-center gap-2">
-            <Clock className="size-5 text-zinc-500" />
-            <h2 className="text-xl font-semibold text-zinc-900">
+            <Clock className="size-5 text-muted-foreground" />
+            <h2 className="text-xl font-semibold text-foreground">
               Turnaround Times
             </h2>
           </div>
-          <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
             Turnaround time is measured from when your order is confirmed and
             payment is received. It does not include shipping transit time.
           </p>
@@ -182,15 +182,15 @@ export default function OrderingDetailsPage() {
             {TURNAROUND.map((option) => (
               <div
                 key={option.tier}
-                className="rounded-xl border border-zinc-200 bg-zinc-50 p-5"
+                className="rounded-xl border border-border bg-muted/40 p-5"
               >
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-foreground">
                   {option.tier}
                 </h3>
-                <p className="mt-1 text-lg font-bold text-zinc-900">
+                <p className="mt-1 text-lg font-bold text-foreground">
                   {option.time}
                 </p>
-                <p className="mt-1 text-sm leading-relaxed text-zinc-600">
+                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                   {option.description}
                 </p>
               </div>
@@ -201,23 +201,23 @@ export default function OrderingDetailsPage() {
         {/* Shipping */}
         <section>
           <div className="flex items-center gap-2">
-            <Truck className="size-5 text-zinc-500" />
-            <h2 className="text-xl font-semibold text-zinc-900">
+            <Truck className="size-5 text-muted-foreground" />
+            <h2 className="text-xl font-semibold text-foreground">
               Shipping Information
             </h2>
           </div>
-          <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
             All orders ship with tracking. You will receive a confirmation email
             with your tracking number once your order leaves our facility.
           </p>
-          <div className="mt-4 rounded-xl border border-zinc-200 bg-zinc-50 p-5">
+          <div className="mt-4 rounded-xl border border-border bg-muted/40 p-5">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-zinc-200">
-                  <th className="pb-2 text-left font-semibold text-zinc-900">
+                <tr className="border-b border-border">
+                  <th className="pb-2 text-left font-semibold text-foreground">
                     Carrier
                   </th>
-                  <th className="pb-2 text-left font-semibold text-zinc-900">
+                  <th className="pb-2 text-left font-semibold text-foreground">
                     Estimated Transit
                   </th>
                 </tr>
@@ -225,31 +225,31 @@ export default function OrderingDetailsPage() {
               <tbody className="divide-y divide-zinc-100">
                 {SHIPPING_OPTIONS.map((option) => (
                   <tr key={option.carrier}>
-                    <td className="py-2 text-zinc-600">{option.carrier}</td>
-                    <td className="py-2 text-zinc-600">{option.estimate}</td>
+                    <td className="py-2 text-muted-foreground">{option.carrier}</td>
+                    <td className="py-2 text-muted-foreground">{option.estimate}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="mt-3 text-sm text-zinc-500">
+          <p className="mt-3 text-sm text-muted-foreground">
             Shipping rates are calculated at checkout based on order size,
             weight, and destination. We currently ship to all 50 U.S. states.
           </p>
         </section>
 
         {/* CTA */}
-        <section className="rounded-xl border border-zinc-200 bg-zinc-50 p-6 text-center">
-          <h2 className="text-xl font-semibold text-zinc-900">
+        <section className="rounded-xl border border-border bg-muted/40 p-6 text-center">
+          <h2 className="text-xl font-semibold text-foreground">
             Ready to Order?
           </h2>
-          <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
             Upload your images and start building your order today. Our team is
             standing by to bring your photos and artwork to life.
           </p>
           <Link
             href="/image"
-            className="mt-4 inline-flex h-9 items-center justify-center rounded-lg bg-zinc-900 px-5 text-sm font-medium text-white transition-colors hover:bg-zinc-800"
+            className="mt-4 inline-flex h-9 items-center justify-center rounded-lg bg-primary px-5 text-sm font-medium text-primary-foreground transition-colors hover:bg-[var(--accent-primary-hover)]"
           >
             Start Your Order
           </Link>

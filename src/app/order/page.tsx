@@ -155,8 +155,8 @@ export default function CartPage() {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="h-8 w-8 animate-spin text-zinc-400" />
-          <p className="text-sm text-zinc-500">Loading your cart...</p>
+          <Loader2 className="h-8 w-8 animate-spin text-[color:var(--text-tertiary)]" />
+          <p className="text-sm text-muted-foreground">Loading your cart...</p>
         </div>
       </div>
     )
@@ -168,11 +168,11 @@ export default function CartPage() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center gap-6 text-center">
           <div className="flex h-20 w-20 items-center justify-center rounded-full bg-zinc-100">
-            <ShoppingCart className="h-10 w-10 text-zinc-400" />
+            <ShoppingCart className="h-10 w-10 text-[color:var(--text-tertiary)]" />
           </div>
           <div>
-            <h1 className="text-2xl font-semibold text-zinc-900">Your cart is empty</h1>
-            <p className="mt-2 text-zinc-600">
+            <h1 className="text-2xl font-semibold text-foreground">Your cart is empty</h1>
+            <p className="mt-2 text-muted-foreground">
               Browse your images and create beautiful prints.
             </p>
           </div>
@@ -191,10 +191,10 @@ export default function CartPage() {
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-semibold tracking-tight text-zinc-900">
+        <h1 className="text-3xl font-semibold tracking-tight text-foreground">
           Your Cart
         </h1>
-        <p className="mt-2 text-zinc-600">
+        <p className="mt-2 text-muted-foreground">
           {cartItems.length} {cartItems.length === 1 ? 'item' : 'items'} in your cart
         </p>
       </div>
@@ -216,7 +216,7 @@ export default function CartPage() {
                     />
                   ) : (
                     <div className="flex h-20 w-20 items-center justify-center rounded-lg bg-zinc-100 sm:h-24 sm:w-24">
-                      <ImageIcon className="h-8 w-8 text-zinc-300" />
+                      <ImageIcon className="h-8 w-8 text-primary-foreground/80" />
                     </div>
                   )}
                 </div>
@@ -224,15 +224,15 @@ export default function CartPage() {
                 {/* Details */}
                 <div className="flex flex-1 flex-col justify-between">
                   <div>
-                    <p className="text-sm font-medium text-zinc-900">
+                    <p className="text-sm font-medium text-foreground">
                       {item.images?.filename ?? 'Untitled'}
                     </p>
-                    <p className="mt-1 text-sm text-zinc-500">
+                    <p className="mt-1 text-sm text-muted-foreground">
                       {item.media_type_name} &middot; {item.print_size} &middot;{' '}
                       {item.width}&times;{item.height}&quot;
                     </p>
                     {item.option_names && item.option_names.length > 0 && (
-                      <p className="mt-1 text-xs text-zinc-500">
+                      <p className="mt-1 text-xs text-muted-foreground">
                         {item.option_names.join(', ')}
                       </p>
                     )}
@@ -242,16 +242,16 @@ export default function CartPage() {
                   <div className="mt-3 flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       {/* Quantity controls */}
-                      <div className="flex items-center rounded-md border border-zinc-200">
+                      <div className="flex items-center rounded-md border border-border">
                         <button
                           onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
                           disabled={updatingId === item.id}
-                          className="flex h-8 w-8 items-center justify-center text-zinc-500 transition-colors hover:text-zinc-900 disabled:opacity-50"
+                          className="flex h-8 w-8 items-center justify-center text-muted-foreground transition-colors hover:text-foreground disabled:opacity-50"
                           aria-label="Decrease quantity"
                         >
                           <Minus className="h-3 w-3" />
                         </button>
-                        <span className="flex h-8 w-8 items-center justify-center border-x border-zinc-200 text-sm font-medium text-zinc-900">
+                        <span className="flex h-8 w-8 items-center justify-center border-x border-border text-sm font-medium text-foreground">
                           {updatingId === item.id ? (
                             <Loader2 className="h-3 w-3 animate-spin" />
                           ) : (
@@ -261,7 +261,7 @@ export default function CartPage() {
                         <button
                           onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
                           disabled={updatingId === item.id}
-                          className="flex h-8 w-8 items-center justify-center text-zinc-500 transition-colors hover:text-zinc-900 disabled:opacity-50"
+                          className="flex h-8 w-8 items-center justify-center text-muted-foreground transition-colors hover:text-foreground disabled:opacity-50"
                           aria-label="Increase quantity"
                         >
                           <Plus className="h-3 w-3" />
@@ -271,7 +271,7 @@ export default function CartPage() {
                       {/* Remove button */}
                       {confirmRemoveId === item.id ? (
                         <div className="flex items-center gap-2 text-sm">
-                          <span className="text-zinc-600">Remove?</span>
+                          <span className="text-muted-foreground">Remove?</span>
                           <button
                             onClick={() => handleRemove(item.id)}
                             className="font-medium text-red-600 hover:text-red-700"
@@ -280,7 +280,7 @@ export default function CartPage() {
                           </button>
                           <button
                             onClick={() => setConfirmRemoveId(null)}
-                            className="font-medium text-zinc-500 hover:text-zinc-700"
+                            className="font-medium text-muted-foreground hover:text-foreground"
                           >
                             No
                           </button>
@@ -289,7 +289,7 @@ export default function CartPage() {
                         <button
                           onClick={() => setConfirmRemoveId(item.id)}
                           disabled={removingId === item.id}
-                          className="flex items-center gap-1 text-sm text-zinc-400 transition-colors hover:text-red-600 disabled:opacity-50"
+                          className="flex items-center gap-1 text-sm text-[color:var(--text-tertiary)] transition-colors hover:text-red-600 disabled:opacity-50"
                           aria-label="Remove item"
                         >
                           {removingId === item.id ? (
@@ -303,11 +303,11 @@ export default function CartPage() {
 
                     {/* Line total */}
                     <div className="text-right">
-                      <p className="text-sm font-semibold text-zinc-900">
+                      <p className="text-sm font-semibold text-foreground">
                         ${item.total.toFixed(2)}
                       </p>
                       {item.quantity > 1 && (
-                        <p className="text-xs text-zinc-500">
+                        <p className="text-xs text-muted-foreground">
                           ${item.unit_price.toFixed(2)} each
                         </p>
                       )}
@@ -327,18 +327,18 @@ export default function CartPage() {
         {/* Order summary sidebar */}
         <div>
           <Card className="sticky top-20 p-6">
-            <h2 className="text-lg font-semibold text-zinc-900">Order Summary</h2>
+            <h2 className="text-lg font-semibold text-foreground">Order Summary</h2>
 
-            <dl className="mt-4 space-y-3 border-b border-zinc-200 pb-4">
+            <dl className="mt-4 space-y-3 border-b border-border pb-4">
               <div className="flex justify-between text-sm">
-                <dt className="text-zinc-600">Subtotal</dt>
-                <dd className="font-medium text-zinc-900">
+                <dt className="text-muted-foreground">Subtotal</dt>
+                <dd className="font-medium text-foreground">
                   ${orderSubtotal.toFixed(2)}
                 </dd>
               </div>
               {orderDiscount > 0 && (
                 <div className="flex justify-between text-sm">
-                  <dt className="text-zinc-600">Volume discount</dt>
+                  <dt className="text-muted-foreground">Volume discount</dt>
                   <dd className="font-medium text-green-600">
                     -${orderDiscount.toFixed(2)}
                   </dd>
@@ -347,8 +347,8 @@ export default function CartPage() {
             </dl>
 
             <div className="mt-4 flex justify-between">
-              <dt className="text-sm font-semibold text-zinc-900">Total</dt>
-              <dd className="text-lg font-bold text-zinc-900">
+              <dt className="text-sm font-semibold text-foreground">Total</dt>
+              <dd className="text-lg font-bold text-foreground">
                 ${orderTotal.toFixed(2)}
               </dd>
             </div>

@@ -90,7 +90,7 @@ function StarRating({ rating }: { rating: number }) {
           className={`size-4 ${
             i < rating
               ? 'fill-amber-400 text-amber-400'
-              : 'fill-zinc-200 text-zinc-200'
+              : 'fill-zinc-200 text-primary-foreground/70'
           }`}
         />
       ))}
@@ -103,10 +103,10 @@ export default function TestimonialsPage() {
     <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="mb-10 text-center">
-        <h1 className="text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           What Our Customers Say
         </h1>
-        <p className="mt-3 text-lg text-zinc-600">
+        <p className="mt-3 text-lg text-muted-foreground">
           Real feedback from photographers, artists, designers, and businesses
           who trust us with their work.
         </p>
@@ -117,36 +117,36 @@ export default function TestimonialsPage() {
         {TESTIMONIALS.map((testimonial) => (
           <div
             key={testimonial.name}
-            className="flex flex-col justify-between rounded-xl border border-zinc-200 bg-zinc-50 p-5"
+            className="flex flex-col justify-between rounded-xl border border-border bg-muted/40 p-5"
           >
             <div>
               <StarRating rating={testimonial.rating} />
-              <p className="mt-3 text-sm leading-relaxed text-zinc-600">
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                 &ldquo;{testimonial.quote}&rdquo;
               </p>
             </div>
-            <div className="mt-4 border-t border-zinc-200 pt-4">
-              <p className="text-sm font-semibold text-zinc-900">
+            <div className="mt-4 border-t border-border pt-4">
+              <p className="text-sm font-semibold text-foreground">
                 {testimonial.name}
               </p>
-              <p className="text-xs text-zinc-500">{testimonial.role}</p>
+              <p className="text-xs text-muted-foreground">{testimonial.role}</p>
             </div>
           </div>
         ))}
       </div>
 
       {/* CTA */}
-      <div className="mt-10 rounded-xl border border-zinc-200 bg-zinc-50 p-8 text-center">
-        <h2 className="text-xl font-semibold text-zinc-900">
+      <div className="mt-10 rounded-xl border border-border bg-muted/40 p-8 text-center">
+        <h2 className="text-xl font-semibold text-foreground">
           Ready to See the Difference?
         </h2>
-        <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
           Join thousands of satisfied customers and experience museum-quality
           printing for yourself.
         </p>
         <Link
           href="/prices"
-          className="mt-5 inline-flex items-center gap-2 rounded-lg bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-zinc-800"
+          className="mt-5 inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-[var(--accent-primary-hover)]"
         >
           Start Your Order
           <ArrowRight className="size-4" />

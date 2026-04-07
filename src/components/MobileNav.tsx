@@ -44,7 +44,7 @@ export default function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
       <button
         ref={buttonRef}
         onClick={() => setOpenPathname((prev) => (prev === pathname ? null : pathname))}
-        className="flex h-9 w-9 items-center justify-center rounded-md text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-zinc-900"
+        className="flex size-10 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-muted-foreground transition-colors hover:bg-white/[0.08] hover:text-foreground"
         aria-label={open ? 'Close menu' : 'Open menu'}
       >
         {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -53,33 +53,33 @@ export default function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
       {/* Dropdown menu */}
       <div
         ref={menuRef}
-        className={`absolute left-0 right-0 top-14 z-50 border-b border-zinc-200 bg-white shadow-sm transition-all duration-200 ease-in-out ${
+        className={`absolute left-0 right-0 top-16 z-50 border-b border-white/10 bg-background/96 shadow-[0_24px_80px_rgba(0,0,0,0.48)] backdrop-blur-xl transition-all duration-200 ease-in-out ${
           open
             ? 'max-h-96 opacity-100'
             : 'pointer-events-none max-h-0 opacity-0'
         } overflow-hidden`}
       >
-        <nav className="mx-auto max-w-7xl px-4 py-4 sm:px-6">
+        <nav className="page-shell py-5">
           <div className="flex flex-col gap-1">
             {NAV_LINKS.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
                 onClick={() => setOpenPathname(null)}
-                className="rounded-md px-3 py-2 text-sm font-medium text-zinc-600 transition-colors hover:bg-zinc-50 hover:text-zinc-900"
+                className="rounded-lg px-3 py-2 text-sm font-medium uppercase tracking-[0.08em] text-muted-foreground transition-colors hover:bg-white/[0.05] hover:text-foreground"
               >
                 {label}
               </Link>
             ))}
 
-            <div className="my-2 border-t border-zinc-100" />
+            <div className="my-2 border-t border-border/70" />
 
             {isLoggedIn ? (
               <>
                 <Link
                   href="/user"
                   onClick={() => setOpenPathname(null)}
-                  className="rounded-md px-3 py-2 text-sm font-medium text-zinc-600 transition-colors hover:bg-zinc-50 hover:text-zinc-900"
+                  className="rounded-lg px-3 py-2 text-sm font-medium uppercase tracking-[0.08em] text-muted-foreground transition-colors hover:bg-white/[0.05] hover:text-foreground"
                 >
                   Account
                 </Link>
@@ -93,7 +93,7 @@ export default function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
               <Link
                 href="/auth/login"
                 onClick={() => setOpenPathname(null)}
-                className="mx-3 mt-1 inline-flex h-8 items-center justify-center rounded-[min(var(--radius-md),12px)] bg-primary px-3 text-sm font-medium text-primary-foreground transition-all hover:bg-primary/80"
+                className="mx-3 mt-2 inline-flex h-10 items-center justify-center rounded-lg bg-primary px-3 text-sm font-semibold text-primary-foreground shadow-[0_12px_30px_rgba(0,116,228,0.3)] transition-[background-color,transform] hover:-translate-y-px hover:bg-[var(--accent-primary-hover)]"
               >
                 Sign in
               </Link>

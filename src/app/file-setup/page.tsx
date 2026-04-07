@@ -127,10 +127,10 @@ export default function FileSetupPage() {
     <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="mb-10 text-center">
-        <h1 className="text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           File Setup Guide
         </h1>
-        <p className="mt-3 text-sm leading-relaxed text-zinc-600 sm:text-base">
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
           Properly prepared files produce the best prints. Use this guide to
           make sure your images are ready before you upload.
         </p>
@@ -140,8 +140,8 @@ export default function FileSetupPage() {
         {SECTIONS.map((section) => (
           <section key={section.title}>
             <div className="flex items-center gap-2">
-              <section.icon className="size-5 text-zinc-500" />
-              <h2 className="text-xl font-semibold text-zinc-900">
+              <section.icon className="size-5 text-muted-foreground" />
+              <h2 className="text-xl font-semibold text-foreground">
                 {section.title}
               </h2>
             </div>
@@ -149,12 +149,12 @@ export default function FileSetupPage() {
               {section.content.map((item) => (
                 <div
                   key={item.heading}
-                  className="rounded-xl border border-zinc-200 bg-zinc-50 p-5"
+                  className="rounded-xl border border-border bg-muted/40 p-5"
                 >
-                  <h3 className="text-sm font-semibold text-zinc-900">
+                  <h3 className="text-sm font-semibold text-foreground">
                     {item.heading}
                   </h3>
-                  <p className="mt-1 text-sm leading-relaxed text-zinc-600">
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                     {item.text}
                   </p>
                 </div>
@@ -164,50 +164,50 @@ export default function FileSetupPage() {
         ))}
 
         {/* Quick reference */}
-        <section className="rounded-xl border border-zinc-200 bg-zinc-50 p-5">
-          <h2 className="text-xl font-semibold text-zinc-900">
+        <section className="rounded-xl border border-border bg-muted/40 p-5">
+          <h2 className="text-xl font-semibold text-foreground">
             Quick Reference
           </h2>
           <div className="mt-4 overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-zinc-200">
-                  <th className="pb-2 text-left font-semibold text-zinc-900">
+                <tr className="border-b border-border">
+                  <th className="pb-2 text-left font-semibold text-foreground">
                     Setting
                   </th>
-                  <th className="pb-2 text-left font-semibold text-zinc-900">
+                  <th className="pb-2 text-left font-semibold text-foreground">
                     Recommended
                   </th>
-                  <th className="pb-2 text-left font-semibold text-zinc-900">
+                  <th className="pb-2 text-left font-semibold text-foreground">
                     Minimum
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-zinc-100">
                 <tr>
-                  <td className="py-2 font-medium text-zinc-900">Resolution</td>
-                  <td className="py-2 text-zinc-600">300 DPI</td>
-                  <td className="py-2 text-zinc-600">150 DPI</td>
+                  <td className="py-2 font-medium text-foreground">Resolution</td>
+                  <td className="py-2 text-muted-foreground">300 DPI</td>
+                  <td className="py-2 text-muted-foreground">150 DPI</td>
                 </tr>
                 <tr>
-                  <td className="py-2 font-medium text-zinc-900">Color Space</td>
-                  <td className="py-2 text-zinc-600">sRGB</td>
-                  <td className="py-2 text-zinc-600">Adobe RGB</td>
+                  <td className="py-2 font-medium text-foreground">Color Space</td>
+                  <td className="py-2 text-muted-foreground">sRGB</td>
+                  <td className="py-2 text-muted-foreground">Adobe RGB</td>
                 </tr>
                 <tr>
-                  <td className="py-2 font-medium text-zinc-900">Format</td>
-                  <td className="py-2 text-zinc-600">JPEG (max quality)</td>
-                  <td className="py-2 text-zinc-600">TIFF, PNG</td>
+                  <td className="py-2 font-medium text-foreground">Format</td>
+                  <td className="py-2 text-muted-foreground">JPEG (max quality)</td>
+                  <td className="py-2 text-muted-foreground">TIFF, PNG</td>
                 </tr>
                 <tr>
-                  <td className="py-2 font-medium text-zinc-900">File Size</td>
-                  <td className="py-2 text-zinc-600">Under 50 MB</td>
-                  <td className="py-2 text-zinc-600">--</td>
+                  <td className="py-2 font-medium text-foreground">File Size</td>
+                  <td className="py-2 text-muted-foreground">Under 50 MB</td>
+                  <td className="py-2 text-muted-foreground">--</td>
                 </tr>
                 <tr>
-                  <td className="py-2 font-medium text-zinc-900">Bit Depth</td>
-                  <td className="py-2 text-zinc-600">8-bit</td>
-                  <td className="py-2 text-zinc-600">16-bit (TIFF only)</td>
+                  <td className="py-2 font-medium text-foreground">Bit Depth</td>
+                  <td className="py-2 text-muted-foreground">8-bit</td>
+                  <td className="py-2 text-muted-foreground">16-bit (TIFF only)</td>
                 </tr>
               </tbody>
             </table>
@@ -215,24 +215,24 @@ export default function FileSetupPage() {
         </section>
 
         {/* CTA */}
-        <section className="rounded-xl border border-zinc-200 bg-zinc-50 p-6 text-center">
-          <h2 className="text-xl font-semibold text-zinc-900">
+        <section className="rounded-xl border border-border bg-muted/40 p-6 text-center">
+          <h2 className="text-xl font-semibold text-foreground">
             Files Ready to Go?
           </h2>
-          <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
             Upload your images and start your order. If you run into any issues
             or have questions about file preparation, our team is here to help.
           </p>
           <div className="mt-4 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <Link
               href="/image/upload"
-              className="inline-flex h-9 items-center justify-center rounded-lg bg-zinc-900 px-5 text-sm font-medium text-white transition-colors hover:bg-zinc-800"
+              className="inline-flex h-9 items-center justify-center rounded-lg bg-primary px-5 text-sm font-medium text-primary-foreground transition-colors hover:bg-[var(--accent-primary-hover)]"
             >
               Upload Images
             </Link>
             <Link
               href="/contact"
-              className="inline-flex h-9 items-center justify-center rounded-lg border border-zinc-200 bg-white px-5 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-50"
+              className="inline-flex h-9 items-center justify-center rounded-lg border border-border bg-card px-5 text-sm font-medium text-foreground transition-colors hover:bg-muted/40"
             >
               Get Help
             </Link>

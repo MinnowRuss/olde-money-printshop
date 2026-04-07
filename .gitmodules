@@ -1,0 +1,3 @@
+[submodule "olde-money-printshop"]
+	path = olde-money-printshop
+	url = https://github.com/MinnowRuss/olde-money-printshop.git

@@ -11,17 +11,17 @@ export default function TermsOfServicePage() {
   return (
     <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
       <div className="mb-10 text-center">
-        <h1 className="text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           Terms of Service
         </h1>
-        <p className="mt-3 text-sm text-zinc-500">
+        <p className="mt-3 text-sm text-muted-foreground">
           Last updated: March 10, 2026
         </p>
       </div>
 
-      <div className="space-y-8 text-sm leading-relaxed text-zinc-600">
+      <div className="space-y-8 text-sm leading-relaxed text-muted-foreground">
         <section>
-          <h2 className="text-lg font-semibold text-zinc-900">1. Acceptance of Terms</h2>
+          <h2 className="text-lg font-semibold text-foreground">1. Acceptance of Terms</h2>
           <p className="mt-2">
             By accessing or using the Olde Money Printing website and services
             (&quot;Services&quot;), you agree to be bound by these Terms of Service
@@ -31,7 +31,7 @@ export default function TermsOfServicePage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-zinc-900">2. Use of Services</h2>
+          <h2 className="text-lg font-semibold text-foreground">2. Use of Services</h2>
           <p className="mt-2">
             You may use our Services only for lawful purposes and in accordance with these
             Terms. You agree not to:
@@ -46,7 +46,7 @@ export default function TermsOfServicePage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-zinc-900">3. Accounts</h2>
+          <h2 className="text-lg font-semibold text-foreground">3. Accounts</h2>
           <p className="mt-2">
             When you create an account, you are responsible for maintaining the confidentiality
             of your credentials and for all activities that occur under your account. You agree
@@ -56,7 +56,7 @@ export default function TermsOfServicePage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-zinc-900">4. User Content</h2>
+          <h2 className="text-lg font-semibold text-foreground">4. User Content</h2>
           <p className="mt-2">
             You retain ownership of any images and content you upload to our Services. By
             uploading content, you grant us a limited, non-exclusive license to use, process,
@@ -72,7 +72,7 @@ export default function TermsOfServicePage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-zinc-900">5. Orders and Payment</h2>
+          <h2 className="text-lg font-semibold text-foreground">5. Orders and Payment</h2>
           <p className="mt-2">
             All orders placed through our Services are subject to acceptance and availability.
             Prices are subject to change without notice. We reserve the right to refuse or
@@ -86,7 +86,7 @@ export default function TermsOfServicePage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-zinc-900">6. Shipping and Delivery</h2>
+          <h2 className="text-lg font-semibold text-foreground">6. Shipping and Delivery</h2>
           <p className="mt-2">
             Delivery times are estimates and are not guaranteed. We are not responsible for
             delays caused by shipping carriers or circumstances beyond our control. Risk of
@@ -95,7 +95,7 @@ export default function TermsOfServicePage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-zinc-900">7. Returns and Refunds</h2>
+          <h2 className="text-lg font-semibold text-foreground">7. Returns and Refunds</h2>
           <p className="mt-2">
             Because our products are custom-made to your specifications, we generally do not
             accept returns. However, if your order arrives damaged or contains a defect caused
@@ -106,7 +106,7 @@ export default function TermsOfServicePage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-zinc-900">8. Intellectual Property</h2>
+          <h2 className="text-lg font-semibold text-foreground">8. Intellectual Property</h2>
           <p className="mt-2">
             All content, trademarks, logos, and other intellectual property on our website are
             owned by or licensed to Olde Money Printshop. You may not reproduce, distribute,
@@ -116,7 +116,7 @@ export default function TermsOfServicePage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-zinc-900">9. Limitation of Liability</h2>
+          <h2 className="text-lg font-semibold text-foreground">9. Limitation of Liability</h2>
           <p className="mt-2">
             To the fullest extent permitted by law, Olde Money Printshop shall not be liable
             for any indirect, incidental, special, consequential, or punitive damages arising
@@ -127,7 +127,7 @@ export default function TermsOfServicePage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-zinc-900">10. Disclaimer of Warranties</h2>
+          <h2 className="text-lg font-semibold text-foreground">10. Disclaimer of Warranties</h2>
           <p className="mt-2">
             Our Services are provided &quot;as is&quot; and &quot;as available&quot; without
             warranties of any kind, either express or implied. We do not warrant that the
@@ -137,7 +137,7 @@ export default function TermsOfServicePage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-zinc-900">11. Indemnification</h2>
+          <h2 className="text-lg font-semibold text-foreground">11. Indemnification</h2>
           <p className="mt-2">
             You agree to indemnify, defend, and hold harmless Olde Money Printshop and its
             officers, directors, employees, and agents from any claims, damages, losses, or
@@ -146,7 +146,7 @@ export default function TermsOfServicePage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-zinc-900">12. Governing Law</h2>
+          <h2 className="text-lg font-semibold text-foreground">12. Governing Law</h2>
           <p className="mt-2">
             These Terms shall be governed by and construed in accordance with the laws of the
             State of California, without regard to its conflict of law principles. Any dispute
@@ -156,7 +156,7 @@ export default function TermsOfServicePage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-zinc-900">13. Changes to These Terms</h2>
+          <h2 className="text-lg font-semibold text-foreground">13. Changes to These Terms</h2>
           <p className="mt-2">
             We reserve the right to modify these Terms at any time. Changes will be effective
             when posted on this page with an updated &quot;Last updated&quot; date. Your
@@ -166,12 +166,12 @@ export default function TermsOfServicePage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-zinc-900">14. Contact Us</h2>
+          <h2 className="text-lg font-semibold text-foreground">14. Contact Us</h2>
           <p className="mt-2">
             If you have any questions about these Terms of Service, please{' '}
             <Link
               href="/contact"
-              className="text-zinc-900 underline transition-colors hover:text-zinc-600"
+              className="text-foreground underline transition-colors hover:text-muted-foreground"
             >
               contact us
             </Link>

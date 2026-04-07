@@ -28,10 +28,10 @@ export default function OrderWizardProgress({ currentStep }: OrderWizardProgress
                 <div
                   className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold transition-colors ${
                     isCompleted
-                      ? 'bg-zinc-900 text-white'
+                      ? 'bg-primary text-primary-foreground'
                       : isCurrent
                         ? 'bg-primary text-primary-foreground ring-2 ring-primary/30 ring-offset-2'
-                        : 'bg-zinc-100 text-zinc-400'
+                        : 'bg-zinc-100 text-[color:var(--text-tertiary)]'
                   }`}
                 >
                   {isCompleted ? (
@@ -43,10 +43,10 @@ export default function OrderWizardProgress({ currentStep }: OrderWizardProgress
                 <span
                   className={`text-xs font-medium whitespace-nowrap ${
                     isCompleted
-                      ? 'text-zinc-900'
+                      ? 'text-foreground'
                       : isCurrent
                         ? 'text-primary'
-                        : 'text-zinc-400'
+                        : 'text-[color:var(--text-tertiary)]'
                   }`}
                 >
                   {step.label}
@@ -57,7 +57,7 @@ export default function OrderWizardProgress({ currentStep }: OrderWizardProgress
               {index < STEPS.length - 1 && (
                 <div
                   className={`mx-2 mt-[-1.25rem] h-0.5 flex-1 transition-colors ${
-                    step.number < currentStep ? 'bg-zinc-900' : 'bg-zinc-200'
+                    step.number < currentStep ? 'bg-primary' : 'bg-zinc-200'
                   }`}
                 />
               )}

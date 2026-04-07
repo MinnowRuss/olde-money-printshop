@@ -40,7 +40,7 @@ export default async function PrintQueuePage() {
   if (!supabase) {
     return (
       <div className="mx-auto max-w-7xl px-4 py-16 text-center">
-        <p className="text-zinc-500">Service unavailable.</p>
+        <p className="text-muted-foreground">Service unavailable.</p>
       </div>
     )
   }
@@ -126,20 +126,20 @@ export default async function PrintQueuePage() {
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       <Link
         href="/admin/orders"
-        className="mb-6 inline-flex items-center gap-1 text-sm text-zinc-500 transition-colors hover:text-zinc-900"
+        className="mb-6 inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
       >
         <ArrowLeft className="h-4 w-4" />
         Back to Orders
       </Link>
 
       <div className="mb-8">
-        <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">
+        <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
           Admin
         </p>
-        <h1 className="mt-1 text-3xl font-semibold tracking-tight text-zinc-900">
+        <h1 className="mt-1 text-3xl font-semibold tracking-tight text-foreground">
           Print Queue
         </h1>
-        <p className="mt-2 text-zinc-600">
+        <p className="mt-2 text-muted-foreground">
           {formattedOrders.length} verified order{formattedOrders.length !== 1 ? 's' : ''} ready for batching
         </p>
       </div>

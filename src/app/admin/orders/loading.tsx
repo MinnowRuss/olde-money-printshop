@@ -11,9 +11,9 @@ export default function AdminOrdersLoading() {
       </div>
 
       {/* Table */}
-      <div className="overflow-hidden rounded-xl border border-zinc-200">
+      <div className="overflow-hidden rounded-xl border border-border">
         {/* Table header */}
-        <div className="flex items-center gap-4 border-b border-zinc-200 bg-zinc-50 px-4 py-3">
+        <div className="flex items-center gap-4 border-b border-border bg-muted/40 px-4 py-3">
           <Skeleton className="h-4 w-20" />
           <Skeleton className="h-4 w-28" />
           <Skeleton className="h-4 w-16" />
@@ -26,7 +26,7 @@ export default function AdminOrdersLoading() {
         {Array.from({ length: 6 }).map((_, i) => (
           <div
             key={i}
-            className="flex items-center gap-4 border-b border-zinc-100 px-4 py-3 last:border-0"
+            className="flex items-center gap-4 border-b border-border/70 px-4 py-3 last:border-0"
           >
             <Skeleton className="h-4 w-20" />
             <Skeleton className="h-4 w-28" />

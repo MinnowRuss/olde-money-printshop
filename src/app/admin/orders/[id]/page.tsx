@@ -52,7 +52,7 @@ export default async function AdminOrderDetailPage({
   if (!supabase) {
     return (
       <div className="mx-auto max-w-7xl px-4 py-16 text-center">
-        <p className="text-zinc-500">Service unavailable.</p>
+        <p className="text-muted-foreground">Service unavailable.</p>
       </div>
     )
   }
@@ -105,8 +105,8 @@ export default async function AdminOrderDetailPage({
   if (error || !order) {
     return (
       <div className="mx-auto max-w-7xl px-4 py-16 text-center">
-        <h1 className="text-2xl font-semibold text-zinc-900">Order Not Found</h1>
-        <p className="mt-2 text-zinc-600">
+        <h1 className="text-2xl font-semibold text-foreground">Order Not Found</h1>
+        <p className="mt-2 text-muted-foreground">
           The order you&apos;re looking for doesn&apos;t exist.
         </p>
         <Link href="/admin/orders" className="mt-4 inline-block">
@@ -129,7 +129,7 @@ export default async function AdminOrderDetailPage({
       {/* Back link */}
       <Link
         href="/admin/orders"
-        className="mb-6 inline-flex items-center gap-1 text-sm text-zinc-500 transition-colors hover:text-zinc-900"
+        className="mb-6 inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
       >
         <ArrowLeft className="h-4 w-4" />
         Back to Orders
@@ -137,13 +137,13 @@ export default async function AdminOrderDetailPage({
 
       {/* Header */}
       <div className="mb-8">
-        <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">
+        <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
           Admin &middot; Order Detail
         </p>
-        <h1 className="mt-1 text-3xl font-semibold tracking-tight text-zinc-900">
+        <h1 className="mt-1 text-3xl font-semibold tracking-tight text-foreground">
           Order #{order.id.slice(0, 8).toUpperCase()}
         </h1>
-        <p className="mt-1 text-sm text-zinc-500">
+        <p className="mt-1 text-sm text-muted-foreground">
           Placed{' '}
           {new Date(order.created_at).toLocaleDateString('en-US', {
             weekday: 'long',
@@ -161,8 +161,8 @@ export default async function AdminOrderDetailPage({
         <div className="space-y-6 lg:col-span-2">
           {/* Order Items */}
           <Card className="overflow-hidden">
-            <div className="border-b border-zinc-200 bg-zinc-50 px-4 py-3 sm:px-6">
-              <h2 className="text-sm font-semibold text-zinc-900">
+            <div className="border-b border-border bg-muted/40 px-4 py-3 sm:px-6">
+              <h2 className="text-sm font-semibold text-foreground">
                 Order Items ({orderItems.length})
               </h2>
             </div>
@@ -177,7 +177,7 @@ export default async function AdminOrderDetailPage({
                   >
                   {/* Thumbnail placeholder */}
                   <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-lg bg-zinc-100">
-                    <span className="text-xs text-zinc-400">
+                    <span className="text-xs text-[color:var(--text-tertiary)]">
                       {image?.filename
                         ? image.filename.slice(0, 6)
                         : 'N/A'}
@@ -185,27 +185,27 @@ export default async function AdminOrderDetailPage({
                   </div>
 
                   <div className="flex-1">
-                    <p className="text-sm font-medium text-zinc-900">
+                    <p className="text-sm font-medium text-foreground">
                       {image?.filename ?? 'Deleted image'}
                     </p>
-                    <p className="mt-0.5 text-xs text-zinc-500">
+                    <p className="mt-0.5 text-xs text-muted-foreground">
                       {item.media_type_name ?? 'Print'} &middot;{' '}
                       {item.print_size ?? `${item.width}×${item.height}"`} &middot;
                       Qty: {item.quantity}
                     </p>
                     {item.option_names && item.option_names.length > 0 && (
-                      <p className="mt-0.5 text-xs text-zinc-400">
+                      <p className="mt-0.5 text-xs text-[color:var(--text-tertiary)]">
                         Options: {item.option_names.join(', ')}
                       </p>
                     )}
                   </div>
 
                   <div className="text-right">
-                    <p className="text-sm font-semibold text-zinc-900">
+                    <p className="text-sm font-semibold text-foreground">
                       ${Number(item.total ?? item.unit_price * item.quantity).toFixed(2)}
                     </p>
                     {item.quantity > 1 && (
-                      <p className="text-xs text-zinc-500">
+                      <p className="text-xs text-muted-foreground">
                         ${Number(item.unit_price).toFixed(2)} ea
                       </p>
                     )}
@@ -221,10 +221,10 @@ export default async function AdminOrderDetailPage({
             </div>
 
             {/* Totals */}
-            <div className="border-t border-zinc-200 bg-zinc-50 px-4 py-3 sm:px-6">
+            <div className="border-t border-border bg-muted/40 px-4 py-3 sm:px-6">
               <div className="flex justify-between text-sm">
-                <span className="font-semibold text-zinc-900">Order Total</span>
-                <span className="text-lg font-bold text-zinc-900">
+                <span className="font-semibold text-foreground">Order Total</span>
+                <span className="text-lg font-bold text-foreground">
                   ${Number(order.total).toFixed(2)}
                 </span>
               </div>
@@ -233,32 +233,32 @@ export default async function AdminOrderDetailPage({
 
           {/* Customer Info */}
           <Card className="overflow-hidden">
-            <div className="border-b border-zinc-200 bg-zinc-50 px-4 py-3 sm:px-6">
-              <h2 className="text-sm font-semibold text-zinc-900">
+            <div className="border-b border-border bg-muted/40 px-4 py-3 sm:px-6">
+              <h2 className="text-sm font-semibold text-foreground">
                 Customer Information
               </h2>
             </div>
             <div className="space-y-3 px-4 py-4 sm:px-6">
               <div>
-                <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">
+                <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                   Name
                 </p>
-                <p className="text-sm text-zinc-900">
+                <p className="text-sm text-foreground">
                   {customerProfile?.full_name || 'Not provided'}
                 </p>
               </div>
               <div>
-                <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">
+                <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                   User ID
                 </p>
-                <p className="font-mono text-xs text-zinc-600">{order.user_id}</p>
+                <p className="font-mono text-xs text-muted-foreground">{order.user_id}</p>
               </div>
               {customerProfile?.address_line1 && (
                 <div>
-                  <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">
+                  <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                     Shipping Address
                   </p>
-                  <p className="text-sm text-zinc-900">
+                  <p className="text-sm text-foreground">
                     {customerProfile.address_line1}
                     {customerProfile.address_line2 && (
                       <>

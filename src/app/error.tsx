@@ -17,10 +17,10 @@ export default function GlobalError({
 
   return (
     <div className="flex min-h-[60vh] flex-col items-center justify-center gap-6 px-4 text-center">
-      <h1 className="text-2xl font-semibold text-zinc-900">
+      <h1 className="text-2xl font-semibold text-foreground">
         Something went wrong
       </h1>
-      <p className="text-zinc-600">
+      <p className="text-muted-foreground">
         We hit an unexpected error. Please try again.
       </p>
       <div className="flex gap-3">

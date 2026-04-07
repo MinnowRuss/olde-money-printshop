@@ -83,8 +83,8 @@ export default function AdminOrderDetailForm({
 
   return (
     <Card className="sticky top-20">
-      <div className="border-b border-zinc-200 bg-zinc-50 px-4 py-3 sm:px-6">
-        <h2 className="text-sm font-semibold text-zinc-900">
+      <div className="border-b border-border bg-muted/40 px-4 py-3 sm:px-6">
+        <h2 className="text-sm font-semibold text-foreground">
           Update Order
         </h2>
       </div>
@@ -92,14 +92,14 @@ export default function AdminOrderDetailForm({
       <div className="space-y-5 p-4 sm:p-6">
         {/* Status dropdown */}
         <div>
-          <Label htmlFor="status" className="text-xs font-medium uppercase tracking-wider text-zinc-500">
+          <Label htmlFor="status" className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
             Status
           </Label>
           <select
             id="status"
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="mt-1.5 flex h-9 w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 transition-colors focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-200"
+            className="mt-1.5 flex h-9 w-full rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground transition-colors focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-200"
           >
             {STATUSES.map((s) => (
               <option key={s.value} value={s.value}>
@@ -111,7 +111,7 @@ export default function AdminOrderDetailForm({
 
         {/* Tracking number */}
         <div>
-          <Label htmlFor="tracking" className="text-xs font-medium uppercase tracking-wider text-zinc-500">
+          <Label htmlFor="tracking" className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
             Tracking Number
           </Label>
           <Input
@@ -121,14 +121,14 @@ export default function AdminOrderDetailForm({
             placeholder="e.g. 1Z999AA10123456784"
             className="mt-1.5"
           />
-          <p className="mt-1 text-xs text-zinc-400">
+          <p className="mt-1 text-xs text-[color:var(--text-tertiary)]">
             USPS or UPS tracking number
           </p>
         </div>
 
         {/* Print notes */}
         <div>
-          <Label htmlFor="print-notes" className="text-xs font-medium uppercase tracking-wider text-zinc-500">
+          <Label htmlFor="print-notes" className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
             Print Notes
           </Label>
           <textarea
@@ -137,9 +137,9 @@ export default function AdminOrderDetailForm({
             onChange={(e) => setPrintNotes(e.target.value)}
             placeholder="Flag issues with this order (e.g. low-res image, wrong crop)..."
             rows={3}
-            className="mt-1.5 flex w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 transition-colors placeholder:text-zinc-400 focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-200"
+            className="mt-1.5 flex w-full rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground transition-colors placeholder:text-[color:var(--text-tertiary)] focus:border-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-200"
           />
-          <p className="mt-1 text-xs text-zinc-400">
+          <p className="mt-1 text-xs text-[color:var(--text-tertiary)]">
             Notes visible to admins only
           </p>
         </div>
@@ -195,7 +195,7 @@ export default function AdminOrderDetailForm({
         </Button>
 
         {!hasChanges && (
-          <p className="text-center text-xs text-zinc-400">
+          <p className="text-center text-xs text-[color:var(--text-tertiary)]">
             No changes to save
           </p>
         )}

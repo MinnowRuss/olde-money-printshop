@@ -31,33 +31,37 @@ export default function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="border-t border-zinc-200 bg-white">
-      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        {/* Multi-column link grid */}
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {/* Brand column */}
+    <footer className="border-t border-white/10 bg-black/50">
+      <div className="page-shell py-12 sm:py-14">
+        <div className="grid gap-10 border-b border-white/10 pb-10 lg:grid-cols-[1.3fr_repeat(3,minmax(0,1fr))]">
           <div>
-            <p className="text-sm font-semibold text-zinc-900">
-              Olde Money Printing
+            <p className="eyebrow">Olde Money Printshop</p>
+            <h2 className="mt-4 text-2xl font-semibold text-foreground">
+              Premium print commerce, tuned for image-first browsing.
+            </h2>
+            <p className="mt-4 max-w-md text-sm leading-6 text-muted-foreground">
+              Museum-quality photo prints with sharper hierarchy, darker
+              surfaces, and a cleaner path from upload to checkout.
             </p>
-            <p className="mt-2 text-xs leading-relaxed text-zinc-500">
-              Museum-quality photo prints on fine art paper, and more.
-            </p>
-            <div className="mt-4">
-              <p className="text-xs font-semibold text-zinc-900">Stay Updated</p>
-              <p className="mt-1 text-xs text-zinc-500">Get promotions and print tips</p>
-              <div className="relative mt-2">
+            <div className="mt-6">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-foreground">
+                Stay Updated
+              </p>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Promotions, print tips, and new product drops.
+              </p>
+              <div className="relative mt-3 max-w-sm">
                 <FooterSignup />
               </div>
             </div>
-            <div className="mt-4 flex gap-4 text-sm text-zinc-500">
+            <div className="mt-6 flex gap-4 text-sm text-muted-foreground">
               {SOCIAL_LINKS.map(({ href, label }) => (
                 <a
                   key={label}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="transition-colors hover:text-zinc-900"
+                  className="transition-colors hover:text-primary-foreground"
                 >
                   {label}
                 </a>
@@ -65,17 +69,16 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Shop column */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-zinc-900">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-foreground">
               Shop
             </p>
-            <nav className="mt-3 flex flex-col gap-2 text-sm text-zinc-500">
+            <nav className="mt-3 flex flex-col gap-2 text-sm text-muted-foreground">
               {SHOP_LINKS.map(({ href, label }) => (
                 <Link
                   key={href}
                   href={href}
-                  className="transition-colors hover:text-zinc-900"
+                  className="transition-colors hover:text-primary-foreground"
                 >
                   {label}
                 </Link>
@@ -83,17 +86,16 @@ export default function Footer() {
             </nav>
           </div>
 
-          {/* Learn column */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-zinc-900">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-foreground">
               Learn
             </p>
-            <nav className="mt-3 flex flex-col gap-2 text-sm text-zinc-500">
+            <nav className="mt-3 flex flex-col gap-2 text-sm text-muted-foreground">
               {LEARN_LINKS.map(({ href, label }) => (
                 <Link
                   key={href}
                   href={href}
-                  className="transition-colors hover:text-zinc-900"
+                  className="transition-colors hover:text-primary-foreground"
                 >
                   {label}
                 </Link>
@@ -101,17 +103,16 @@ export default function Footer() {
             </nav>
           </div>
 
-          {/* Support column */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-zinc-900">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-foreground">
               Support
             </p>
-            <nav className="mt-3 flex flex-col gap-2 text-sm text-zinc-500">
+            <nav className="mt-3 flex flex-col gap-2 text-sm text-muted-foreground">
               {SUPPORT_LINKS.map(({ href, label }) => (
                 <Link
                   key={href}
                   href={href}
-                  className="transition-colors hover:text-zinc-900"
+                  className="transition-colors hover:text-primary-foreground"
                 >
                   {label}
                 </Link>
@@ -120,11 +121,11 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="mt-10 border-t border-zinc-100 pt-6 text-center">
-          <p className="text-xs text-zinc-500">
+        <div className="flex flex-col gap-2 pt-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <p>
             &copy; {year} Olde Money Printing. All rights reserved.
           </p>
+          <p>Dark commerce system inspired by the new project design brief.</p>
         </div>
       </div>
     </footer>

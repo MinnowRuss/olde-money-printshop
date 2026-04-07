@@ -101,10 +101,10 @@ export default function DropShippingPage() {
     <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="mb-10 text-center">
-        <h1 className="text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           Drop Shipping Program
         </h1>
-        <p className="mt-3 text-sm leading-relaxed text-zinc-600 sm:text-base">
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
           We print and ship directly to your customers so you can focus on
           growing your business. No inventory, no hassle.
         </p>
@@ -113,10 +113,10 @@ export default function DropShippingPage() {
       <div className="space-y-12">
         {/* What is drop shipping */}
         <section>
-          <h2 className="text-xl font-semibold text-zinc-900">
+          <h2 className="text-xl font-semibold text-foreground">
             What Is Drop Shipping?
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-zinc-600">
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             Drop shipping with Olde Money Printshop means you sell prints under
             your own brand while we handle the production and fulfillment. When
             your customer places an order, you submit it to us and we take care
@@ -129,22 +129,22 @@ export default function DropShippingPage() {
 
         {/* Who it's for */}
         <section>
-          <h2 className="text-xl font-semibold text-zinc-900">
+          <h2 className="text-xl font-semibold text-foreground">
             Who It&apos;s For
           </h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             {AUDIENCES.map((audience) => (
               <div
                 key={audience.label}
-                className="rounded-xl border border-zinc-200 bg-zinc-50 p-5"
+                className="rounded-xl border border-border bg-muted/40 p-5"
               >
                 <div className="flex items-center gap-3">
-                  <audience.icon className="size-5 text-zinc-600" />
-                  <h3 className="text-sm font-semibold text-zinc-900">
+                  <audience.icon className="size-5 text-muted-foreground" />
+                  <h3 className="text-sm font-semibold text-foreground">
                     {audience.label}
                   </h3>
                 </div>
-                <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                   {audience.description}
                 </p>
               </div>
@@ -154,26 +154,26 @@ export default function DropShippingPage() {
 
         {/* How it works */}
         <section>
-          <h2 className="text-xl font-semibold text-zinc-900">
+          <h2 className="text-xl font-semibold text-foreground">
             How It Works
           </h2>
           <div className="mt-4 space-y-4">
             {STEPS.map((step, index) => (
               <div
                 key={step.title}
-                className="flex gap-4 rounded-xl border border-zinc-200 bg-zinc-50 p-5"
+                className="flex gap-4 rounded-xl border border-border bg-muted/40 p-5"
               >
-                <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-sm font-bold text-white">
+                <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
                   {index + 1}
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <step.icon className="size-4 text-zinc-500" />
-                    <h3 className="text-sm font-semibold text-zinc-900">
+                    <step.icon className="size-4 text-muted-foreground" />
+                    <h3 className="text-sm font-semibold text-foreground">
                       {step.title}
                     </h3>
                   </div>
-                  <p className="mt-1 text-sm leading-relaxed text-zinc-600">
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                     {step.description}
                   </p>
                 </div>
@@ -184,17 +184,17 @@ export default function DropShippingPage() {
 
         {/* Benefits */}
         <section>
-          <h2 className="text-xl font-semibold text-zinc-900">Benefits</h2>
+          <h2 className="text-xl font-semibold text-foreground">Benefits</h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             {BENEFITS.map((benefit) => (
               <div
                 key={benefit.title}
-                className="rounded-xl border border-zinc-200 bg-zinc-50 p-5"
+                className="rounded-xl border border-border bg-muted/40 p-5"
               >
-                <h3 className="text-sm font-semibold text-zinc-900">
+                <h3 className="text-sm font-semibold text-foreground">
                   {benefit.title}
                 </h3>
-                <p className="mt-1 text-sm leading-relaxed text-zinc-600">
+                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                   {benefit.description}
                 </p>
               </div>
@@ -203,18 +203,18 @@ export default function DropShippingPage() {
         </section>
 
         {/* CTA */}
-        <section className="rounded-xl border border-zinc-200 bg-zinc-50 p-6 text-center">
-          <h2 className="text-xl font-semibold text-zinc-900">
+        <section className="rounded-xl border border-border bg-muted/40 p-6 text-center">
+          <h2 className="text-xl font-semibold text-foreground">
             Ready to Get Started?
           </h2>
-          <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
             Contact us to set up your drop shipping account. We&apos;ll walk you
             through pricing, onboarding, and everything you need to start
             selling prints under your own brand.
           </p>
           <Link
             href="/contact"
-            className="mt-4 inline-flex h-9 items-center justify-center rounded-lg bg-zinc-900 px-5 text-sm font-medium text-white transition-colors hover:bg-zinc-800"
+            className="mt-4 inline-flex h-9 items-center justify-center rounded-lg bg-primary px-5 text-sm font-medium text-primary-foreground transition-colors hover:bg-[var(--accent-primary-hover)]"
           >
             Contact Us
           </Link>

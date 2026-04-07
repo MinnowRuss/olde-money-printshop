@@ -109,10 +109,13 @@ export default function PricingCalculator({
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-2">
+    <div className="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(20rem,0.95fr)]">
       {/* Left: Inputs */}
       <Card>
         <CardHeader>
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--free-game-yellow-bright)]">
+            Configuration
+          </p>
           <CardTitle>Configure Your Print</CardTitle>
         </CardHeader>
         <CardContent className="space-y-5">
@@ -134,7 +137,7 @@ export default function PricingCalculator({
               </SelectContent>
             </Select>
             {mediaType && (
-              <p className="text-sm text-zinc-500">{mediaType.description}</p>
+              <p className="text-sm text-muted-foreground">{mediaType.description}</p>
             )}
           </div>
 
@@ -172,7 +175,7 @@ export default function PricingCalculator({
                 {mediaType.options.map((opt) => (
                   <label
                     key={opt.slug}
-                    className="flex items-center gap-3 rounded-lg border border-zinc-200 p-3 transition-colors hover:bg-zinc-50 cursor-pointer"
+                    className="flex cursor-pointer items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-3 transition-colors hover:bg-white/[0.05]"
                   >
                     <Checkbox
                       checked={selectedOptionSlugs.includes(opt.slug)}
@@ -182,12 +185,12 @@ export default function PricingCalculator({
                       {opt.name}
                     </span>
                     {opt.extraCost > 0 && (
-                      <span className="text-sm text-zinc-500">
+                      <span className="text-sm text-muted-foreground">
                         +${opt.extraCost.toFixed(2)}
                       </span>
                     )}
                     {opt.extraCost === 0 && (
-                      <span className="text-xs text-zinc-400">Included</span>
+                      <span className="text-xs text-[color:var(--text-tertiary)]">Included</span>
                     )}
                   </label>
                 ))}
@@ -238,11 +241,11 @@ export default function PricingCalculator({
           {priceResult && priceResult.matchedTier ? (
             <div className="space-y-4">
               {/* Matched size */}
-              <div className="rounded-lg bg-zinc-50 p-4">
-                <p className="text-sm font-medium text-zinc-500">
+              <div className="rounded-lg bg-muted/40 p-4">
+                <p className="text-sm font-medium text-muted-foreground">
                   Matched Size
                 </p>
-                <p className="text-lg font-semibold text-zinc-900">
+                <p className="text-lg font-semibold text-primary-foreground">
                   {priceResult.matchedTier.label}
                 </p>
               </div>
@@ -250,7 +253,7 @@ export default function PricingCalculator({
               {/* Line items */}
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-zinc-600">Base price</span>
+                  <span className="text-muted-foreground">Base price</span>
                   <span className="font-medium">
                     ${priceResult.basePrice.toFixed(2)}
                   </span>
@@ -258,22 +261,22 @@ export default function PricingCalculator({
 
                 {priceResult.optionsCost > 0 && (
                   <div className="flex justify-between">
-                    <span className="text-zinc-600">Options</span>
+                    <span className="text-muted-foreground">Options</span>
                     <span className="font-medium">
                       +${priceResult.optionsCost.toFixed(2)}
                     </span>
                   </div>
                 )}
 
-                <div className="flex justify-between border-t border-zinc-100 pt-2">
-                  <span className="text-zinc-600">Unit price</span>
+                <div className="flex justify-between border-t border-border/70 pt-2">
+                  <span className="text-muted-foreground">Unit price</span>
                   <span className="font-semibold">
                     ${priceResult.unitPrice.toFixed(2)}
                   </span>
                 </div>
 
                 <div className="flex justify-between">
-                  <span className="text-zinc-600">
+                  <span className="text-muted-foreground">
                     Subtotal ({quantity} x ${priceResult.unitPrice.toFixed(2)})
                   </span>
                   <span className="font-medium">
@@ -282,12 +285,12 @@ export default function PricingCalculator({
                 </div>
 
                 {priceResult.discountPct > 0 && (
-                  <div className="flex justify-between text-green-600">
+                  <div className="flex justify-between text-[color:var(--sale-green)]">
                     <span className="flex items-center gap-1.5">
                       Volume discount
                       <Badge
                         variant="secondary"
-                        className="bg-green-100 text-green-700 text-xs"
+                        className="border-0 bg-[color:var(--sale-green)]/12 text-[color:var(--sale-green)]"
                       >
                         -{priceResult.discountPct}%
                       </Badge>
@@ -300,7 +303,7 @@ export default function PricingCalculator({
               </div>
 
               {/* Total */}
-              <div className="flex justify-between rounded-lg bg-zinc-900 p-4 text-white">
+              <div className="flex justify-between rounded-lg bg-primary p-4 text-primary-foreground">
                 <span className="text-lg font-semibold">Total</span>
                 <span className="text-2xl font-bold">
                   ${priceResult.total.toFixed(2)}
@@ -308,15 +311,15 @@ export default function PricingCalculator({
               </div>
             </div>
           ) : (
-            <div className="rounded-lg border-2 border-dashed border-zinc-200 p-8 text-center">
-              <p className="text-sm text-zinc-500">
+            <div className="rounded-lg border-2 border-dashed border-border p-8 text-center">
+              <p className="text-sm text-muted-foreground">
                 {width > 0 && height > 0
                   ? 'No pricing available for the selected dimensions. Try a standard size.'
                   : 'Enter dimensions to see pricing.'}
               </p>
               {mediaType && (
                 <div className="mt-4">
-                  <p className="text-xs font-medium text-zinc-400 mb-2">
+                  <p className="text-xs font-medium text-[color:var(--text-tertiary)] mb-2">
                     Available sizes:
                   </p>
                   <div className="flex flex-wrap justify-center gap-1.5">
@@ -324,7 +327,7 @@ export default function PricingCalculator({
                       <Badge
                         key={t.label}
                         variant="outline"
-                        className="text-xs cursor-pointer hover:bg-zinc-100"
+                        className="text-xs cursor-pointer hover:bg-white/[0.06]"
                         onClick={() => {
                           setWidth(t.maxWidth)
                           setHeight(t.maxHeight)

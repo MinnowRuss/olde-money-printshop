@@ -25,7 +25,7 @@ const STATUS_TABS = [
 ] as const
 
 const STATUS_CONFIG: Record<string, { label: string; className: string }> = {
-  pending:     { label: 'Pending',     className: 'bg-zinc-100 text-zinc-700' },
+  pending:     { label: 'Pending',     className: 'bg-zinc-100 text-foreground' },
   processing:  { label: 'Processing',  className: 'bg-yellow-100 text-yellow-800' },
   verified:    { label: 'Verified',    className: 'bg-emerald-100 text-emerald-800' },
   queued:      { label: 'Queued',      className: 'bg-indigo-100 text-indigo-800' },
@@ -82,8 +82,8 @@ export default function AdminOrdersTable({
               onClick={() => setActiveTab(tab)}
               className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
                 activeTab === tab
-                  ? 'bg-zinc-900 text-white'
-                  : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'bg-zinc-100 text-muted-foreground hover:bg-white/[0.1]'
               }`}
             >
               {label} ({count})
@@ -94,7 +94,7 @@ export default function AdminOrdersTable({
 
       {/* Search */}
       <div className="relative mb-6">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" />
+        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[color:var(--text-tertiary)]" />
         <Input
           placeholder="Search by order # or customer name..."
           value={search}
@@ -108,7 +108,7 @@ export default function AdminOrdersTable({
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-zinc-200 bg-zinc-50 text-left text-xs font-medium uppercase tracking-wider text-zinc-500">
+              <tr className="border-b border-border bg-muted/40 text-left text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 <th className="px-4 py-3">Order #</th>
                 <th className="px-4 py-3">Customer</th>
                 <th className="px-4 py-3">Date</th>
@@ -124,7 +124,7 @@ export default function AdminOrdersTable({
                 <tr>
                   <td
                     colSpan={8}
-                    className="px-4 py-12 text-center text-zinc-500"
+                    className="px-4 py-12 text-center text-muted-foreground"
                   >
                     No orders found.
                   </td>
@@ -145,19 +145,19 @@ export default function AdminOrdersTable({
                   return (
                     <tr
                       key={order.id}
-                      className="transition-colors hover:bg-zinc-50"
+                      className="transition-colors hover:bg-muted/40"
                     >
-                      <td className="px-4 py-3 font-mono text-xs font-semibold text-zinc-900">
+                      <td className="px-4 py-3 font-mono text-xs font-semibold text-foreground">
                         #{order.id.slice(0, 8).toUpperCase()}
                       </td>
-                      <td className="px-4 py-3 text-zinc-700">
+                      <td className="px-4 py-3 text-foreground">
                         {order.customerName}
                       </td>
-                      <td className="px-4 py-3 text-zinc-500">{date}</td>
-                      <td className="px-4 py-3 text-center text-zinc-700">
+                      <td className="px-4 py-3 text-muted-foreground">{date}</td>
+                      <td className="px-4 py-3 text-center text-foreground">
                         {order.itemCount}
                       </td>
-                      <td className="px-4 py-3 text-right font-medium text-zinc-900">
+                      <td className="px-4 py-3 text-right font-medium text-foreground">
                         ${order.total.toFixed(2)}
                       </td>
                       <td className="px-4 py-3">
@@ -169,13 +169,13 @@ export default function AdminOrdersTable({
                       </td>
                       <td className="px-4 py-3">
                         {order.trackingNumber ? (
-                          <span className="flex items-center gap-1 text-xs text-zinc-600">
+                          <span className="flex items-center gap-1 text-xs text-muted-foreground">
                             <Package className="h-3 w-3" />
                             {order.trackingNumber.slice(0, 12)}
                             {order.trackingNumber.length > 12 ? '…' : ''}
                           </span>
                         ) : (
-                          <span className="text-xs text-zinc-400">—</span>
+                          <span className="text-xs text-[color:var(--text-tertiary)]">—</span>
                         )}
                       </td>
                       <td className="px-4 py-3 text-center">

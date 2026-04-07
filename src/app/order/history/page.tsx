@@ -8,7 +8,7 @@ import OrderItemsExpander from './OrderItemsExpander'
 
 // Status badge styling
 const STATUS_CONFIG: Record<string, { label: string; className: string }> = {
-  pending:    { label: 'Pending',    className: 'bg-zinc-100 text-zinc-700' },
+  pending:    { label: 'Pending',    className: 'bg-zinc-100 text-foreground' },
   processing: { label: 'Processing', className: 'bg-yellow-100 text-yellow-800' },
   shipped:    { label: 'Shipped',    className: 'bg-blue-100 text-blue-800' },
   delivered:  { label: 'Delivered',  className: 'bg-green-100 text-green-800' },
@@ -33,7 +33,7 @@ export default async function OrderHistoryPage() {
   if (!supabase) {
     return (
       <div className="mx-auto max-w-7xl px-4 py-16 text-center">
-        <p className="text-zinc-500">Service unavailable. Please try again later.</p>
+        <p className="text-muted-foreground">Service unavailable. Please try again later.</p>
       </div>
     )
   }
@@ -83,11 +83,11 @@ export default async function OrderHistoryPage() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center gap-6 text-center">
           <div className="flex h-20 w-20 items-center justify-center rounded-full bg-zinc-100">
-            <ClipboardList className="h-10 w-10 text-zinc-400" />
+            <ClipboardList className="h-10 w-10 text-[color:var(--text-tertiary)]" />
           </div>
           <div>
-            <h1 className="text-2xl font-semibold text-zinc-900">No orders yet</h1>
-            <p className="mt-2 text-zinc-600">
+            <h1 className="text-2xl font-semibold text-foreground">No orders yet</h1>
+            <p className="mt-2 text-muted-foreground">
               Once you place your first order, it will appear here.
             </p>
           </div>
@@ -106,10 +106,10 @@ export default async function OrderHistoryPage() {
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-semibold tracking-tight text-zinc-900">
+        <h1 className="text-3xl font-semibold tracking-tight text-foreground">
           Order History
         </h1>
-        <p className="mt-2 text-zinc-600">
+        <p className="mt-2 text-muted-foreground">
           {orders.length} {orders.length === 1 ? 'order' : 'orders'}
         </p>
       </div>
@@ -131,10 +131,10 @@ export default async function OrderHistoryPage() {
               <div className="flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-6">
                 <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-4">
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">
+                    <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                       Order
                     </p>
-                    <p className="font-mono text-sm font-semibold text-zinc-900">
+                    <p className="font-mono text-sm font-semibold text-foreground">
                       #{order.id.slice(0, 8).toUpperCase()}
                     </p>
                   </div>
@@ -142,19 +142,19 @@ export default async function OrderHistoryPage() {
                   <div className="hidden h-8 w-px bg-zinc-200 sm:block" />
 
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">
+                    <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                       Date
                     </p>
-                    <p className="text-sm text-zinc-900">{orderDate}</p>
+                    <p className="text-sm text-foreground">{orderDate}</p>
                   </div>
 
                   <div className="hidden h-8 w-px bg-zinc-200 sm:block" />
 
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">
+                    <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                       Items
                     </p>
-                    <p className="text-sm text-zinc-900">
+                    <p className="text-sm text-foreground">
                       {itemCount} {itemCount === 1 ? 'print' : 'prints'}
                     </p>
                   </div>
@@ -183,7 +183,7 @@ export default async function OrderHistoryPage() {
                   )}
 
                   {/* Total */}
-                  <p className="text-lg font-bold text-zinc-900">
+                  <p className="text-lg font-bold text-foreground">
                     ${Number(order.total).toFixed(2)}
                   </p>
                 </div>

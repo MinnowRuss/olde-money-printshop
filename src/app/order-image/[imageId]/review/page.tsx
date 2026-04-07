@@ -146,8 +146,8 @@ export default function ReviewPage() {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="h-8 w-8 animate-spin text-zinc-400" />
-          <p className="text-sm text-zinc-500">Loading order details...</p>
+          <Loader2 className="h-8 w-8 animate-spin text-[color:var(--text-tertiary)]" />
+          <p className="text-sm text-muted-foreground">Loading order details...</p>
         </div>
       </div>
     )
@@ -166,10 +166,10 @@ export default function ReviewPage() {
           <ChevronLeft className="h-4 w-4" />
           Back
         </Link>
-        <h1 className="mt-4 text-3xl font-semibold tracking-tight text-zinc-900">
+        <h1 className="mt-4 text-3xl font-semibold tracking-tight text-foreground">
           Step 4: Review Order
         </h1>
-        <p className="mt-2 text-zinc-600">
+        <p className="mt-2 text-muted-foreground">
           Check your order details before adding to cart
         </p>
       </div>
@@ -188,7 +188,7 @@ export default function ReviewPage() {
         <div className="space-y-6 lg:col-span-2">
           {/* Image section */}
           <Card className="p-6">
-            <h2 className="mb-4 text-lg font-semibold text-zinc-900">
+            <h2 className="mb-4 text-lg font-semibold text-foreground">
               Image
             </h2>
             <div className="flex gap-4">
@@ -203,14 +203,14 @@ export default function ReviewPage() {
                 </div>
               )}
               <div className="flex-1">
-                <p className="text-sm font-medium text-zinc-900">
+                <p className="text-sm font-medium text-foreground">
                   {imageRecord?.filename}
                 </p>
-                <p className="mt-1 text-sm text-zinc-500">
+                <p className="mt-1 text-sm text-muted-foreground">
                   {imageRecord?.width} &times; {imageRecord?.height}
                 </p>
                 {cropData && (
-                  <p className="mt-2 text-xs text-zinc-600">
+                  <p className="mt-2 text-xs text-muted-foreground">
                     <span className="font-medium">Crop:</span> {cropData.width.toFixed(1)}
                     {cropData.unit} &times; {cropData.height.toFixed(1)}
                     {cropData.unit}
@@ -224,32 +224,32 @@ export default function ReviewPage() {
           {/* Options section */}
           {finishData && (
             <Card className="p-6">
-              <h2 className="mb-4 text-lg font-semibold text-zinc-900">
+              <h2 className="mb-4 text-lg font-semibold text-foreground">
                 Order Options
               </h2>
               <dl className="space-y-3">
                 <div className="flex justify-between">
-                  <dt className="text-sm text-zinc-600">Media Type:</dt>
-                  <dd className="text-sm font-medium text-zinc-900">
+                  <dt className="text-sm text-muted-foreground">Media Type:</dt>
+                  <dd className="text-sm font-medium text-foreground">
                     {finishData.mediaType}
                   </dd>
                 </div>
                 <div className="flex justify-between">
-                  <dt className="text-sm text-zinc-600">Print Size:</dt>
-                  <dd className="text-sm font-medium text-zinc-900">
+                  <dt className="text-sm text-muted-foreground">Print Size:</dt>
+                  <dd className="text-sm font-medium text-foreground">
                     {finishData.printSize}
                   </dd>
                 </div>
                 <div className="flex justify-between">
-                  <dt className="text-sm text-zinc-600">Quantity:</dt>
-                  <dd className="text-sm font-medium text-zinc-900">
+                  <dt className="text-sm text-muted-foreground">Quantity:</dt>
+                  <dd className="text-sm font-medium text-foreground">
                     {finishData.quantity}
                   </dd>
                 </div>
                 {finishData.options && finishData.options.length > 0 && (
                   <div className="flex justify-between">
-                    <dt className="text-sm text-zinc-600">Add-ons:</dt>
-                    <dd className="text-right text-sm font-medium text-zinc-900">
+                    <dt className="text-sm text-muted-foreground">Add-ons:</dt>
+                    <dd className="text-right text-sm font-medium text-foreground">
                       {finishData.options.join(', ')}
                     </dd>
                   </div>
@@ -262,22 +262,22 @@ export default function ReviewPage() {
         {/* Pricing sidebar */}
         <div className="space-y-6">
           <Card className="p-6">
-            <h2 className="mb-4 text-lg font-semibold text-zinc-900">
+            <h2 className="mb-4 text-lg font-semibold text-foreground">
               Price
             </h2>
-            <dl className="space-y-3 border-b border-zinc-200 pb-4">
+            <dl className="space-y-3 border-b border-border pb-4">
               {finishData?.unitPrice !== undefined && (
                 <div className="flex justify-between text-sm">
-                  <dt className="text-zinc-600">Unit price:</dt>
-                  <dd className="font-medium text-zinc-900">
+                  <dt className="text-muted-foreground">Unit price:</dt>
+                  <dd className="font-medium text-foreground">
                     ${finishData.unitPrice.toFixed(2)}
                   </dd>
                 </div>
               )}
               {finishData?.quantity !== undefined && finishData?.unitPrice !== undefined && (
                 <div className="flex justify-between text-sm">
-                  <dt className="text-zinc-600">Subtotal:</dt>
-                  <dd className="font-medium text-zinc-900">
+                  <dt className="text-muted-foreground">Subtotal:</dt>
+                  <dd className="font-medium text-foreground">
                     ${(finishData.unitPrice * finishData.quantity).toFixed(2)}
                   </dd>
                 </div>
@@ -285,7 +285,7 @@ export default function ReviewPage() {
               {finishData?.volumeDiscount !== undefined &&
                 finishData.volumeDiscount > 0 && (
                   <div className="flex justify-between text-sm">
-                    <dt className="text-zinc-600">Volume discount:</dt>
+                    <dt className="text-muted-foreground">Volume discount:</dt>
                     <dd className="font-medium text-green-600">
                       -${finishData.volumeDiscount.toFixed(2)}
                     </dd>
@@ -296,8 +296,8 @@ export default function ReviewPage() {
             {finishData?.unitPrice !== undefined &&
               finishData?.quantity !== undefined && (
                 <div className="mt-4 flex justify-between">
-                  <dt className="text-sm font-semibold text-zinc-900">Total:</dt>
-                  <dd className="text-lg font-bold text-zinc-900">
+                  <dt className="text-sm font-semibold text-foreground">Total:</dt>
+                  <dd className="text-lg font-bold text-foreground">
                     $
                     {(
                       finishData.unitPrice * finishData.quantity -

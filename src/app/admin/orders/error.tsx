@@ -17,10 +17,10 @@ export default function AdminOrdersError({
           <AlertCircle className="h-8 w-8 text-red-500" />
         </div>
         <div>
-          <h2 className="text-xl font-semibold text-zinc-900">
+          <h2 className="text-xl font-semibold text-foreground">
             Failed to load admin orders
           </h2>
-          <p className="mt-2 text-sm text-zinc-600">
+          <p className="mt-2 text-sm text-muted-foreground">
             {error.message || 'The orders dashboard could not be loaded. Please try again.'}
           </p>
         </div>

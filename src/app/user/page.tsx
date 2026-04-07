@@ -21,7 +21,7 @@ export default async function UserProfilePage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6">
-      <h1 className="mb-8 text-2xl font-semibold tracking-tight text-zinc-900">
+      <h1 className="mb-8 text-2xl font-semibold tracking-tight text-foreground">
         Your profile
       </h1>
       <div className="space-y-6">

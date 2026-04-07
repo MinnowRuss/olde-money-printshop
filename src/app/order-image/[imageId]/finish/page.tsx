@@ -155,8 +155,8 @@ export default function FinishPage() {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="h-8 w-8 animate-spin text-zinc-400" />
-          <p className="text-sm text-zinc-500">Loading...</p>
+          <Loader2 className="h-8 w-8 animate-spin text-[color:var(--text-tertiary)]" />
+          <p className="text-sm text-muted-foreground">Loading...</p>
         </div>
       </div>
     )
@@ -177,10 +177,10 @@ export default function FinishPage() {
           <ChevronLeft className="h-4 w-4" />
           Back to Crop
         </Link>
-        <h1 className="mt-4 text-3xl font-semibold tracking-tight text-zinc-900">
+        <h1 className="mt-4 text-3xl font-semibold tracking-tight text-foreground">
           Step 3: Options & Price
         </h1>
-        <p className="mt-2 text-zinc-600">
+        <p className="mt-2 text-muted-foreground">
           Choose your media type, options, and quantity
         </p>
       </div>

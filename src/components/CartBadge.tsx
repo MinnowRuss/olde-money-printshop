@@ -35,11 +35,11 @@ export default function CartBadge() {
   return (
     <Link
       href="/order/history"
-      className="relative inline-flex items-center p-1 text-zinc-600 hover:text-zinc-900"
+      className="relative inline-flex size-10 items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] text-muted-foreground transition-colors hover:bg-white/[0.08] hover:text-foreground"
     >
       <ShoppingCart className="h-5 w-5" />
       {count > 0 && (
-        <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-zinc-900 text-[10px] font-medium text-white">
+        <span className="absolute -right-1 -top-1 flex min-h-5 min-w-5 items-center justify-center rounded-full bg-[color:var(--free-game-yellow)] px-1 text-[10px] font-bold text-black">
           {count > 99 ? '99+' : count}
         </span>
       )}

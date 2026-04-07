@@ -51,8 +51,8 @@ function OrderSuccessContent() {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="h-8 w-8 animate-spin text-zinc-400" />
-          <p className="text-sm text-zinc-500">Confirming your order...</p>
+          <Loader2 className="h-8 w-8 animate-spin text-[color:var(--text-tertiary)]" />
+          <p className="text-sm text-muted-foreground">Confirming your order...</p>
         </div>
       </div>
     )
@@ -71,11 +71,11 @@ function OrderSuccessContent() {
           </div>
         </div>
 
-        <h1 className="mt-6 text-2xl font-semibold text-zinc-900">
+        <h1 className="mt-6 text-2xl font-semibold text-foreground">
           Order Confirmed!
         </h1>
 
-        <p className="mt-3 text-zinc-600">
+        <p className="mt-3 text-muted-foreground">
           Thank you for your order. You&apos;ll receive a confirmation email
           shortly with your order details.
         </p>
@@ -105,8 +105,8 @@ export default function OrderSuccessPage() {
       fallback={
         <div className="flex min-h-screen items-center justify-center">
           <div className="flex flex-col items-center gap-3">
-            <Loader2 className="h-8 w-8 animate-spin text-zinc-400" />
-            <p className="text-sm text-zinc-500">Loading...</p>
+            <Loader2 className="h-8 w-8 animate-spin text-[color:var(--text-tertiary)]" />
+            <p className="text-sm text-muted-foreground">Loading...</p>
           </div>
         </div>
       }

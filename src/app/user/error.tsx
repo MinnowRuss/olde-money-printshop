@@ -17,10 +17,10 @@ export default function UserError({
           <AlertCircle className="h-8 w-8 text-red-500" />
         </div>
         <div>
-          <h2 className="text-xl font-semibold text-zinc-900">
+          <h2 className="text-xl font-semibold text-foreground">
             Failed to load your profile
           </h2>
-          <p className="mt-2 text-sm text-zinc-600">
+          <p className="mt-2 text-sm text-muted-foreground">
             {error.message || 'We couldn\u2019t load your profile information. Please try again.'}
           </p>
         </div>

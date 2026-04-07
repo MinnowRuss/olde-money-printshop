@@ -22,7 +22,7 @@ export default function ImageLoading() {
       {/* Image grid */}
       <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {Array.from({ length: 8 }).map((_, i) => (
-          <div key={i} className="overflow-hidden rounded-xl border border-zinc-200">
+          <div key={i} className="overflow-hidden rounded-xl border border-border">
             <Skeleton className="aspect-square w-full rounded-none" />
             <div className="p-3">
               <Skeleton className="h-4 w-3/4" />

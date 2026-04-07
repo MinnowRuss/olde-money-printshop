@@ -15,7 +15,7 @@ export default function OrderLoading() {
           {Array.from({ length: 3 }).map((_, i) => (
             <div
               key={i}
-              className="flex gap-4 rounded-xl border border-zinc-200 p-4 sm:p-6"
+              className="flex gap-4 rounded-xl border border-border p-4 sm:p-6"
             >
               <Skeleton className="h-20 w-20 flex-shrink-0 rounded-lg sm:h-24 sm:w-24" />
               <div className="flex flex-1 flex-col justify-between">
@@ -34,9 +34,9 @@ export default function OrderLoading() {
 
         {/* Order summary sidebar */}
         <div>
-          <div className="rounded-xl border border-zinc-200 p-6">
+          <div className="rounded-xl border border-border p-6">
             <Skeleton className="h-6 w-36" />
-            <div className="mt-4 space-y-3 border-b border-zinc-200 pb-4">
+            <div className="mt-4 space-y-3 border-b border-border pb-4">
               <div className="flex justify-between">
                 <Skeleton className="h-4 w-16" />
                 <Skeleton className="h-4 w-16" />

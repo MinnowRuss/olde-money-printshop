@@ -303,7 +303,7 @@ export default function PrintQueueClient({ orders, activeBatches }: Props) {
       {/* Active Batches Status */}
       {activePrintBatches.length > 0 && (
         <Card className="p-5">
-          <h2 className="mb-3 text-sm font-medium uppercase tracking-wider text-zinc-500">
+          <h2 className="mb-3 text-sm font-medium uppercase tracking-wider text-muted-foreground">
             Active Batches
           </h2>
           <div className="space-y-2">
@@ -313,15 +313,15 @@ export default function PrintQueueClient({ orders, activeBatches }: Props) {
               return (
                 <div
                   key={batch.id}
-                  className="flex items-center justify-between rounded-md border border-zinc-200 px-4 py-2.5"
+                  className="flex items-center justify-between rounded-md border border-border px-4 py-2.5"
                 >
                   <div className="flex items-center gap-3">
-                    <Icon className="h-4 w-4 text-zinc-500" />
+                    <Icon className="h-4 w-4 text-muted-foreground" />
                     <div>
-                      <span className="text-sm font-medium text-zinc-900">
+                      <span className="text-sm font-medium text-foreground">
                         Batch #{batch.id.slice(0, 8)}
                       </span>
-                      <span className="ml-2 text-xs text-zinc-500">
+                      <span className="ml-2 text-xs text-muted-foreground">
                         {batch.media_type_slug} &middot; {batch.roll_width_in}″ roll
                         {batch.estimated_length_in
                           ? ` · ${batch.estimated_length_in}″ est.`
@@ -331,7 +331,7 @@ export default function PrintQueueClient({ orders, activeBatches }: Props) {
                   </div>
                   <span
                     className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                      cfg?.className ?? 'bg-zinc-100 text-zinc-700'
+                      cfg?.className ?? 'bg-zinc-100 text-foreground'
                     }`}
                   >
                     {cfg?.label ?? batch.status}
@@ -346,14 +346,14 @@ export default function PrintQueueClient({ orders, activeBatches }: Props) {
       {/* Order Selection */}
       {orders.length === 0 ? (
         <Card className="p-10 text-center">
-          <CheckCircle2 className="mx-auto mb-3 h-10 w-10 text-zinc-300" />
-          <p className="text-sm text-zinc-500">No verified orders waiting for batching.</p>
+          <CheckCircle2 className="mx-auto mb-3 h-10 w-10 text-primary-foreground/80" />
+          <p className="text-sm text-muted-foreground">No verified orders waiting for batching.</p>
         </Card>
       ) : (
         <div className="space-y-6">
           {/* Roll Width Selector */}
           <div className="flex items-center gap-4">
-            <label className="text-sm font-medium text-zinc-700">Roll Width</label>
+            <label className="text-sm font-medium text-foreground">Roll Width</label>
             <Select value={rollWidth} onValueChange={(v) => v && setRollWidth(v)}>
               <SelectTrigger className="w-36">
                 <SelectValue />
@@ -376,9 +376,9 @@ export default function PrintQueueClient({ orders, activeBatches }: Props) {
             return (
               <Card key={slug} className={`p-5 ${isDisabledGroup ? 'opacity-50' : ''}`}>
                 <div className="mb-4 flex items-center justify-between">
-                  <h3 className="text-sm font-semibold uppercase tracking-wider text-zinc-700">
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground">
                     {group.mediaTypeName}
-                    <span className="ml-2 font-normal text-zinc-400">
+                    <span className="ml-2 font-normal text-[color:var(--text-tertiary)]">
                       ({group.orders.length} order{group.orders.length !== 1 ? 's' : ''})
                     </span>
                   </h3>
@@ -405,7 +405,7 @@ export default function PrintQueueClient({ orders, activeBatches }: Props) {
                         className={`flex cursor-pointer items-center gap-3 rounded-md border px-4 py-3 transition-colors ${
                           isSelected
                             ? 'border-indigo-300 bg-indigo-50'
-                            : 'border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50'
+                            : 'border-border hover:border-zinc-300 hover:bg-muted/40'
                         } ${isDisabledGroup ? 'pointer-events-none' : ''}`}
                       >
                         <Checkbox
@@ -415,14 +415,14 @@ export default function PrintQueueClient({ orders, activeBatches }: Props) {
                         />
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-2">
-                            <span className="text-sm font-medium text-zinc-900">
+                            <span className="text-sm font-medium text-foreground">
                               {order.customerName}
                             </span>
-                            <span className="text-xs text-zinc-400">
+                            <span className="text-xs text-[color:var(--text-tertiary)]">
                               #{order.id.slice(0, 8)}
                             </span>
                           </div>
-                          <div className="mt-0.5 text-xs text-zinc-500">
+                          <div className="mt-0.5 text-xs text-muted-foreground">
                             {totalPrints} print{totalPrints !== 1 ? 's' : ''} &middot;{' '}
                             {mediaItems.map((i) => `${i.width}×${i.height}″`).join(', ')}
                             {order.printNotes && (
@@ -432,7 +432,7 @@ export default function PrintQueueClient({ orders, activeBatches }: Props) {
                             )}
                           </div>
                         </div>
-                        <span className="text-xs text-zinc-400">
+                        <span className="text-xs text-[color:var(--text-tertiary)]">
                           {new Date(order.createdAt).toLocaleDateString()}
                         </span>
                       </label>
@@ -445,14 +445,14 @@ export default function PrintQueueClient({ orders, activeBatches }: Props) {
 
           {/* Action Bar */}
           <div className="sticky bottom-4 z-10">
-            <Card className="border-zinc-300 bg-white/95 p-4 shadow-lg backdrop-blur">
+            <Card className="border-zinc-300 bg-background/95 p-4 shadow-lg backdrop-blur">
               {!nestingPreview ? (
                 /* Step 1: Generate Layout */
                 <div className="flex items-center justify-between">
-                  <div className="text-sm text-zinc-600">
+                  <div className="text-sm text-muted-foreground">
                     {selectedOrderIds.size > 0 ? (
                       <>
-                        <span className="font-medium text-zinc-900">
+                        <span className="font-medium text-foreground">
                           {selectedOrderIds.size} order{selectedOrderIds.size !== 1 ? 's' : ''}
                         </span>{' '}
                         selected &middot; {selectedItemCount} print
@@ -479,43 +479,43 @@ export default function PrintQueueClient({ orders, activeBatches }: Props) {
                 <div className="space-y-3">
                   <div className="grid grid-cols-4 gap-4">
                     <div className="text-center">
-                      <div className="flex items-center justify-center gap-1.5 text-xs text-zinc-500">
+                      <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
                         <Package className="h-3.5 w-3.5" />
                         Items
                       </div>
-                      <p className="mt-0.5 text-lg font-semibold text-zinc-900">
+                      <p className="mt-0.5 text-lg font-semibold text-foreground">
                         {nestingPreview.itemCount}
                       </p>
                     </div>
                     <div className="text-center">
-                      <div className="flex items-center justify-center gap-1.5 text-xs text-zinc-500">
+                      <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
                         <Ruler className="h-3.5 w-3.5" />
                         Length
                       </div>
-                      <p className="mt-0.5 text-lg font-semibold text-zinc-900">
+                      <p className="mt-0.5 text-lg font-semibold text-foreground">
                         {nestingPreview.estimatedLengthIn}″
                       </p>
                     </div>
                     <div className="text-center">
-                      <div className="flex items-center justify-center gap-1.5 text-xs text-zinc-500">
+                      <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
                         <Layers className="h-3.5 w-3.5" />
                         Strips
                       </div>
-                      <p className="mt-0.5 text-lg font-semibold text-zinc-900">
+                      <p className="mt-0.5 text-lg font-semibold text-foreground">
                         {nestingPreview.stripCount}
                       </p>
                     </div>
                     <div className="text-center">
-                      <div className="flex items-center justify-center gap-1.5 text-xs text-zinc-500">
+                      <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
                         <BarChart3 className="h-3.5 w-3.5" />
                         Waste
                       </div>
-                      <p className="mt-0.5 text-lg font-semibold text-zinc-900">
+                      <p className="mt-0.5 text-lg font-semibold text-foreground">
                         {nestingPreview.wastePercent}%
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between border-t border-zinc-200 pt-3">
+                  <div className="flex items-center justify-between border-t border-border pt-3">
                     <Button
                       variant="ghost"
                       onClick={() => setNestingPreview(null)}

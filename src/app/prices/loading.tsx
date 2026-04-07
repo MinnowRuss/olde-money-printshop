@@ -15,7 +15,7 @@ export default function PricesLoading() {
       {/* Media type sections */}
       <div className="space-y-8">
         {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="rounded-xl border border-zinc-200 p-6">
+          <div key={i} className="rounded-xl border border-border p-6">
             <Skeleton className="h-7 w-48" />
             <Skeleton className="mt-2 h-4 w-72" />
             <div className="mt-6 grid gap-6 lg:grid-cols-2">

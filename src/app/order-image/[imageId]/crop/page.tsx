@@ -113,8 +113,8 @@ export default function CropPage() {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="h-8 w-8 animate-spin text-zinc-400" />
-          <p className="text-sm text-zinc-500">Loading image...</p>
+          <Loader2 className="h-8 w-8 animate-spin text-[color:var(--text-tertiary)]" />
+          <p className="text-sm text-muted-foreground">Loading image...</p>
         </div>
       </div>
     )
@@ -133,10 +133,10 @@ export default function CropPage() {
           <ChevronLeft className="h-4 w-4" />
           Back to Gallery
         </Link>
-        <h1 className="mt-4 text-3xl font-semibold tracking-tight text-zinc-900">
+        <h1 className="mt-4 text-3xl font-semibold tracking-tight text-foreground">
           Step 2: Crop Your Image
         </h1>
-        <p className="mt-2 text-zinc-600">
+        <p className="mt-2 text-muted-foreground">
           Choose the area of your image to print
         </p>
       </div>
@@ -145,9 +145,9 @@ export default function CropPage() {
       <div className="grid gap-8 lg:grid-cols-3">
         {/* Crop tool */}
         <div className="lg:col-span-2">
-          <div className="rounded-xl border border-zinc-200 bg-white p-6">
+          <div className="rounded-xl border border-border bg-card p-6">
             {imageUrl && (
-              <div className="flex justify-center bg-zinc-50 p-4 rounded-lg">
+              <div className="flex justify-center bg-muted/40 p-4 rounded-lg">
                 <ReactCrop
                   crop={crop}
                   onChange={handleCropChange}
@@ -169,8 +169,8 @@ export default function CropPage() {
         {/* Controls sidebar */}
         <div className="space-y-6">
           {/* Mode toggles */}
-          <div className="rounded-xl border border-zinc-200 bg-white p-4">
-            <h3 className="mb-3 text-sm font-semibold text-zinc-900">Crop Mode</h3>
+          <div className="rounded-xl border border-border bg-card p-4">
+            <h3 className="mb-3 text-sm font-semibold text-foreground">Crop Mode</h3>
             <div className="space-y-2">
               <button
                 onClick={() => {
@@ -180,7 +180,7 @@ export default function CropPage() {
                 className={`w-full rounded-lg border px-3 py-2 text-sm font-medium transition-all ${
                   !lockedRatio
                     ? 'border-primary bg-primary/10 text-primary'
-                    : 'border-zinc-200 text-zinc-700 hover:border-zinc-300'
+                    : 'border-border text-foreground hover:border-zinc-300'
                 }`}
               >
                 Free Crop
@@ -196,7 +196,7 @@ export default function CropPage() {
                 className={`w-full rounded-lg border px-3 py-2 text-sm font-medium transition-all ${
                   lockedRatio
                     ? 'border-primary bg-primary/10 text-primary'
-                    : 'border-zinc-200 text-zinc-700 hover:border-zinc-300'
+                    : 'border-border text-foreground hover:border-zinc-300'
                 }`}
               >
                 Locked Ratio
@@ -206,14 +206,14 @@ export default function CropPage() {
 
           {/* Aspect ratio selector */}
           {lockedRatio && (
-            <div className="rounded-xl border border-zinc-200 bg-white p-4">
-              <h3 className="mb-3 text-sm font-semibold text-zinc-900">
+            <div className="rounded-xl border border-border bg-card p-4">
+              <h3 className="mb-3 text-sm font-semibold text-foreground">
                 Aspect Ratio
               </h3>
               <select
                 value={selectedRatio || ASPECT_RATIOS[0].value}
                 onChange={(e) => handleRatioChange(parseFloat(e.target.value))}
-                className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm font-medium text-zinc-900 transition-all hover:border-zinc-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                className="w-full rounded-lg border border-zinc-300 bg-card px-3 py-2 text-sm font-medium text-foreground transition-all hover:border-zinc-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
               >
                 {ASPECT_RATIOS.map((ratio) => (
                   <option key={ratio.label} value={ratio.value}>
@@ -226,26 +226,26 @@ export default function CropPage() {
 
           {/* Image info */}
           {imageRecord && (
-            <div className="rounded-xl border border-zinc-200 bg-white p-4">
-              <h3 className="mb-3 text-sm font-semibold text-zinc-900">
+            <div className="rounded-xl border border-border bg-card p-4">
+              <h3 className="mb-3 text-sm font-semibold text-foreground">
                 Image Details
               </h3>
-              <dl className="space-y-2 text-xs text-zinc-600">
+              <dl className="space-y-2 text-xs text-muted-foreground">
                 <div className="flex justify-between">
                   <dt>Filename:</dt>
-                  <dd className="font-medium text-zinc-900">
+                  <dd className="font-medium text-foreground">
                     {imageRecord.filename}
                   </dd>
                 </div>
                 <div className="flex justify-between">
                   <dt>Dimensions:</dt>
-                  <dd className="font-medium text-zinc-900">
+                  <dd className="font-medium text-foreground">
                     {imageRecord.width} &times; {imageRecord.height}
                   </dd>
                 </div>
                 <div className="flex justify-between">
                   <dt>File size:</dt>
-                  <dd className="font-medium text-zinc-900">
+                  <dd className="font-medium text-foreground">
                     {(imageRecord.file_size / 1024 / 1024).toFixed(2)} MB
                   </dd>
                 </div>

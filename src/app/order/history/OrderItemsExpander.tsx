@@ -27,10 +27,10 @@ export default function OrderItemsExpander({ items }: OrderItemsExpanderProps) {
   if (items.length === 0) return null
 
   return (
-    <div className="border-t border-zinc-100">
+    <div className="border-t border-border/70">
       <button
         onClick={() => setExpanded(!expanded)}
-        className="flex w-full items-center justify-center gap-1 py-2 text-xs font-medium text-zinc-500 transition-colors hover:bg-zinc-50 hover:text-zinc-700"
+        className="flex w-full items-center justify-center gap-1 py-2 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground"
       >
         {expanded ? 'Hide' : 'View'} Items
         {expanded ? (
@@ -41,7 +41,7 @@ export default function OrderItemsExpander({ items }: OrderItemsExpanderProps) {
       </button>
 
       {expanded && (
-        <div className="border-t border-zinc-100 bg-zinc-50/50">
+        <div className="border-t border-border/70 bg-muted/40/50">
           <div className="divide-y divide-zinc-100">
             {items.map((item) => (
               <div
@@ -49,26 +49,26 @@ export default function OrderItemsExpander({ items }: OrderItemsExpanderProps) {
                 className="flex items-center justify-between px-4 py-3 sm:px-6"
               >
                 <div>
-                  <p className="text-sm font-medium text-zinc-900">
+                  <p className="text-sm font-medium text-foreground">
                     {item.media_type_name ?? 'Print'}
                   </p>
-                  <p className="mt-0.5 text-xs text-zinc-500">
+                  <p className="mt-0.5 text-xs text-muted-foreground">
                     {item.print_size ?? `${item.width}×${item.height}"`}
                     {' · '}
                     Qty: {item.quantity}
                   </p>
                   {item.option_names && item.option_names.length > 0 && (
-                    <p className="mt-0.5 text-xs text-zinc-400">
+                    <p className="mt-0.5 text-xs text-[color:var(--text-tertiary)]">
                       {item.option_names.join(', ')}
                     </p>
                   )}
                 </div>
                 <div className="text-right">
-                  <p className="text-sm font-medium text-zinc-900">
+                  <p className="text-sm font-medium text-foreground">
                     ${Number(item.total ?? item.unit_price * item.quantity).toFixed(2)}
                   </p>
                   {item.quantity > 1 && (
-                    <p className="text-xs text-zinc-500">
+                    <p className="text-xs text-muted-foreground">
                       ${Number(item.unit_price).toFixed(2)} each
                     </p>
                   )}

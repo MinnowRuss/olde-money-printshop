@@ -14,7 +14,7 @@ export default function OrderHistoryLoading() {
         {Array.from({ length: 4 }).map((_, i) => (
           <div
             key={i}
-            className="rounded-xl border border-zinc-200 p-4 sm:p-6"
+            className="rounded-xl border border-border p-4 sm:p-6"
           >
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">

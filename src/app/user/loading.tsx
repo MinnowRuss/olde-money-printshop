@@ -7,7 +7,7 @@ export default function UserProfileLoading() {
 
       <div className="space-y-6">
         {/* Address form card */}
-        <div className="rounded-xl border border-zinc-200 p-6">
+        <div className="rounded-xl border border-border p-6">
           <Skeleton className="mb-4 h-6 w-36" />
           <div className="space-y-4">
             <div>
@@ -33,7 +33,7 @@ export default function UserProfileLoading() {
         </div>
 
         {/* Password form card */}
-        <div className="rounded-xl border border-zinc-200 p-6">
+        <div className="rounded-xl border border-border p-6">
           <Skeleton className="mb-4 h-6 w-40" />
           <div className="space-y-4">
             <div>

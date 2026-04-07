@@ -81,18 +81,18 @@ export default function AboutPage() {
     <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="mb-10 text-center">
-        <h1 className="text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           About Olde Money Printshop
         </h1>
-        <p className="mt-3 text-lg text-zinc-600">
+        <p className="mt-3 text-lg text-muted-foreground">
           Where art meets archival craftsmanship.
         </p>
       </div>
 
       {/* Our Story */}
-      <div className="space-y-8 text-sm leading-relaxed text-zinc-600">
+      <div className="space-y-8 text-sm leading-relaxed text-muted-foreground">
         <section>
-          <h2 className="text-xl font-semibold text-zinc-900">Our Story</h2>
+          <h2 className="text-xl font-semibold text-foreground">Our Story</h2>
           <p className="mt-3">
             Olde Money Printing was founded by an artist and
             photographer who shared a common frustration: finding a print lab that
@@ -118,20 +118,20 @@ export default function AboutPage() {
 
         {/* Values */}
         <section>
-          <h2 className="text-xl font-semibold text-zinc-900">What We Stand For</h2>
+          <h2 className="text-xl font-semibold text-foreground">What We Stand For</h2>
           <div className="mt-6 grid gap-5 sm:grid-cols-2">
             {VALUES.map((value) => (
               <div
                 key={value.title}
-                className="rounded-xl border border-zinc-200 bg-zinc-50 p-5"
+                className="rounded-xl border border-border bg-muted/40 p-5"
               >
                 <div className="flex size-10 items-center justify-center rounded-lg bg-zinc-100">
-                  <value.icon className="size-5 text-zinc-600" />
+                  <value.icon className="size-5 text-muted-foreground" />
                 </div>
-                <h3 className="mt-3 text-sm font-semibold text-zinc-900">
+                <h3 className="mt-3 text-sm font-semibold text-foreground">
                   {value.title}
                 </h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-zinc-600">
+                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
                   {value.description}
                 </p>
               </div>
@@ -141,7 +141,7 @@ export default function AboutPage() {
 
         {/* Process */}
         <section>
-          <h2 className="text-xl font-semibold text-zinc-900">How It Works</h2>
+          <h2 className="text-xl font-semibold text-foreground">How It Works</h2>
           <p className="mt-3">
             Getting a museum-quality print is straightforward. Here is our four-step
             process from file to finished piece.
@@ -150,18 +150,18 @@ export default function AboutPage() {
             {PROCESS_STEPS.map((step) => (
               <div
                 key={step.step}
-                className="rounded-xl border border-zinc-200 bg-zinc-50 p-5"
+                className="rounded-xl border border-border bg-muted/40 p-5"
               >
                 <div className="flex size-10 items-center justify-center rounded-lg bg-zinc-100">
-                  <step.icon className="size-5 text-zinc-600" />
+                  <step.icon className="size-5 text-muted-foreground" />
                 </div>
-                <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-zinc-400">
+                <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-[color:var(--text-tertiary)]">
                   Step {step.step}
                 </p>
-                <h3 className="mt-1 text-sm font-semibold text-zinc-900">
+                <h3 className="mt-1 text-sm font-semibold text-foreground">
                   {step.title}
                 </h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-zinc-600">
+                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
                   {step.description}
                 </p>
               </div>
@@ -170,17 +170,17 @@ export default function AboutPage() {
         </section>
 
         {/* CTA */}
-        <section className="rounded-xl border border-zinc-200 bg-zinc-50 p-8 text-center">
-          <h2 className="text-xl font-semibold text-zinc-900">
+        <section className="rounded-xl border border-border bg-muted/40 p-8 text-center">
+          <h2 className="text-xl font-semibold text-foreground">
             Ready to Bring Your Images to Life?
           </h2>
-          <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
             Upload your first image and experience the difference that archival-quality
             printing makes.
           </p>
           <Link
             href="/prices"
-            className="mt-5 inline-flex items-center gap-2 rounded-lg bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-zinc-800"
+            className="mt-5 inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-[var(--accent-primary-hover)]"
           >
             Start Your Order
             <ArrowRight className="size-4" />

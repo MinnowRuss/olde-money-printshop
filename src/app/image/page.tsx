@@ -61,7 +61,7 @@ export default async function ImageLibraryPage({ searchParams }: Props) {
 
       {/* Header */}
       <div className="mb-8 flex items-center justify-between">
-        <h1 className="text-2xl font-semibold tracking-tight text-zinc-900">
+        <h1 className="text-2xl font-semibold tracking-tight text-foreground">
           Step 1: Choose an Image
         </h1>
         <Link
@@ -75,13 +75,13 @@ export default async function ImageLibraryPage({ searchParams }: Props) {
 
       {/* Sort controls */}
       <div className="mb-6 flex items-center gap-2">
-        <span className="text-sm text-zinc-500">Sort by:</span>
+        <span className="text-sm text-muted-foreground">Sort by:</span>
         <Link
           href="/image?sort=date"
           className={`inline-flex h-7 items-center justify-center rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] font-medium transition-all ${
             sortBy === 'date'
               ? 'bg-primary text-primary-foreground'
-              : 'border border-zinc-300 text-zinc-700 hover:bg-zinc-100'
+              : 'border border-zinc-300 text-foreground hover:bg-white/[0.06]'
           }`}
         >
           Date
@@ -91,7 +91,7 @@ export default async function ImageLibraryPage({ searchParams }: Props) {
           className={`inline-flex h-7 items-center justify-center rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] font-medium transition-all ${
             sortBy === 'name'
               ? 'bg-primary text-primary-foreground'
-              : 'border border-zinc-300 text-zinc-700 hover:bg-zinc-100'
+              : 'border border-zinc-300 text-foreground hover:bg-white/[0.06]'
           }`}
         >
           Name
@@ -101,11 +101,11 @@ export default async function ImageLibraryPage({ searchParams }: Props) {
       {/* Gallery or empty state */}
       {imagesWithUrls.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-zinc-300 py-20 text-center">
-          <ImageUp className="mb-4 h-10 w-10 text-zinc-400" />
-          <p className="text-sm font-medium text-zinc-700">
+          <ImageUp className="mb-4 h-10 w-10 text-[color:var(--text-tertiary)]" />
+          <p className="text-sm font-medium text-foreground">
             No images yet
           </p>
-          <p className="mt-1 text-xs text-zinc-500">
+          <p className="mt-1 text-xs text-muted-foreground">
             Upload your first image to get started.
           </p>
           <Link

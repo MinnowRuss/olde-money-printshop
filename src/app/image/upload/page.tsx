@@ -138,7 +138,7 @@ export default function UploadPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6">
       <div className="mb-8 flex items-center justify-between">
-        <h1 className="text-2xl font-semibold tracking-tight text-zinc-900">
+        <h1 className="text-2xl font-semibold tracking-tight text-foreground">
           Upload Images
         </h1>
         {hasUploaded && (
@@ -161,13 +161,13 @@ export default function UploadPage() {
         }`}
       >
         <input {...getInputProps()} />
-        <Upload className="mb-4 h-10 w-10 text-zinc-400" />
-        <p className="text-sm font-medium text-zinc-700">
+        <Upload className="mb-4 h-10 w-10 text-[color:var(--text-tertiary)]" />
+        <p className="text-sm font-medium text-foreground">
           {isDragActive
             ? 'Drop your images here...'
             : 'Drag & drop images, or click to browse'}
         </p>
-        <p className="mt-1 text-xs text-zinc-500">
+        <p className="mt-1 text-xs text-muted-foreground">
           JPEG and TIFF only &middot; 50 MB max per file
         </p>
       </div>
@@ -178,7 +178,7 @@ export default function UploadPage() {
           {files.map((f) => (
             <div
               key={f.id}
-              className="flex items-center gap-3 rounded-lg border border-zinc-200 bg-white p-3"
+              className="flex items-center gap-3 rounded-lg border border-border bg-card p-3"
             >
               {/* Preview */}
               <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-md bg-zinc-100">
@@ -190,16 +190,16 @@ export default function UploadPage() {
                     className="h-full w-full object-cover"
                   />
                 ) : (
-                  <FileImage className="h-6 w-6 text-zinc-400" />
+                  <FileImage className="h-6 w-6 text-[color:var(--text-tertiary)]" />
                 )}
               </div>
 
               {/* Info */}
               <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-medium text-zinc-900">
+                <p className="truncate text-sm font-medium text-foreground">
                   {f.file.name}
                 </p>
-                <p className="text-xs text-zinc-500">
+                <p className="text-xs text-muted-foreground">
                   {(f.file.size / (1024 * 1024)).toFixed(1)} MB
                 </p>
 
@@ -222,7 +222,7 @@ export default function UploadPage() {
               {/* Status icon */}
               <div className="shrink-0">
                 {f.status === 'uploading' && (
-                  <Loader2 className="h-5 w-5 animate-spin text-zinc-400" />
+                  <Loader2 className="h-5 w-5 animate-spin text-[color:var(--text-tertiary)]" />
                 )}
                 {f.status === 'success' && (
                   <CheckCircle2 className="h-5 w-5 text-green-600" />

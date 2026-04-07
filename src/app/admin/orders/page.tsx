@@ -31,7 +31,7 @@ export default async function AdminOrdersPage({ searchParams }: AdminOrdersPageP
   if (!supabase) {
     return (
       <div className="mx-auto max-w-7xl px-4 py-16 text-center">
-        <p className="text-zinc-500">Service unavailable.</p>
+        <p className="text-muted-foreground">Service unavailable.</p>
       </div>
     )
   }
@@ -98,13 +98,13 @@ export default async function AdminOrdersPage({ searchParams }: AdminOrdersPageP
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="mb-8">
-        <p className="text-xs font-medium uppercase tracking-wider text-zinc-500">
+        <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
           Admin
         </p>
-        <h1 className="mt-1 text-3xl font-semibold tracking-tight text-zinc-900">
+        <h1 className="mt-1 text-3xl font-semibold tracking-tight text-foreground">
           Orders
         </h1>
-        <p className="mt-2 text-zinc-600">
+        <p className="mt-2 text-muted-foreground">
           {totalOrders} total{' '}
           {totalOrders === 1 ? 'order' : 'orders'}
           {totalPages > 1 && ` · Page ${page + 1} of ${totalPages}`}
@@ -123,7 +123,7 @@ export default async function AdminOrdersPage({ searchParams }: AdminOrdersPageP
           ) : (
             <Button variant="outline" size="sm" disabled>Previous</Button>
           )}
-          <span className="text-sm text-zinc-500">
+          <span className="text-sm text-muted-foreground">
             Page {page + 1} of {totalPages}
           </span>
           {page < totalPages - 1 ? (

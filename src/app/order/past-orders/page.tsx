@@ -118,8 +118,8 @@ export default function PastOrdersPage() {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="h-8 w-8 animate-spin text-zinc-400" />
-          <p className="text-sm text-zinc-500">Loading past orders...</p>
+          <Loader2 className="h-8 w-8 animate-spin text-[color:var(--text-tertiary)]" />
+          <p className="text-sm text-muted-foreground">Loading past orders...</p>
         </div>
       </div>
     )
@@ -131,13 +131,13 @@ export default function PastOrdersPage() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center gap-6 text-center">
           <div className="flex h-20 w-20 items-center justify-center rounded-full bg-zinc-100">
-            <ClipboardList className="h-10 w-10 text-zinc-400" />
+            <ClipboardList className="h-10 w-10 text-[color:var(--text-tertiary)]" />
           </div>
           <div>
-            <h1 className="text-2xl font-semibold text-zinc-900">
+            <h1 className="text-2xl font-semibold text-foreground">
               No past orders
             </h1>
-            <p className="mt-2 text-zinc-600">
+            <p className="mt-2 text-muted-foreground">
               Your past order items will appear here so you can easily reorder.
             </p>
           </div>
@@ -157,10 +157,10 @@ export default function PastOrdersPage() {
       {/* Header */}
       <div className="mb-8 flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight text-zinc-900">
+          <h1 className="text-3xl font-semibold tracking-tight text-foreground">
             Past Orders
           </h1>
-          <p className="mt-2 text-zinc-600">
+          <p className="mt-2 text-muted-foreground">
             Reorder from your previous prints
           </p>
         </div>
@@ -211,12 +211,12 @@ export default function PastOrdersPage() {
                 ) : (
                   <div className="flex h-full w-full items-center justify-center">
                     {imageDeleted ? (
-                      <div className="flex flex-col items-center gap-2 text-zinc-400">
+                      <div className="flex flex-col items-center gap-2 text-[color:var(--text-tertiary)]">
                         <AlertCircle className="h-8 w-8" />
                         <span className="text-xs">Image deleted</span>
                       </div>
                     ) : (
-                      <ImageIcon className="h-12 w-12 text-zinc-300" />
+                      <ImageIcon className="h-12 w-12 text-primary-foreground/80" />
                     )}
                   </div>
                 )}
@@ -224,23 +224,23 @@ export default function PastOrdersPage() {
 
               {/* Details */}
               <div className="p-4">
-                <p className="text-sm font-medium text-zinc-900 truncate">
+                <p className="text-sm font-medium text-foreground truncate">
                   {item.images?.filename ?? 'Deleted image'}
                 </p>
-                <p className="mt-1 text-xs text-zinc-500">
+                <p className="mt-1 text-xs text-muted-foreground">
                   {item.media_type_name ?? 'Print'} &middot;{' '}
                   {item.print_size ?? `${item.width}×${item.height}"`}
                 </p>
                 {item.option_names && item.option_names.length > 0 && (
-                  <p className="mt-0.5 text-xs text-zinc-400">
+                  <p className="mt-0.5 text-xs text-[color:var(--text-tertiary)]">
                     {item.option_names.join(', ')}
                   </p>
                 )}
                 <div className="mt-2 flex items-center justify-between">
-                  <p className="text-xs text-zinc-400">
+                  <p className="text-xs text-[color:var(--text-tertiary)]">
                     Qty: {item.quantity} &middot; Ordered {orderDate}
                   </p>
-                  <p className="text-sm font-semibold text-zinc-900">
+                  <p className="text-sm font-semibold text-foreground">
                     ${Number(item.unit_price).toFixed(2)}
                   </p>
                 </div>

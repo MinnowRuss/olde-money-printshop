@@ -110,10 +110,10 @@ export default function ImageGallery({ images }: Props) {
     <>
       {/* Selection toolbar */}
       <div className="mb-4 flex items-center justify-between">
-        <div className="text-sm text-zinc-500">
+        <div className="text-sm text-muted-foreground">
           {images.length} image{images.length !== 1 ? 's' : ''}
           {selectMode && selected.size > 0 && (
-            <span className="ml-2 font-medium text-zinc-900">
+            <span className="ml-2 font-medium text-foreground">
               &middot; {selected.size} selected
             </span>
           )}
@@ -147,22 +147,22 @@ export default function ImageGallery({ images }: Props) {
         {images.map((img) => (
           <div
             key={img.id}
-            className={`group relative overflow-hidden rounded-xl border bg-white transition-shadow hover:shadow-md ${
+            className={`group relative overflow-hidden rounded-xl border bg-card transition-shadow hover:shadow-md ${
               selected.has(img.id)
                 ? 'border-primary ring-2 ring-primary/20'
-                : 'border-zinc-200'
+                : 'border-border'
             }`}
           >
             {/* Checkbox overlay (select mode) */}
             {selectMode && (
               <button
                 onClick={() => toggleSelect(img.id)}
-                className="absolute left-2 top-2 z-10 rounded-md bg-white/80 p-1 backdrop-blur"
+                className="absolute left-2 top-2 z-10 rounded-md bg-card/80 p-1 backdrop-blur"
               >
                 {selected.has(img.id) ? (
                   <CheckSquare className="h-5 w-5 text-primary" />
                 ) : (
-                  <Square className="h-5 w-5 text-zinc-400" />
+                  <Square className="h-5 w-5 text-[color:var(--text-tertiary)]" />
                 )}
               </button>
             )}
@@ -171,7 +171,7 @@ export default function ImageGallery({ images }: Props) {
             {!selectMode && (
               <button
                 onClick={() => setDeleteTargetId(img.id)}
-                className="absolute right-2 top-2 z-10 rounded-md bg-white/80 p-1 opacity-0 backdrop-blur transition-opacity group-hover:opacity-100"
+                className="absolute right-2 top-2 z-10 rounded-md bg-card/80 p-1 opacity-0 backdrop-blur transition-opacity group-hover:opacity-100"
                 title="Delete image"
               >
                 <Trash2 className="h-4 w-4 text-red-500" />
@@ -195,7 +195,7 @@ export default function ImageGallery({ images }: Props) {
                   className="h-full w-full object-cover transition-transform group-hover:scale-105"
                 />
               ) : (
-                <div className="flex h-full items-center justify-center text-zinc-400">
+                <div className="flex h-full items-center justify-center text-[color:var(--text-tertiary)]">
                   No preview
                 </div>
               )}
@@ -203,17 +203,17 @@ export default function ImageGallery({ images }: Props) {
 
             {/* Info */}
             <div className="p-3">
-              <p className="truncate text-sm font-medium text-zinc-900">
+              <p className="truncate text-sm font-medium text-foreground">
                 {img.filename}
               </p>
-              <p className="mt-0.5 text-xs text-zinc-500">
+              <p className="mt-0.5 text-xs text-muted-foreground">
                 {img.width} &times; {img.height} &middot;{' '}
                 {formatDate(img.created_at)}
               </p>
               {!selectMode && (
                 <Link
                   href={`/order-image/${img.id}/crop`}
-                  className="mt-2 inline-flex h-7 items-center justify-center rounded-[min(var(--radius-md),12px)] border border-zinc-300 px-2.5 text-[0.8rem] font-medium text-zinc-700 transition-all hover:bg-zinc-100"
+                  className="mt-2 inline-flex h-7 items-center justify-center rounded-[min(var(--radius-md),12px)] border border-zinc-300 px-2.5 text-[0.8rem] font-medium text-foreground transition-all hover:bg-white/[0.06]"
                 >
                   Choose Image
                 </Link>

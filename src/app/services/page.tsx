@@ -67,10 +67,10 @@ export default function ServicesPage() {
     <main className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="mb-10 text-center">
-        <h1 className="text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           Our Services
         </h1>
-        <p className="mt-3 text-lg text-zinc-600">
+        <p className="mt-3 text-lg text-muted-foreground">
           Everything you need to turn your images into museum-quality prints,
           from a single piece to large-scale production.
         </p>
@@ -81,15 +81,15 @@ export default function ServicesPage() {
         {SERVICES.map((service) => (
           <div
             key={service.title}
-            className="rounded-xl border border-zinc-200 bg-zinc-50 p-5"
+            className="rounded-xl border border-border bg-muted/40 p-5"
           >
             <div className="flex size-10 items-center justify-center rounded-lg bg-zinc-100">
-              <service.icon className="size-5 text-zinc-600" />
+              <service.icon className="size-5 text-muted-foreground" />
             </div>
-            <h2 className="mt-3 text-sm font-semibold text-zinc-900">
+            <h2 className="mt-3 text-sm font-semibold text-foreground">
               {service.title}
             </h2>
-            <p className="mt-1.5 text-sm leading-relaxed text-zinc-600">
+            <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
               {service.description}
             </p>
           </div>
@@ -98,33 +98,33 @@ export default function ServicesPage() {
 
       {/* CTAs */}
       <div className="mt-10 grid gap-5 sm:grid-cols-2">
-        <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-8 text-center">
-          <h2 className="text-xl font-semibold text-zinc-900">
+        <div className="rounded-xl border border-border bg-muted/40 p-8 text-center">
+          <h2 className="text-xl font-semibold text-foreground">
             View Pricing
           </h2>
-          <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
             Browse our media options and get an instant quote with our pricing
             calculator.
           </p>
           <Link
             href="/prices"
-            className="mt-5 inline-flex items-center gap-2 rounded-lg bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-zinc-800"
+            className="mt-5 inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-[var(--accent-primary-hover)]"
           >
             See Prices
             <ArrowRight className="size-4" />
           </Link>
         </div>
-        <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-8 text-center">
-          <h2 className="text-xl font-semibold text-zinc-900">
+        <div className="rounded-xl border border-border bg-muted/40 p-8 text-center">
+          <h2 className="text-xl font-semibold text-foreground">
             Have Questions?
           </h2>
-          <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
             Our team is happy to help you choose the right service and substrate
             for your project.
           </p>
           <Link
             href="/contact"
-            className="mt-5 inline-flex items-center gap-2 rounded-lg border border-zinc-300 bg-white px-5 py-2.5 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-50"
+            className="mt-5 inline-flex items-center gap-2 rounded-lg border border-zinc-300 bg-card px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted/40"
           >
             Contact Us
             <ArrowRight className="size-4" />

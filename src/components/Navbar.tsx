@@ -18,43 +18,47 @@ export default async function Navbar() {
     : null
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-zinc-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-
-        {/* Logo / Brand */}
+    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-background/88 backdrop-blur-xl supports-[backdrop-filter]:bg-background/72">
+      <div className="page-shell flex h-16 items-center justify-between">
         <Link
           href="/"
-          className="flex items-center gap-2 font-semibold tracking-tight text-zinc-900"
+          className="flex items-center gap-3 text-foreground"
         >
-          <span className="text-lg">Olde Money Printing</span>
+          <span className="flex size-9 items-center justify-center rounded-full bg-primary text-xs font-bold uppercase tracking-[0.16em] text-primary-foreground shadow-[0_10px_30px_rgba(0,116,228,0.35)]">
+            OMP
+          </span>
+          <span>
+            <span className="block text-[11px] font-semibold uppercase tracking-[0.22em] text-[color:var(--free-game-yellow-bright)]">
+              Print Studio
+            </span>
+            <span className="block text-base font-semibold tracking-tight text-foreground">
+              Olde Money Printing
+            </span>
+          </span>
         </Link>
 
-        {/* Mobile hamburger menu */}
         <MobileNav isLoggedIn={!!user} />
 
-        {/* Nav links — hidden on mobile */}
-        <nav className="hidden items-center gap-6 text-sm font-medium text-zinc-600 md:flex">
+        <nav className="hidden items-center gap-7 text-[13px] font-medium uppercase tracking-[0.08em] text-muted-foreground md:flex">
           {NAV_LINKS.map(({ href, label }) => (
             <Link
               key={href}
               href={href}
-              className="transition-colors hover:text-zinc-900"
+              className="transition-colors hover:text-primary-foreground"
             >
               {label}
             </Link>
           ))}
         </nav>
 
-        {/* Right-side actions */}
         <div className="flex items-center gap-3">
-          {/* Cart icon with live badge */}
           <CartBadge />
 
           {user ? (
             <div className="hidden items-center gap-2 md:flex">
               <Link
                 href="/user"
-                className="text-sm font-medium text-zinc-600 transition-colors hover:text-zinc-900"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary-foreground"
               >
                 Account
               </Link>
@@ -67,13 +71,12 @@ export default async function Navbar() {
           ) : (
             <Link
               href="/auth/login"
-              className="hidden h-7 items-center justify-center rounded-[min(var(--radius-md),12px)] bg-primary px-2.5 text-[0.8rem] font-medium text-primary-foreground transition-all hover:bg-primary/80 md:inline-flex"
+              className="hidden h-10 items-center justify-center rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground shadow-[0_12px_30px_rgba(0,116,228,0.3)] transition-[background-color,transform] hover:-translate-y-px hover:bg-[var(--accent-primary-hover)] md:inline-flex"
             >
               Sign in
             </Link>
           )}
         </div>
-
       </div>
     </header>
   )

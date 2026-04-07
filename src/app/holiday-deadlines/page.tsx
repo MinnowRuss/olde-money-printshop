@@ -70,10 +70,10 @@ export default function HolidayDeadlinesPage() {
     <main className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="mb-10 text-center">
-        <h1 className="text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
           2026 Holiday Ordering Deadlines
         </h1>
-        <p className="mt-3 text-sm leading-relaxed text-zinc-600 sm:text-base">
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
           Order by these dates to make sure your prints arrive in time for every
           occasion. Deadlines are based on standard U.S. shipping.
         </p>
@@ -83,12 +83,12 @@ export default function HolidayDeadlinesPage() {
         {/* Shipping speed explanation */}
         <section>
           <div className="flex items-center gap-2">
-            <CalendarClock className="size-5 text-zinc-500" />
-            <h2 className="text-xl font-semibold text-zinc-900">
+            <CalendarClock className="size-5 text-muted-foreground" />
+            <h2 className="text-xl font-semibold text-foreground">
               How Deadlines Work
             </h2>
           </div>
-          <p className="mt-3 text-sm leading-relaxed text-zinc-600">
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
             Each deadline below is the last day you can place your order and
             reasonably expect delivery before the holiday. Standard deadlines
             assume our standard 5-7 business day production time plus standard
@@ -96,18 +96,18 @@ export default function HolidayDeadlinesPage() {
             expedited shipping.
           </p>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-5">
-              <h3 className="text-sm font-semibold text-zinc-900">
+            <div className="rounded-xl border border-border bg-muted/40 p-5">
+              <h3 className="text-sm font-semibold text-foreground">
                 Standard
               </h3>
-              <p className="mt-1 text-sm leading-relaxed text-zinc-600">
+              <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                 5-7 business days production + standard shipping (2-5 days).
                 Plan for up to 12 business days total.
               </p>
             </div>
-            <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-5">
-              <h3 className="text-sm font-semibold text-zinc-900">Rush</h3>
-              <p className="mt-1 text-sm leading-relaxed text-zinc-600">
+            <div className="rounded-xl border border-border bg-muted/40 p-5">
+              <h3 className="text-sm font-semibold text-foreground">Rush</h3>
+              <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                 2-3 business days production + expedited shipping (1-2 days).
                 Additional fees apply for both rush production and expedited
                 shipping.
@@ -118,23 +118,23 @@ export default function HolidayDeadlinesPage() {
 
         {/* Deadline table */}
         <section>
-          <h2 className="text-xl font-semibold text-zinc-900">
+          <h2 className="text-xl font-semibold text-foreground">
             2026 Cutoff Dates
           </h2>
-          <div className="mt-4 overflow-x-auto rounded-xl border border-zinc-200 bg-zinc-50">
+          <div className="mt-4 overflow-x-auto rounded-xl border border-border bg-muted/40">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-zinc-200">
-                  <th className="px-5 py-3 text-left font-semibold text-zinc-900">
+                <tr className="border-b border-border">
+                  <th className="px-5 py-3 text-left font-semibold text-foreground">
                     Holiday
                   </th>
-                  <th className="px-5 py-3 text-left font-semibold text-zinc-900">
+                  <th className="px-5 py-3 text-left font-semibold text-foreground">
                     Date
                   </th>
-                  <th className="px-5 py-3 text-left font-semibold text-zinc-900">
+                  <th className="px-5 py-3 text-left font-semibold text-foreground">
                     Standard Order By
                   </th>
-                  <th className="px-5 py-3 text-left font-semibold text-zinc-900">
+                  <th className="px-5 py-3 text-left font-semibold text-foreground">
                     Rush Order By
                   </th>
                 </tr>
@@ -142,14 +142,14 @@ export default function HolidayDeadlinesPage() {
               <tbody className="divide-y divide-zinc-100">
                 {DEADLINES.map((row) => (
                   <tr key={row.holiday}>
-                    <td className="px-5 py-3 font-medium text-zinc-900">
+                    <td className="px-5 py-3 font-medium text-foreground">
                       {row.holiday}
                     </td>
-                    <td className="px-5 py-3 text-zinc-600">{row.date}</td>
-                    <td className="px-5 py-3 text-zinc-600">
+                    <td className="px-5 py-3 text-muted-foreground">{row.date}</td>
+                    <td className="px-5 py-3 text-muted-foreground">
                       {row.standardCutoff}
                     </td>
-                    <td className="px-5 py-3 text-zinc-600">
+                    <td className="px-5 py-3 text-muted-foreground">
                       {row.rushCutoff}
                     </td>
                   </tr>
@@ -160,13 +160,13 @@ export default function HolidayDeadlinesPage() {
         </section>
 
         {/* Custom / large orders note */}
-        <section className="flex gap-4 rounded-xl border border-zinc-200 bg-zinc-50 p-5">
+        <section className="flex gap-4 rounded-xl border border-border bg-muted/40 p-5">
           <AlertTriangle className="mt-0.5 size-5 shrink-0 text-amber-500" />
           <div>
-            <h2 className="text-sm font-semibold text-zinc-900">
+            <h2 className="text-sm font-semibold text-foreground">
               Custom &amp; Large Orders
             </h2>
-            <p className="mt-1 text-sm leading-relaxed text-zinc-600">
+            <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
               Orders that include custom framing, canvas stretching, metal
               prints larger than 24x36, or quantities of 10 or more may require
               additional production time. For these orders, we recommend placing
@@ -175,7 +175,7 @@ export default function HolidayDeadlinesPage() {
               project, please{' '}
               <Link
                 href="/contact"
-                className="text-zinc-900 underline transition-colors hover:text-zinc-600"
+                className="text-foreground underline transition-colors hover:text-muted-foreground"
               >
                 contact us
               </Link>{' '}
@@ -185,11 +185,11 @@ export default function HolidayDeadlinesPage() {
         </section>
 
         {/* Peak season note */}
-        <section className="rounded-xl border border-zinc-200 bg-zinc-50 p-5">
-          <h2 className="text-sm font-semibold text-zinc-900">
+        <section className="rounded-xl border border-border bg-muted/40 p-5">
+          <h2 className="text-sm font-semibold text-foreground">
             Peak Season Notice
           </h2>
-          <p className="mt-1 text-sm leading-relaxed text-zinc-600">
+          <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
             The period from mid-November through late December is our busiest
             time of year. Production and shipping times may run slightly longer
             than usual during this window. We strongly recommend ordering as
@@ -199,18 +199,18 @@ export default function HolidayDeadlinesPage() {
         </section>
 
         {/* CTA */}
-        <section className="rounded-xl border border-zinc-200 bg-zinc-50 p-6 text-center">
-          <h2 className="text-xl font-semibold text-zinc-900">
+        <section className="rounded-xl border border-border bg-muted/40 p-6 text-center">
+          <h2 className="text-xl font-semibold text-foreground">
             Don&apos;t Wait Until the Last Minute
           </h2>
-          <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
             The earlier you order, the more time we have to make your prints
             perfect. Start your order today and check one more gift off your
             list.
           </p>
           <Link
             href="/image"
-            className="mt-4 inline-flex h-9 items-center justify-center rounded-lg bg-zinc-900 px-5 text-sm font-medium text-white transition-colors hover:bg-zinc-800"
+            className="mt-4 inline-flex h-9 items-center justify-center rounded-lg bg-primary px-5 text-sm font-medium text-primary-foreground transition-colors hover:bg-[var(--accent-primary-hover)]"
           >
             Start Your Order
           </Link>

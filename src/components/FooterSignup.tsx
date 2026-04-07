@@ -41,7 +41,7 @@ export default function FooterSignup() {
 
   if (success) {
     return (
-      <p className="text-sm text-zinc-500">Thanks for subscribing!</p>
+      <p className="text-sm text-muted-foreground">Thanks for subscribing!</p>
     )
   }
 
@@ -52,18 +52,18 @@ export default function FooterSignup() {
         placeholder="you@example.com"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="h-9 flex-1 rounded-md border border-zinc-200 bg-white px-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900"
+        className="h-11 flex-1 rounded-lg border border-white/10 bg-white/[0.04] px-3.5 text-sm text-foreground placeholder:text-[color:var(--text-tertiary)] outline-none transition-[border-color,box-shadow,background-color] focus:border-primary focus:ring-3 focus:ring-ring"
         disabled={loading}
       />
       <button
         type="submit"
         disabled={loading}
-        className="h-9 rounded-md bg-zinc-900 px-4 text-sm font-medium text-white transition-colors hover:bg-zinc-800 disabled:opacity-50"
+        className="h-11 rounded-lg bg-primary px-4 text-sm font-semibold text-primary-foreground shadow-[0_12px_30px_rgba(0,116,228,0.3)] transition-[background-color,transform] hover:-translate-y-px hover:bg-[var(--accent-primary-hover)] disabled:opacity-50"
       >
         {loading ? 'Sending...' : 'Subscribe'}
       </button>
       {error && (
-        <p className="absolute mt-10 text-xs text-red-500">{error}</p>
+        <p className="absolute mt-12 text-xs text-red-400">{error}</p>
       )}
     </form>
   )
