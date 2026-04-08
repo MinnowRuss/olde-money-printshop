@@ -17,6 +17,16 @@ export default async function Navbar() {
     ? (await supabase.auth.getUser()).data.user
     : null
 
+  let isAdmin = false
+  if (user && supabase) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('is_admin')
+      .eq('id', user.id)
+      .single()
+    isAdmin = profile?.is_admin ?? false
+  }
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-background/88 backdrop-blur-xl supports-[backdrop-filter]:bg-background/72">
       <div className="page-shell flex h-16 items-center justify-between">
@@ -37,7 +47,7 @@ export default async function Navbar() {
           </span>
         </Link>
 
-        <MobileNav isLoggedIn={!!user} />
+        <MobileNav isLoggedIn={!!user} isAdmin={isAdmin} />
 
         <nav className="hidden items-center gap-7 text-[13px] font-medium uppercase tracking-[0.08em] text-muted-foreground md:flex">
           {NAV_LINKS.map(({ href, label }) => (
@@ -56,6 +66,14 @@ export default async function Navbar() {
 
           {user ? (
             <div className="hidden items-center gap-2 md:flex">
+              {isAdmin && (
+                <Link
+                  href="/admin/orders"
+                  className="text-sm font-medium text-[color:var(--free-game-yellow-bright)] transition-colors hover:text-primary-foreground"
+                >
+                  Admin
+                </Link>
+              )}
               <Link
                 href="/user"
                 className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary-foreground"

@@ -13,7 +13,7 @@ const NAV_LINKS = [
   { href: '/contact', label: 'Contact' },
 ]
 
-export default function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
+export default function MobileNav({ isLoggedIn, isAdmin = false }: { isLoggedIn: boolean; isAdmin?: boolean }) {
   const [openPathname, setOpenPathname] = useState<string | null>(null)
   const menuRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -76,6 +76,15 @@ export default function MobileNav({ isLoggedIn }: { isLoggedIn: boolean }) {
 
             {isLoggedIn ? (
               <>
+                {isAdmin && (
+                  <Link
+                    href="/admin/orders"
+                    onClick={() => setOpenPathname(null)}
+                    className="rounded-lg px-3 py-2 text-sm font-medium uppercase tracking-[0.08em] text-[color:var(--free-game-yellow-bright)] transition-colors hover:bg-white/[0.05] hover:text-foreground"
+                  >
+                    Admin
+                  </Link>
+                )}
                 <Link
                   href="/user"
                   onClick={() => setOpenPathname(null)}
