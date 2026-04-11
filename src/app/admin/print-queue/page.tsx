@@ -1,8 +1,13 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, History } from 'lucide-react'
 import PrintQueueClient from './PrintQueueClient'
+
+// Spec §14 Phase 4 / OQ-3: laptop can sleep, so we allow 4 hours in
+// `submitted` before flagging a batch as stuck (not the 2 hours the spec
+// originally suggested).
+const STALE_BATCH_HOURS = 4
 
 interface OrderForQueue {
   id: string
@@ -33,6 +38,7 @@ interface ActiveBatchRecord {
   error_message: string | null
   order_ids: string[]
   created_at: string
+  updated_at: string
 }
 
 export default async function PrintQueuePage() {
@@ -122,15 +128,36 @@ export default async function PrintQueuePage() {
     }
   )
 
+  // Stale batch detection (§14 Phase 4). A batch stuck in `submitted` longer
+  // than 4 hours means the print agent never picked it up — either the
+  // workstation is asleep, the daemon is down, or Realtime and the fallback
+  // poll both failed. Surface these as a warning at the top of the queue page.
+  const activeBatchRecords = (activeBatches ?? []) as ActiveBatchRecord[]
+  const staleThreshold = Date.now() - STALE_BATCH_HOURS * 60 * 60 * 1000
+  const staleBatchIds = activeBatchRecords
+    .filter(
+      (b) => b.status === 'submitted' && new Date(b.updated_at).getTime() < staleThreshold
+    )
+    .map((b) => b.id)
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-      <Link
-        href="/admin/orders"
-        className="mb-6 inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
-      >
-        <ArrowLeft className="h-4 w-4" />
-        Back to Orders
-      </Link>
+      <div className="mb-6 flex items-center justify-between">
+        <Link
+          href="/admin/orders"
+          className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to Orders
+        </Link>
+        <Link
+          href="/admin/print-queue/history"
+          className="inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+        >
+          <History className="h-4 w-4" />
+          Print History
+        </Link>
+      </div>
 
       <div className="mb-8">
         <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
@@ -146,7 +173,9 @@ export default async function PrintQueuePage() {
 
       <PrintQueueClient
         orders={formattedOrders}
-        activeBatches={(activeBatches ?? []) as ActiveBatchRecord[]}
+        activeBatches={activeBatchRecords}
+        staleBatchIds={staleBatchIds}
+        staleThresholdHours={STALE_BATCH_HOURS}
       />
     </div>
   )

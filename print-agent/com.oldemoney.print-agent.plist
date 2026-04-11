@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Launchd user agent for the Olde Money Printshop print agent.
+
+  Spec §7.2 — runs the print agent as a LaunchAgent so it starts automatically
+  when the user logs in and restarts if it crashes. This is a LaunchAgent (not a
+  LaunchDaemon) because it belongs to the user session and needs access to the
+  user's CUPS printers.
+
+  Install:
+    cp com.oldemoney.print-agent.plist ~/Library/LaunchAgents/
+    # Edit the copy to replace every __ABSOLUTE_PATH_TO_PRINT_AGENT__
+    # with the real absolute path (e.g. /Users/russ/print-shop/print-agent),
+    # and __ABSOLUTE_PATH_TO_NODE__ with the output of `which node`.
+    launchctl load ~/Library/LaunchAgents/com.oldemoney.print-agent.plist
+
+  Uninstall:
+    launchctl unload ~/Library/LaunchAgents/com.oldemoney.print-agent.plist
+    rm ~/Library/LaunchAgents/com.oldemoney.print-agent.plist
+
+  Logs:
+    tail -f __ABSOLUTE_PATH_TO_PRINT_AGENT__/logs/print-agent.out.log
+    tail -f __ABSOLUTE_PATH_TO_PRINT_AGENT__/logs/print-agent.err.log
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.oldemoney.print-agent</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>__ABSOLUTE_PATH_TO_NODE__</string>
+    <string>__ABSOLUTE_PATH_TO_PRINT_AGENT__/node_modules/.bin/tsx</string>
+    <string>__ABSOLUTE_PATH_TO_PRINT_AGENT__/src/index.ts</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>__ABSOLUTE_PATH_TO_PRINT_AGENT__</string>
+
+  <!--
+    Auto-start on login and keep the process alive.
+    SuccessfulExit: false means launchd will restart if the process exits with
+    a non-zero code, but won't restart an intentional graceful shutdown.
+  -->
+  <key>RunAtLoad</key>
+  <true/>
+
+  <key>KeepAlive</key>
+  <dict>
+    <key>SuccessfulExit</key>
+    <false/>
+    <key>Crashed</key>
+    <true/>
+  </dict>
+
+  <!--
+    Throttle restarts so a crash loop doesn't hammer the printer. The agent
+    must stay alive at least 30 seconds before launchd considers the run
+    "successful enough" to restart on crash.
+  -->
+  <key>ThrottleInterval</key>
+  <integer>30</integer>
+
+  <!--
+    Gentle resource usage: this is a background helper, not a batch job.
+  -->
+  <key>ProcessType</key>
+  <string>Background</string>
+
+  <!--
+    Load secrets from the .env file placed alongside the agent (config.ts
+    calls dotenv.config()). Keep PATH pointed at common Homebrew locations
+    so the agent can find `lp` and `lpstat`.
+  -->
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+    <key>NODE_ENV</key>
+    <string>production</string>
+  </dict>
+
+  <key>StandardOutPath</key>
+  <string>__ABSOLUTE_PATH_TO_PRINT_AGENT__/logs/print-agent.out.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>__ABSOLUTE_PATH_TO_PRINT_AGENT__/logs/print-agent.err.log</string>
+</dict>
+</plist>

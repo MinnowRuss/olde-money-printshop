@@ -7,18 +7,31 @@ const execFileAsync = promisify(execFile)
 /**
  * Submit a PDF file to the CUPS printer via `lp`.
  * Returns the CUPS job ID string (e.g. "MyPrinter-123").
+ *
+ * Uses the canonical lp command from spec §4.4 / §7.3:
+ *   lp -d {PRINTER} -o media=Custom.{W}inx{H}in -o fit-to-page=false -o sides=one-sided {pdf}
+ *
+ * IMPORTANT: fit-to-page MUST be false — the PDF is already precisely sized
+ * by the nesting engine. Scaling would destroy print dimensions.
+ *
+ * Audit Fix: F-02 — corrected from media=Roll + fit-to-page (true).
  */
-export async function printPdf(filePath: string): Promise<string> {
+export async function printPdf(
+  filePath: string,
+  rollWidthIn: number,
+  rollLengthIn: number
+): Promise<string> {
   const args: string[] = []
 
   if (config.cupsprinter) {
     args.push('-d', config.cupsprinter)
   }
 
-  // Print options for large-format roll paper
+  // Custom media size tells CUPS the exact roll dimensions
   args.push(
-    '-o', 'media=Roll',
-    '-o', 'fit-to-page',
+    '-o', `media=Custom.${rollWidthIn}inx${rollLengthIn}in`,
+    '-o', 'fit-to-page=false',
+    '-o', 'sides=one-sided',
     filePath
   )
 

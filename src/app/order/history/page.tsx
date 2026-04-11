@@ -3,13 +3,17 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { ClipboardList, ImageIcon, ExternalLink, Package } from 'lucide-react'
+import { ClipboardList, ImageIcon, ExternalLink, Package, AlertTriangle, Upload } from 'lucide-react'
 import OrderItemsExpander from './OrderItemsExpander'
 
 // Status badge styling
 const STATUS_CONFIG: Record<string, { label: string; className: string }> = {
   pending:    { label: 'Pending',    className: 'bg-zinc-100 text-foreground' },
   processing: { label: 'Processing', className: 'bg-yellow-100 text-yellow-800' },
+  verified:   { label: 'Verified',   className: 'bg-emerald-100 text-emerald-800' },
+  queued:     { label: 'Queued',     className: 'bg-purple-100 text-purple-800' },
+  printing:   { label: 'Printing',   className: 'bg-purple-100 text-purple-800' },
+  printed:    { label: 'Printed',    className: 'bg-purple-100 text-purple-800' },
   shipped:    { label: 'Shipped',    className: 'bg-blue-100 text-blue-800' },
   delivered:  { label: 'Delivered',  className: 'bg-green-100 text-green-800' },
   cancelled:  { label: 'Cancelled',  className: 'bg-red-100 text-red-700' },
@@ -54,6 +58,7 @@ export default async function OrderHistoryPage() {
       total,
       status,
       tracking_number,
+      print_notes,
       created_at,
       updated_at,
       order_items (
@@ -117,7 +122,10 @@ export default async function OrderHistoryPage() {
       {/* Orders list */}
       <div className="space-y-4">
         {orders.map((order) => {
-          const statusConfig = STATUS_CONFIG[order.status] ?? STATUS_CONFIG.pending
+          const isFlagged = order.status === 'processing' && !!order.print_notes
+          const statusConfig = isFlagged
+            ? { label: 'Needs Attention', className: 'bg-red-100 text-red-700' }
+            : STATUS_CONFIG[order.status] ?? STATUS_CONFIG.pending
           const itemCount = order.order_items?.length ?? 0
           const orderDate = new Date(order.created_at).toLocaleDateString('en-US', {
             year: 'numeric',
@@ -188,6 +196,34 @@ export default async function OrderHistoryPage() {
                   </p>
                 </div>
               </div>
+
+              {/* Flagged banner — visible call-to-action to re-upload */}
+              {isFlagged && (
+                <div className="border-t border-red-200 bg-red-50/60 px-4 py-3 sm:px-6">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex items-start gap-2">
+                      <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-red-500" />
+                      <div>
+                        <p className="text-sm font-semibold text-red-700">
+                          This order needs a new image
+                        </p>
+                        <p className="mt-0.5 text-xs text-red-600">
+                          {order.print_notes}
+                        </p>
+                      </div>
+                    </div>
+                    <Link href={`/order/${order.id}/reupload`} className="sm:shrink-0">
+                      <Button
+                        size="sm"
+                        className="w-full bg-red-600 text-white hover:bg-red-700 sm:w-auto"
+                      >
+                        <Upload className="mr-1.5 h-3.5 w-3.5" />
+                        Re-upload Image
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              )}
 
               {/* Expandable order items */}
               <OrderItemsExpander items={order.order_items ?? []} />

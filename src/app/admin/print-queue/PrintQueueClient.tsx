@@ -4,6 +4,7 @@ import { useState, useMemo, useCallback } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
+import NestingPreview from './NestingPreview'
 import {
   Select,
   SelectContent,
@@ -22,6 +23,7 @@ import {
   Ruler,
   Layers,
   BarChart3,
+  Clock,
 } from 'lucide-react'
 
 // ── Types ────────────────────────────────────────────────────
@@ -58,17 +60,33 @@ interface ActiveBatch {
   created_at: string
 }
 
-interface NestingPreview {
+interface Placement {
+  orderItemId: string
+  orderId: string
+  x: number
+  y: number
+  widthIn: number
+  heightIn: number
+  rotation: 0 | 90
+}
+
+interface NestingPreviewData {
   batchId: string
   itemCount: number
   estimatedLengthIn: number
   wastePercent: number
   stripCount: number
+  rollWidthIn: number
+  placements: Placement[]
 }
 
 interface Props {
   orders: QueueOrder[]
   activeBatches: ActiveBatch[]
+  /** IDs of batches stuck in `submitted` past the stale threshold. */
+  staleBatchIds: string[]
+  /** Stale threshold in hours, for the warning copy. */
+  staleThresholdHours: number
 }
 
 // ── Constants ────────────────────────────────────────────────
@@ -88,12 +106,22 @@ const BATCH_STATUS_CONFIG: Record<string, { label: string; className: string; ic
 
 // ── Component ────────────────────────────────────────────────
 
-export default function PrintQueueClient({ orders, activeBatches }: Props) {
+export default function PrintQueueClient({
+  orders,
+  activeBatches,
+  staleBatchIds,
+  staleThresholdHours,
+}: Props) {
+  const staleBatchIdSet = useMemo(() => new Set(staleBatchIds), [staleBatchIds])
+  const staleBatches = useMemo(
+    () => activeBatches.filter((b) => staleBatchIdSet.has(b.id)),
+    [activeBatches, staleBatchIdSet]
+  )
   const [selectedOrderIds, setSelectedOrderIds] = useState<Set<string>>(new Set())
   const [rollWidth, setRollWidth] = useState('44')
   const [generating, setGenerating] = useState(false)
   const [submitting, setSubmitting] = useState(false)
-  const [nestingPreview, setNestingPreview] = useState<NestingPreview | null>(null)
+  const [nestingPreview, setNestingPreview] = useState<NestingPreviewData | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   // Group orders by media type for easier batch selection
@@ -137,6 +165,15 @@ export default function PrintQueueClient({ orders, activeBatches }: Props) {
     }
     return count
   }, [orders, selectedOrderIds, selectedMediaType])
+
+  // Map orderId → short label for preview legend (e.g. "Jane Doe · #A1B2C3D4")
+  const orderLabels = useMemo(() => {
+    const labels: Record<string, string> = {}
+    for (const order of orders) {
+      labels[order.id] = `${order.customerName} · #${order.id.slice(0, 6).toUpperCase()}`
+    }
+    return labels
+  }, [orders])
 
   const failedBatches = useMemo(
     () => activeBatches.filter((b) => b.status === 'failed'),
@@ -219,6 +256,8 @@ export default function PrintQueueClient({ orders, activeBatches }: Props) {
         estimatedLengthIn: data.estimatedLengthIn,
         wastePercent: data.wastePercent,
         stripCount: data.stripCount,
+        rollWidthIn: data.rollWidthIn,
+        placements: data.placements ?? [],
       })
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to generate layout')
@@ -271,6 +310,42 @@ export default function PrintQueueClient({ orders, activeBatches }: Props) {
 
   return (
     <div className="space-y-8">
+      {/* Stale Batch Warning — stuck in submitted past the threshold */}
+      {staleBatches.length > 0 && (
+        <div className="rounded-lg border border-amber-300 bg-amber-50 px-4 py-3">
+          <div className="flex items-start gap-3">
+            <Clock className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
+            <div className="flex-1">
+              <p className="text-sm font-semibold text-amber-900">
+                {staleBatches.length} batch
+                {staleBatches.length === 1 ? '' : 'es'} stuck in &ldquo;Submitted&rdquo;
+                for more than {staleThresholdHours}{' '}
+                hours
+              </p>
+              <p className="mt-0.5 text-xs text-amber-800">
+                The print agent may be offline. Check the workstation is
+                powered on, that the LaunchAgent is running, and that the
+                printer is online.
+              </p>
+              <ul className="mt-2 space-y-0.5 text-xs font-mono text-amber-900">
+                {staleBatches.map((b) => (
+                  <li key={b.id}>
+                    #{b.id.slice(0, 8).toUpperCase()} · {b.media_type_slug} ·
+                    submitted{' '}
+                    {new Date(b.created_at).toLocaleString('en-US', {
+                      month: 'short',
+                      day: 'numeric',
+                      hour: 'numeric',
+                      minute: '2-digit',
+                    })}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Failed Batch Alerts */}
       {failedBatches.map((batch) => (
         <div
@@ -442,6 +517,31 @@ export default function PrintQueueClient({ orders, activeBatches }: Props) {
               </Card>
             )
           })}
+
+          {/* Schematic Layout Preview (Step 2 only) */}
+          {nestingPreview && (
+            <Card className="p-5">
+              <div className="mb-4 flex items-center justify-between">
+                <div>
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground">
+                    Layout Preview
+                  </h3>
+                  <p className="mt-0.5 text-xs text-muted-foreground">
+                    Schematic view — rectangles colored by order. Review before sending to printer.
+                  </p>
+                </div>
+                <span className="text-xs text-[color:var(--text-tertiary)]">
+                  Batch #{nestingPreview.batchId.slice(0, 8)}
+                </span>
+              </div>
+              <NestingPreview
+                placements={nestingPreview.placements}
+                rollWidthIn={nestingPreview.rollWidthIn}
+                totalLengthIn={nestingPreview.estimatedLengthIn}
+                orderLabels={orderLabels}
+              />
+            </Card>
+          )}
 
           {/* Action Bar */}
           <div className="sticky bottom-4 z-10">

@@ -157,6 +157,14 @@ export async function PATCH(
               <p>We'll notify you once printing is complete.</p>
             `
             break
+          case 'printing':
+            subject = `Order #${orderNum} is being printed!`
+            bodyHtml = `
+              <h1>Your order is being printed!</h1>
+              <p>Your order <strong>#${orderNum}</strong> is now printing on our large-format Epson printer.</p>
+              <p>We'll notify you once printing is complete and your order is prepared for shipment.</p>
+            `
+            break
           case 'printed':
             subject = `Order #${orderNum} — printing complete!`
             bodyHtml = `

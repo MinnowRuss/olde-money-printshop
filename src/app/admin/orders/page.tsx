@@ -12,6 +12,7 @@ interface OrderRow {
   total: number
   status: string
   tracking_number: string | null
+  print_notes: string | null
   created_at: string
   updated_at: string
   order_items: { id: string }[] | null
@@ -64,6 +65,7 @@ export default async function AdminOrdersPage({ searchParams }: AdminOrdersPageP
       total,
       status,
       tracking_number,
+      print_notes,
       created_at,
       updated_at,
       order_items (id),
@@ -88,14 +90,57 @@ export default async function AdminOrdersPage({ searchParams }: AdminOrdersPageP
     total: Number(order.total),
     status: order.status,
     trackingNumber: order.tracking_number,
+    printNotes: order.print_notes,
     itemCount: order.order_items?.length ?? 0,
     createdAt: order.created_at,
     updatedAt: order.updated_at,
   }
   })
 
+  const awaitingVerificationCount = formattedOrders.filter(
+    (o) => o.status === 'processing' && !o.printNotes
+  ).length
+
+  // Spec §14 Phase 4: surface orders that have been flagged for more than
+  // 7 days so the admin remembers to chase the customer. `updated_at` is a
+  // proxy for "when the flag was set" — it's bumped when `print_notes` is
+  // written, and won't be newer than 7 days if nothing has happened since.
+  const STALE_FLAG_DAYS = 7
+  const staleThreshold = new Date(
+    Date.now() - STALE_FLAG_DAYS * 24 * 60 * 60 * 1000
+  ).toISOString()
+  const { count: staleFlagCount } = await supabase
+    .from('orders')
+    .select('id', { count: 'exact', head: true })
+    .eq('status', 'processing')
+    .not('print_notes', 'is', null)
+    .lt('updated_at', staleThreshold)
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      {/* Verification banner */}
+      {awaitingVerificationCount > 0 && (
+        <div className="mb-6 flex items-center gap-3 rounded-lg border border-yellow-300 bg-yellow-50 px-4 py-3">
+          <span className="text-lg">&#9888;</span>
+          <p className="text-sm font-medium text-yellow-800">
+            {awaitingVerificationCount} order{awaitingVerificationCount !== 1 ? 's' : ''} need
+            {awaitingVerificationCount === 1 ? 's' : ''} verification before today&apos;s batch
+          </p>
+        </div>
+      )}
+
+      {/* Stale flags banner — flagged for more than 7 days */}
+      {staleFlagCount && staleFlagCount > 0 ? (
+        <div className="mb-6 flex items-center gap-3 rounded-lg border border-red-300 bg-red-50 px-4 py-3">
+          <span className="text-lg">&#128681;</span>
+          <p className="text-sm font-medium text-red-800">
+            {staleFlagCount} flagged order{staleFlagCount !== 1 ? 's' : ''}{' '}
+            awaiting a customer re-upload for more than {STALE_FLAG_DAYS} days.
+            Consider reaching out directly.
+          </p>
+        </div>
+      ) : null}
+
       {/* Header */}
       <div className="mb-8">
         <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">

@@ -165,5 +165,7 @@ export async function POST(request: NextRequest) {
     estimatedLengthIn: nestingResult.totalLengthIn,
     wastePercent: nestingResult.wastePercent,
     stripCount: nestingResult.strips.length,
+    rollWidthIn: nestingResult.rollWidthIn,
+    placements: nestingResult.placements,
   })
 }
