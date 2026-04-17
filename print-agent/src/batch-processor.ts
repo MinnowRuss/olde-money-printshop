@@ -152,11 +152,10 @@ export async function processBatch(batchId: string): Promise<void> {
     console.log(`[batch:${batchId.slice(0, 8)}] PDF downloaded (${buffer.length} bytes)`)
 
     // ── Step 3: Submit to CUPS ─────────────────────────────
-
-    await updateBatchStatus(batchId, {
-      status: 'printing',
-      pdfStoragePath: pdfStoragePath,
-    })
+    // Note: We do a single `submitted → printing` transition AFTER CUPS accepts
+    // the job. Doing it twice (once pre-CUPS, once post-CUPS) violates the state
+    // machine (`printing → printing` is not a valid transition — see
+    // src/app/api/admin/print-batches/[id]/status/route.ts:22-26).
 
     let ippJobId: string
     try {
@@ -169,6 +168,7 @@ export async function processBatch(batchId: string): Promise<void> {
       await updateBatchStatus(batchId, {
         status: 'printing',
         ippJobId,
+        pdfStoragePath: pdfStoragePath,
       })
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err)
