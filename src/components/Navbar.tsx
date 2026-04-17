@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { Button } from '@/components/ui/button'
@@ -32,19 +33,17 @@ export default async function Navbar() {
       <div className="page-shell flex h-16 items-center justify-between">
         <Link
           href="/"
-          className="flex items-center gap-3 text-foreground"
+          className="flex items-center text-foreground"
+          aria-label="Olde Money Printing — Home"
         >
-          <span className="flex size-9 items-center justify-center rounded-full bg-primary text-xs font-bold uppercase tracking-[0.16em] text-primary-foreground shadow-[0_10px_30px_rgba(0,116,228,0.35)]">
-            OMP
-          </span>
-          <span>
-            <span className="block text-[11px] font-semibold uppercase tracking-[0.22em] text-[color:var(--free-game-yellow-bright)]">
-              Print Studio
-            </span>
-            <span className="block text-base font-semibold tracking-tight text-foreground">
-              Olde Money Printing
-            </span>
-          </span>
+          <Image
+            src="/om-printing-white.png"
+            alt="Olde Money Printing"
+            width={290}
+            height={80}
+            priority
+            className="h-9 w-auto"
+          />
         </Link>
 
         <MobileNav isLoggedIn={!!user} isAdmin={isAdmin} />
